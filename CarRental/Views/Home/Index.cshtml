@@ -1,8 +1,138 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "Welcome to Car Rental";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- AOS CSS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f0f4f8;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        background: url("/images/Extra/Homepage.jpg") no-repeat center center;
+        background-size: cover;
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        padding: 120px 20px;
+        text-align: center;
+        color: white;
+    }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 50, 0.6);
+            z-index: 0;
+        }
+
+        .hero-section h1,
+        .hero-section p {
+            position: relative;
+            z-index: 1;
+        }
+
+    /* Buttons */
+    .custom-btn {
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        border-radius: 30px;
+    }
+
+        .custom-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+    /* Feature Cards */
+    .feature-card {
+        background: rgba(255, 255, 255, 0.95);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        padding: 30px;
+        border-radius: 20px;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 128, 0.4);
+        }
+
+    /* Booking Section */
+    .booking-section {
+        background: linear-gradient(to right, #001f3f, #004080);
+        color: white;
+        padding: 50px 20px;
+        border-radius: 20px;
+        margin-top: 50px;
+    }
+
+        .booking-section .custom-btn {
+            background-color: #ffffff;
+            color: #001f3f;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+            .booking-section .custom-btn:hover {
+                background-color: #004080;
+                color: #ffffff;
+            }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-section" data-aos="fade-up" data-aos-duration="1200">
+    <h1 class="display-4 fw-bold mt-4" data-aos="zoom-in" data-aos-delay="300">
+        Welcome to Car Rental Service 🚗
+    </h1>
+    <p class="lead" data-aos="fade-up" data-aos-delay="600">
+        Book your ride anytime, anywhere. Affordable and reliable car rentals.
+    </p>
 </div>
+
+<!-- Features Section -->
+<div class="container mt-5">
+    <div class="row text-center align-items-stretch">
+        <div class="col-12 col-md-4 mb-3 mb-md-0" data-aos="fade-right" data-aos-delay="200">
+            <div class="card h-100 shadow-lg feature-card">
+                <h3 class="fw-bold">Wide Selection</h3>
+                <p>Choose from economy, luxury, SUV, or van — whatever fits your journey.</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 mb-3 mb-md-0" data-aos="fade-up" data-aos-delay="400">
+            <div class="card h-100 shadow-lg feature-card">
+                <h3 class="fw-bold">Easy Booking</h3>
+                <p>Reserve your car online in just a few clicks. Fast and secure process.</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4" data-aos="fade-left" data-aos-delay="600">
+            <div class="card h-100 shadow-lg feature-card">
+                <h3 class="fw-bold">24/7 Support</h3>
+                <p>Our support team is always available to help you with your rental needs.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Booking Section -->
+<div class="container mt-5 text-center booking-section" data-aos="zoom-in-up" data-aos-duration="1000">
+    <h2 class="fw-bold">Book Your Car Now</h2>
+    <p>Start your journey today with the best rental service.</p>
+    <a href="@Url.Action("Index", "Booking")" class="btn btn-lg custom-btn">Book a Car</a>
+</div>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>

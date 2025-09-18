@@ -1,0 +1,130 @@
+﻿@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background: linear-gradient(180deg, #001f3f, #003366);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 40px 30px;
+        max-width: 420px;
+        width: 100%;
+        box-shadow: 0 10px 40px rgba(0, 0, 64, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 64, 0.6);
+        }
+
+        .login-card h2 {
+            font-weight: 800;
+            color: #001f3f;
+        }
+
+    .custom-input {
+        border: none;
+        border-bottom: 2px solid #ccc;
+        border-radius: 0;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+        .custom-input:focus {
+            border-color: #0040c0;
+            box-shadow: none;
+        }
+
+    .custom-btn {
+        background: linear-gradient(90deg, #001f3f, #0040c0);
+        color: #fff;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .custom-btn:hover {
+            background: linear-gradient(90deg, #003366, #0056b3);
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="login-card text-center">
+    <h2 class="mb-4">Login</h2>
+
+    <form asp-action="Login" method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3" role="alert"></div>
+
+        <!-- Username -->
+        <div class="mb-3 text-start">
+            <label class="form-label fw-bold text-dark">
+                <i class="bi bi-person-fill me-1 text-dark"></i> Username
+            </label>
+            <input name="Username" class="form-control shadow-sm custom-input" placeholder="Enter your username" />
+            <span class="text-danger small"></span>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3 text-start">
+            <label class="form-label fw-bold text-dark">
+                <i class="bi bi-lock-fill me-1 text-dark"></i> Password
+            </label>
+            <input name="Password" type="password" class="form-control shadow-sm custom-input" placeholder="Enter your password" />
+            <span class="text-danger small"></span>
+        </div>
+
+        <!-- Remember Me -->
+        <div class="mb-3 form-check text-start text-dark">
+            <input name="RememberMe" class="form-check-input" type="checkbox" />
+            <label class="form-check-label">Remember me</label>
+        </div>
+
+        <!-- Login Button -->
+        <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-lg custom-btn">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+            </button>
+        </div>
+
+        <!-- Skip Button -->
+        <div class="d-grid mb-3">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                <i class="bi bi-skip-forward-fill me-1"></i> Skip & Continue as Guest
+            </a>
+        </div>
+
+        <!-- Forgot Password -->
+        <div class="text-center">
+            <a asp-action="ForgotPassword" class="text-decoration-none small text-muted">
+                <i class="bi bi-question-circle me-1"></i> Forgot password?
+            </a>
+        </div>
+
+        @* pending remove *@
+        <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="text-decoration-none small text-muted">
+            Admin
+        </a><br />
+        <a asp-area="Customer" asp-controller="Customer" asp-action="Index" class="text-decoration-none small text-muted">
+            Customer
+        </a>
+
+        <hr class="my-4">
+
+        <!-- Sign Up -->
+        <p class="small text-muted">
+            Don't have an account?
+            <a href="/Guest/CustomerRegister/Register" class="fw-bold text-decoration-none">Sign Up</a>
+        </p>
+    </form>
+</div>

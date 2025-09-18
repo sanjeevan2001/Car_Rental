@@ -1,0 +1,46 @@
+﻿@model CarRental.Models.Car
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Car Details";
+}
+
+<div class="container mt-5">
+    <h2 class="fw-bold mb-4 text-info">
+        <i class="bi bi-car-front me-2"></i> Car Details
+    </h2>
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="row g-0">
+            <div class="col-md-4">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" class="img-fluid rounded-start" alt="Car Image">
+                }
+                else
+                {
+                    <div class="d-flex align-items-center justify-content-center bg-light h-100 rounded-start">
+                        <span class="text-muted">No Image</span>
+                    </div>
+                }
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title">@Model.CarName</h4>
+                    <p class="card-text"><strong>Model:</strong> @Model.CarModel</p>
+                    <p class="card-text"><strong>Brand:</strong> @Model.CarBrand</p>
+                    <p class="card-text"><strong>Seats:</strong> @Model.Seats</p>
+                    <p class="card-text"><strong>Fuel Type:</strong> @Model.FuelType</p>
+                    <p class="card-text"><strong>Price Per Day:</strong> Rs. @Model.PricePerday</p>
+                    <p class="card-text">
+                        <strong>Available:</strong>
+                        @(Model.IsAvailable ? "Yes" : "No")
+                    </p>
+                    <a asp-action="Edit" asp-route-id="@Model.CarId" class="btn btn-primary">
+                        <i class="bi bi-pencil-square me-1"></i> Edit
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@ namespace CarRental.ViewModels
 {
     public class CarViewModel
     {
+        public Guid CarId { get; set; }
         [Required, MaxLength(100)]
         public string CarName { get; set; }
 
@@ -20,9 +21,11 @@ namespace CarRental.ViewModels
         public string FuelType { get; set; }
 
         [Required]
-        public decimal PricePerDay { get; set; }   // <-- added
+        [Range(1, 100000, ErrorMessage = "Price must be between 1 and 100000")]
+        public decimal PricePerday { get; set; }   // <-- added
+        public string? ImageUrl { get; set; }
 
         public IFormFile? ImageFile { get; set; }  // <-- handles upload
-
+        
     }
 }

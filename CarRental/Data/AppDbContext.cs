@@ -12,9 +12,19 @@ namespace CarRental.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Car> Cars { get; set; }
-        public DbSet<CarDetails> CarDetails { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<mTest> mTests { get; set; }
 
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Customers)
+                .WithOne(c => c.User)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

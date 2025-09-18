@@ -20,6 +20,7 @@ namespace CarRental.ViewModels
         public string FuelType { get; set; }
 
         [Required]
+        [Range(1, 100000, ErrorMessage = "Price must be between 1 and 100000")]
         public decimal PricePerday { get; set; }   // <-- added
 
         public IFormFile? ImageFile { get; set; }  // <-- handles upload

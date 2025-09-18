@@ -28,77 +28,98 @@ namespace CarRental.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CustomerRegister(Customer customer)
+        public async Task<IActionResult> CustomerRegister(CarRental.ViewModel.UserCustomer model)
         {
-            if (!ModelState.IsValid)
-                return View(customer);
-
-            // Save customer
-            _appdbcontext.Customers.Add(customer);
-            _appdbcontext.SaveChanges();
-
-            // Redirect to User registration with CustomerId
-            return RedirectToAction("UserRegister", new { customerId = customer.CustomerId });
-        }
-
-        [HttpGet]
-        public IActionResult UserRegister(Guid customerId)
-        {
-            var usermodel = new User {};
-            ViewBag.CustomerId = customerId;
-            return View(usermodel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult UserRegister(User user, Guid customerId)
-        {
-            // The ConfirmPassword property is not mapped to the database.
-            // To validate it, we need to explicitly check it.
-            if (user.Password != user.ConfirmPassword)
-            {
-                ModelState.AddModelError("ConfirmPassword", "Passwords do not match.");
-            }
+            model.Gender = Ennum.CustomerGender.Female;
 
             if (!ModelState.IsValid)
             {
-                ViewBag.CustomerId = customerId;
-                return View(user);
+                // Return view with validation errors
+                return View(model);
             }
 
-            // Find the customer by the provided customerId
-            var customer = _appdbcontext.Customers.Find(customerId);
-            if (customer == null)
+            // 1. Create User object from ViewModel
+            var user = new User
             {
-                // Handle the case where the customer isn't found
-                ModelState.AddModelError(string.Empty, "Customer not found.");
-                ViewBag.CustomerId = customerId;
-                return View(user);
-            }
+                UserName = model.UserName,
+                Password = model.Password, // Consider hashing in real apps!
+                Role = "Customer"           // Set default role as Customer
+            };
 
-            // Set the Role for the new user. You probably want to set this programmatically.
-            user.Role = "Customer";
-
-            // Assign a new GUID to the user if it's empty
-            if (user.UserId == Guid.Empty)
-            {
-                user.UserId = Guid.NewGuid();
-            }
-
-            // Assign the UserId to the Customer to link them
-            customer.UserId = user.UserId;
-
-            // Set the Customer and User relationship
-            user.Customers.Add(customer);
-
-            // Add the new user to the context
+            // 2. Save User to DB
             _appdbcontext.Users.Add(user);
+            await _appdbcontext.SaveChangesAsync();
 
-            // Save changes to the database
-            _appdbcontext.SaveChanges();
+            // user.UserId is now populated
 
-            TempData["SuccessMessage"] = "User and Customer registered successfully!";
-            return RedirectToAction("Index", "Home");
+            // 3. Create Customer object from ViewModel
+            var customer = new Customer
+            {
+                FullName = model.FullName,
+                Gender = model.Gender,
+                Address = model.Address,
+                PhoneNumber = model.PhoneNumber,
+                UserEmail = model.UserEmail,
+                LicenseNumber = model.LicenseNumber,
+                UserId = user.UserId  // link to User
+            };
+
+            // 4. Save Customer to DB
+            _appdbcontext.Customers.Add(customer);
+            await _appdbcontext.SaveChangesAsync();
+
+            // 5. Redirect or show success message
+            return RedirectToAction("Index", "Home"); // or wherever you want
         }
+
+
+        //[HttpGet]
+        //public IActionResult UserRegister(Guid customerId)
+        //{
+        //    var usermodel = new User {};
+        //    ViewBag.CustomerId = customerId;
+        //    return View(usermodel);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult UserRegister(User user, Guid customerId)
+        //{
+        //    // Role assign பண்ணுறது ModelState validate செய்ய முன்
+        //    user.Role = "Customer";
+
+        //    // Confirm password validation
+        //    if (user.Password != user.ConfirmPassword)
+        //    {
+        //        ModelState.AddModelError("ConfirmPassword", "Passwords do not match.");
+        //    }
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        ViewBag.CustomerId = customerId;
+        //        return View(user);
+        //    }
+
+        //    // Find the customer
+        //    var customer = _appdbcontext.Customers.Find(customerId);
+        //    if (customer == null)
+        //    {
+        //        ModelState.AddModelError(string.Empty, "Customer not found.");
+        //        ViewBag.CustomerId = customerId;
+        //        return View(user);
+        //    }
+
+        //    // Link both sides
+        //    customer.User = user;
+        //    user.Customers = new List<Customer> { customer };
+
+        //    _appdbcontext.Users.Add(user);
+        //    _appdbcontext.SaveChanges();
+
+        //    TempData["SuccessMessage"] = "User and Customer registered successfully!";
+        //    return RedirectToAction("Index", "Home");
+        //}
+
+
     }
 }

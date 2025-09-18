@@ -25,6 +25,11 @@ namespace CarRental.Data
                 .WithOne(c => c.User)
                 .HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Car>()
+                .Property(c => c.PricePerday)
+                .HasPrecision(18, 2); // precision=18, scale=2
         }
+       
+
     }
 }

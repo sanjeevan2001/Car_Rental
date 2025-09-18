@@ -99,7 +99,7 @@
 
         <!-- Skip Button -->
         <div class="d-grid mb-3">
-            <a asp-controller="Guest" asp-action="Index" class="btn btn-outline-secondary btn-lg">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-lg">
                 <i class="bi bi-skip-forward-fill me-1"></i> Skip & Continue as Guest
             </a>
         </div>
@@ -112,10 +112,10 @@
         </div> *@
 
         @* pending remove *@
-        <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="text-decoration-none small text-muted">
+        <a asp-area="" asp-controller="AdminDashboard" asp-action="Index" class="text-decoration-none small text-muted">
             Admin
         </a><br />
-        <a asp-area="Customer" asp-controller="Customer" asp-action="Index" class="text-decoration-none small text-muted">
+        <a asp-area="" asp-controller="Customer" asp-action="CustomerRegister" class="text-decoration-none small text-muted">
             Customer
         </a>
 

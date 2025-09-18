@@ -87,6 +87,7 @@ namespace CarRental.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("PricePerday")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Seats")

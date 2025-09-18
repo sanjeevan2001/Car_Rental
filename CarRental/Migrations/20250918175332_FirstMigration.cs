@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarRental.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,7 @@ namespace CarRental.Migrations
                     CarBrand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Seats = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FuelType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PricePerday = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PricePerday = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false)
                 },

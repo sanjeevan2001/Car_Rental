@@ -57,5 +57,10 @@ namespace CarRental.Controllers
 
             return View();
         }
+
+        public IActionResult Details(Guid id)
+        {
+            return View();
+        }
     }
 }

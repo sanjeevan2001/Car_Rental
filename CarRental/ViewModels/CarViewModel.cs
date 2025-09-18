@@ -2,26 +2,27 @@
 
 namespace CarRental.ViewModels
 {
-    public class Car
+    public class CarViewModel
     {
-        public Guid CarId { get; set; }
-
         [Required, MaxLength(100)]
         public string CarName { get; set; }
 
         [Required, MaxLength(50)]
         public string CarModel { get; set; }
+
         [Required, MaxLength(50)]
         public string CarBrand { get; set; }
-        [Required, MaxLength(50)]
+
+        [Required]
+        public string Seats { get; set; }
+
+        [Required]
         public string FuelType { get; set; }
-        [Required, MaxLength(50)]
-        public string Colour { get; set; }
 
-        [MaxLength(200)]
-        public string ImageUrl { get; set; }
+        [Required]
+        public decimal PricePerDay { get; set; }   // <-- added
 
-        public bool IsAvailable { get; set; }
+        public IFormFile? ImageFile { get; set; }  // <-- handles upload
 
     }
 }

@@ -11,13 +11,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("CarRentalSystem")));
 
-//// Register Repositories and Services
-//builder.Services.AddScoped<IProductRepository, ProductRepository>();
-//builder.Services.AddScoped<IProductService, ProductService>();
-
-//builder.Services.AddScoped<ICustomerService, CustomerService>();
-//builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-
 
 //Session
 builder.Services.AddHttpContextAccessor();
@@ -49,13 +42,24 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "areas",
+//    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 
+// Tharmi
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Customer}/{action=CustomerRegister}/{id?}");
+
+// Gowtham
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");
+
+// Sanjee
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=AdminCar}/{action=Index}/{id?}");
 
 app.Run();

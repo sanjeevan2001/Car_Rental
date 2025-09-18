@@ -7,8 +7,8 @@ namespace CarRental.Controllers
 {
     public class AdminCarController : Controller
     {
-        public AppDbContext _dbContext { get; }
-        public IWebHostEnvironment _webHostEnvironment { get; }
+        public AppDbContext _dbContext;
+        public IWebHostEnvironment _webHostEnvironment;
 
         public AdminCarController(AppDbContext dbContext, IWebHostEnvironment webHostEnvironment)
         {
@@ -32,35 +32,7 @@ namespace CarRental.Controllers
         [HttpPost]
         public IActionResult AddCar(CarViewModel model)
         {
-            //string webRootPath = _webHostEnvironment.WebRootPath;
-            //var file = HttpContext.Request.Form.Files;
-            //if (file != null && file.Count > 0)
-            //{
-            //    string newFileName = Guid.NewGuid().ToString();
-            //    var upload = Path.Combine(webRootPath, "images", "Cars");
-
-            //    if (!Directory.Exists(upload))
-            //    {
-            //        Directory.CreateDirectory(upload);
-            //    }
-
-            //    var extension = Path.GetExtension(file[0].FileName);
-            //    using (var fileStream = new FileStream(Path.Combine(upload, newFileName + extension), FileMode.Create))
-            //    {
-            //        file[0].CopyTo(fileStream);
-            //    }
-            //    car.ImageUrl = @"/images/Cars/" + newFileName + extension;
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    _dbContext.Cars.Add(car);
-            //    _dbContext.SaveChanges();
-            //    return RedirectToAction(nameof(Index));
-            //}
-
-
-            //return View(car);
+           
 
             if (ModelState.IsValid)
             {
@@ -88,22 +60,118 @@ namespace CarRental.Controllers
 
                 var car = new Car
                 {
-                    CarId = Guid.NewGuid(),
+                    
                     CarName = model.CarName,
                     CarModel = model.CarModel,
                     CarBrand = model.CarBrand,
                     Seats = model.Seats,
                     FuelType = model.FuelType,
+                    PricePerday = model.PricePerday,
                     ImageUrl = imagePath,
                     IsAvailable = true // default
                 };
 
                 _dbContext.Cars.Add(car);
                 _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","AdminCar");
             }
 
             return View(model);
         }
+
+
+
+        // GET: /AdminCar/Edit/{id}
+        public IActionResult Edit(Guid id)
+        {
+            var car = _dbContext.Cars.Find(id);
+            if (car == null) return NotFound();
+
+            var model = new CarViewModel
+            {
+                CarId = car.CarId,
+                CarName = car.CarName,
+                CarModel = car.CarModel,
+                CarBrand = car.CarBrand,
+                Seats = car.Seats,
+                FuelType = car.FuelType,
+                PricePerday = car.PricePerday,
+                ImageUrl = car.ImageUrl
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(CarViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var car = _dbContext.Cars.Find(model.CarId);
+                if (car == null) return NotFound();
+
+                car.CarName = model.CarName;
+                car.CarModel = model.CarModel;
+                car.CarBrand = model.CarBrand;
+                car.Seats = model.Seats;
+                car.FuelType = model.FuelType;
+                car.PricePerday = model.PricePerday;
+
+                if (model.ImageFile != null)
+                {
+                    string webRootPath = _webHostEnvironment.WebRootPath;
+                    string newFileName = Guid.NewGuid().ToString();
+                    var uploadPath = Path.Combine(webRootPath, "images", "Cars");
+
+                    if (!Directory.Exists(uploadPath))
+                        Directory.CreateDirectory(uploadPath);
+
+                    var extension = Path.GetExtension(model.ImageFile.FileName);
+                    var filePath = Path.Combine(uploadPath, newFileName + extension);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.ImageFile.CopyTo(stream);
+                    }
+
+                    car.ImageUrl = $"/images/Cars/{newFileName}{extension}";
+                }
+
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
+
+        // GET: /AdminCar/Delete/{id}
+        public IActionResult Delete(Guid id)
+        {
+            var car = _dbContext.Cars.Find(id);
+            if (car == null) return NotFound();
+            return View(car);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(Guid id)
+        {
+            var car = _dbContext.Cars.Find(id);
+            if (car == null) return NotFound();
+
+            _dbContext.Cars.Remove(car);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: /AdminCar/Details/{id}
+        public IActionResult Details(Guid id)
+        {
+            var car = _dbContext.Cars.FirstOrDefault(c => c.CarId == id);
+            if (car == null) return NotFound();
+
+            return View(car);
+        }
+
     }
 }

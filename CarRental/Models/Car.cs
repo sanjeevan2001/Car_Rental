@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Models
 {
@@ -12,12 +13,17 @@ namespace CarRental.Models
 
         [Required, MaxLength(50)]
         public string CarModel { get; set; }
+
         [Required, MaxLength(50)]
         public string CarBrand { get; set; }
+
         [Required, MaxLength(50)]
         public string Seats { get; set; }
+
         [Required, MaxLength(50)]
         public string FuelType { get; set; }
+        [Precision(18, 2)]
+        public decimal PricePerday { get; set; }
 
 
         [MaxLength(200)]

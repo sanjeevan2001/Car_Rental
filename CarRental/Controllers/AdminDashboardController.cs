@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.Areas.Customer.Controllers
+namespace CarRental.Controllers
 {
-    public class CustomerController : Controller
+    public class AdminDashboardController : Controller
     {
         public IActionResult Index()
         {

@@ -12,12 +12,17 @@ namespace CarRental.Models
 
         [Required, MaxLength(50)]
         public string CarModel { get; set; }
+
         [Required, MaxLength(50)]
         public string CarBrand { get; set; }
+
         [Required, MaxLength(50)]
         public string Seats { get; set; }
+
         [Required, MaxLength(50)]
         public string FuelType { get; set; }
+
+        public decimal PricePerday { get; set; }
 
 
         [MaxLength(200)]

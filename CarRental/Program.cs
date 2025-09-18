@@ -11,13 +11,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("CarRentalSystem")));
 
-//// Register Repositories and Services
-//builder.Services.AddScoped<IProductRepository, ProductRepository>();
-//builder.Services.AddScoped<IProductService, ProductService>();
-
-//builder.Services.AddScoped<ICustomerService, CustomerService>();
-//builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-
 
 //Session
 builder.Services.AddHttpContextAccessor();

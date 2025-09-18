@@ -43,7 +43,7 @@
                         <!-- Dashboard -->
                         <li class="nav-item">
                             <a class="nav-link @(ViewData["Title"]?.ToString() == "Dashboard" ? "active text-warning fw-bold" : "")"
-                               asp-area="Admin" asp-controller="Dashboard" asp-action="Index" aria-current="page">
+                               asp-area="" asp-controller="AdminDashboard" asp-action="Index" aria-current="page">
                                 <i class="bi bi-house-door me-1"></i> Dashboard
                             </a>
                         </li>
@@ -57,13 +57,13 @@
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="usersDropdown">
                                 <li>
                                     <a class="dropdown-item @(ViewData["Title"]?.ToString() == "CustomerList" ? "active fw-bold text-warning" : "")"
-                                       asp-area="Admin" asp-controller="User" asp-action="CustomerList">
+                                       asp-area="" asp-controller="AdminUser" asp-action="CustomerList">
                                         <i class="bi bi-list-check me-1"></i> Customer List
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item @(ViewData["Title"]?.ToString() == "AddCustomer" ? "active fw-bold text-warning" : "")"
-                                       asp-area="Admin" asp-controller="User" asp-action="AddCustomer">
+                                       asp-area="" asp-controller="AdminUser" asp-action="AddCustomer">
                                         <i class="bi bi-person-plus-fill me-1"></i> Add Customer
                                     </a>
                                 </li>
@@ -73,13 +73,13 @@
                         <!-- Cars -->
                         <li class="nav-item">
                             <a class="nav-link @(ViewData["Title"]?.ToString() == "Cars" ? "active text-warning fw-bold" : "")"
-                               asp-area="Admin" asp-controller="Car" asp-action="Index">
+                               asp-area="" asp-controller="AdminCar" asp-action="Index">
                                 <i class="bi bi-car-front-fill me-1"></i> Cars
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @(ViewData["Title"]?.ToString() == "Cars" ? "active text-warning fw-bold" : "")"
-                               asp-area="Admin" asp-controller="Car" asp-action="AddCar">
+                               asp-area="" asp-controller="AdminCar" asp-action="AddCar">
                                 <i class="bi bi-car-front-fill me-1"></i> AddCars
                             </a>
                         </li>
@@ -87,7 +87,7 @@
                         <!-- Bookings -->
                         <li class="nav-item">
                             <a class="nav-link @(ViewData["Title"]?.ToString() == "Bookings" ? "active text-warning fw-bold" : "")"
-                               asp-area="Admin" asp-controller="Booking" asp-action="Index">
+                               asp-area="" asp-controller="AdminBooking" asp-action="Index">
                                 <i class="bi bi-calendar-check me-1"></i> Bookings
                             </a>
                         </li>

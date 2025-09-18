@@ -77,6 +77,12 @@
                                 <i class="bi bi-car-front-fill me-1"></i> Cars
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewData["Title"]?.ToString() == "Cars" ? "active text-warning fw-bold" : "")"
+                               asp-area="Admin" asp-controller="Car" asp-action="AddCar">
+                                <i class="bi bi-car-front-fill me-1"></i> AddCars
+                            </a>
+                        </li>
 
                         <!-- Bookings -->
                         <li class="nav-item">
@@ -108,13 +114,76 @@
             @RenderBody()
         </main>
     </div>
-
     <!-- Footer -->
-    <footer class="border-top bg-light text-muted py-3 mt-5">
-        <div class="container text-center small">
-            &copy; 2025 - CarRental Admin Panel | Powered by ASP.NET Core & Bootstrap 5
+    <footer class="bg-dark text-light pt-5 pb-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <div class="row gy-4">
+
+                <!-- Company Overview -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-uppercase fw-bold mb-3">CarRental Admin</h5>
+                    <p class="small text-muted">
+                        Efficiently manage your rental fleet, customer bookings, user accounts, and system settings — all in one place. Built with modern technology for car rental businesses that demand performance and reliability.
+                    </p>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-uppercase fw-bold mb-3">Quick Access</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2">
+                            <a href="/dashboard" class="text-light text-decoration-none">
+                                <i class="bi bi-speedometer2 me-2"></i>Dashboard Overview
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="/vehicles" class="text-light text-decoration-none">
+                                <i class="bi bi-truck-front me-2"></i>Vehicle Management
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="/bookings" class="text-light text-decoration-none">
+                                <i class="bi bi-calendar-check me-2"></i>Booking Records
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="/users" class="text-light text-decoration-none">
+                                <i class="bi bi-people me-2"></i>User Accounts
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="/settings" class="text-light text-decoration-none">
+                                <i class="bi bi-gear me-2"></i>System Configuration
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact or Support Info -->
+                <div class="col-lg-4 col-md-12">
+                    <h5 class="text-uppercase fw-bold mb-3">Support & Info</h5>
+                    <p class="small text-muted mb-1"><strong>Email:</strong> support@carrentaladmin.com</p>
+                    <p class="small text-muted mb-1"><strong>Phone:</strong> +1 (800) 123-4567</p>
+                    <p class="small text-muted mb-1"><strong>Version:</strong> 2.3.1 (Updated Sep 2025)</p>
+                    <p class="small text-muted mb-0"><strong>Built with:</strong> ASP.NET Core & Bootstrap 5</p>
+                </div>
+
+            </div>
+
+            <hr class="my-4 border-secondary">
+
+            <!-- Bottom Bar -->
+            <div class="row">
+                <div class="col text-center small text-muted">
+                    &copy; 2025 CarRental Admin Panel. All rights reserved. |
+                    <a href="/privacy" class="text-light text-decoration-none">Privacy Policy</a> |
+                    <a href="/terms" class="text-light text-decoration-none">Terms of Use</a>
+                </div>
+            </div>
         </div>
     </footer>
+
+
 
     <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

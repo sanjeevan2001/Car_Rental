@@ -7,8 +7,8 @@ namespace CarRental.Controllers
 {
     public class AdminCarController : Controller
     {
-        public AppDbContext _dbContext { get; }
-        public IWebHostEnvironment _webHostEnvironment { get; }
+        public AppDbContext _dbContext;
+        public IWebHostEnvironment _webHostEnvironment;
 
         public AdminCarController(AppDbContext dbContext, IWebHostEnvironment webHostEnvironment)
         {
@@ -32,35 +32,7 @@ namespace CarRental.Controllers
         [HttpPost]
         public IActionResult AddCar(CarViewModel model)
         {
-            //string webRootPath = _webHostEnvironment.WebRootPath;
-            //var file = HttpContext.Request.Form.Files;
-            //if (file != null && file.Count > 0)
-            //{
-            //    string newFileName = Guid.NewGuid().ToString();
-            //    var upload = Path.Combine(webRootPath, "images", "Cars");
-
-            //    if (!Directory.Exists(upload))
-            //    {
-            //        Directory.CreateDirectory(upload);
-            //    }
-
-            //    var extension = Path.GetExtension(file[0].FileName);
-            //    using (var fileStream = new FileStream(Path.Combine(upload, newFileName + extension), FileMode.Create))
-            //    {
-            //        file[0].CopyTo(fileStream);
-            //    }
-            //    car.ImageUrl = @"/images/Cars/" + newFileName + extension;
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    _dbContext.Cars.Add(car);
-            //    _dbContext.SaveChanges();
-            //    return RedirectToAction(nameof(Index));
-            //}
-
-
-            //return View(car);
+           
 
             if (ModelState.IsValid)
             {
@@ -88,22 +60,38 @@ namespace CarRental.Controllers
 
                 var car = new Car
                 {
-                    CarId = Guid.NewGuid(),
+                    
                     CarName = model.CarName,
                     CarModel = model.CarModel,
                     CarBrand = model.CarBrand,
                     Seats = model.Seats,
                     FuelType = model.FuelType,
+                    PricePerday = model.PricePerday,
                     ImageUrl = imagePath,
                     IsAvailable = true // default
                 };
 
                 _dbContext.Cars.Add(car);
                 _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","AdminCar");
             }
 
             return View(model);
+        }
+        public IActionResult Edit()
+        {
+            
+            return View();
+        }
+        public IActionResult Delete()
+        {
+
+            return View();
+        }
+        public IActionResult Details()
+        {
+
+            return View();
         }
     }
 }

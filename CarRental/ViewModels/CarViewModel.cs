@@ -20,9 +20,9 @@ namespace CarRental.ViewModels
         public string FuelType { get; set; }
 
         [Required]
-        public decimal PricePerDay { get; set; }   // <-- added
+        public decimal PricePerday { get; set; }   // <-- added
 
         public IFormFile? ImageFile { get; set; }  // <-- handles upload
-
+        
     }
 }

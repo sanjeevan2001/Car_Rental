@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "AdminDashBoard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">Admin Dashboard</h2>
+
+    <div class="row g-4">
+
+        <!-- Total Cars -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Cars</h5>
+                    <h3 class="fw-bold text-primary">@ViewBag.TotalCars</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Customers -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Customers</h5>
+                    <h3 class="fw-bold text-success">@ViewBag.TotalCustomers</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Rentals -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Active Rentals</h5>
+                    <h3 class="fw-bold text-warning">@ViewBag.ActiveRentals</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Earnings</h5>
+                    <h3 class="fw-bold text-danger">$@ViewBag.TotalEarnings</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Rentals -->
+    <div class="card shadow-sm border-0 mt-5">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Recent Rentals</h5>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Rental ID</th>
+                        <th>Customer</th>
+                        <th>Car</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rental in ViewBag.RecentRentals)
+                    {
+                        <tr>
+                            <td>@rental.RentalId</td>
+                            <td>@rental.CustomerName</td>
+                            <td>@rental.CarName</td>
+                            <td>@rental.StartDate.ToShortDateString()</td>
+                            <td>@rental.EndDate.ToShortDateString()</td>
+                            <td>
+                                @if (rental.Status == "Active")
+                                {
+                                    <span class="badge bg-warning">Active</span>
+                                }
+                                else if (rental.Status == "Completed")
+                                {
+                                    <span class="badge bg-success">Completed</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@rental.Status</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

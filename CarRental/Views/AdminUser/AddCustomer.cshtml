@@ -1,49 +1,59 @@
-﻿@* @model CarRental.ViewModels.CustomerViewModel
+﻿@model CarRental.Models.Customer
 
 @{
-    // Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Add Customer";
 }
 
-<h2 class="mb-4 fw-bold text-primary border-bottom pb-2">
-    <i class="bi bi-person-plus-fill me-2"></i> Add Customer
-</h2>
+<div class="container mt-5">
+    <h2 class="fw-bold text-dark mb-4">
+        <i class="bi bi-person-plus-fill text-success me-2"></i> Add New Customer
+    </h2>
 
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+            <form asp-action="AddCustomer" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
 
+                <div class="mb-3">
+                    <label asp-for="Gender" class="form-label"></label>
+                    <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<CarRental.Ennum.CustomerGender>()"></select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
 
-<form asp-action="AddCustomer" method="post" class="p-4 border rounded shadow-sm bg-light">
-    <div class="mb-3">
-        <label asp-for="FullName" class="form-label">Full Name</label>
-        <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
+                <div class="mb-3">
+                    <label asp-for="Address" class="form-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="UserEmail" class="form-label"></label>
+                    <input asp-for="UserEmail" class="form-control" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LicenseNumber" class="form-label"></label>
+                    <input asp-for="LicenseNumber" class="form-control" />
+                    <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success">Save</button>
+                <a asp-action="CustomerList" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label asp-for="Email" class="form-label">Email</label>
-        <input asp-for="Email" class="form-control" placeholder="Enter email address" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
-        <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Address" class="form-label">Address</label>
-        <input asp-for="Address" class="form-control" placeholder="Enter address" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary w-100">Add Customer</button>
-</form>
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-} *@
+</div>

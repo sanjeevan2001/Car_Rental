@@ -3,10 +3,10 @@
     ViewData["Title"] = "Customer Dashboard";
 }
 
-<h1 class="mb-4">Welcome to Your Dashboard</h1>
+<h1 class="mb-4">Welcome, @ViewBag.CustomerName!</h1>
 
 <div class="row">
-    <!-- Card: Available Cars -->
+    <!-- Available Cars -->
     <div class="col-md-4">
         <div class="card text-center shadow-sm mb-4">
             <div class="card-body">
@@ -17,18 +17,18 @@
         </div>
     </div>
 
-    <!-- Card: My Bookings -->
+    <!-- My Bookings -->
     <div class="col-md-4">
         <div class="card text-center shadow-sm mb-4">
             <div class="card-body">
                 <h5 class="card-title">My Bookings</h5>
                 <p class="card-text">Check your booking history and upcoming trips.</p>
-                <a asp-action="MyBookings" asp-route-customerId="@User.FindFirst("CustomerId")?.Value" class="btn btn-primary">View Bookings</a>
+                <a asp-action="MyBookings" class="btn btn-primary">View Bookings</a>
             </div>
         </div>
     </div>
 
-    <!-- Card: Profile -->
+    <!-- Profile -->
     <div class="col-md-4">
         <div class="card text-center shadow-sm mb-4">
             <div class="card-body">
@@ -38,9 +38,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- Optional Welcome Message -->
-<div class="mt-4">
-    <p>Hello, <strong>@User.Identity.Name</strong>! Welcome back to CarRental. Use the options above to manage your bookings and profile.</p>
 </div>

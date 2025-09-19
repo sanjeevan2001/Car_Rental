@@ -6,7 +6,7 @@
 
 <h2>Available Cars</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>Car Name</th>
@@ -14,7 +14,7 @@
             <th>Brand</th>
             <th>Seats</th>
             <th>Fuel Type</th>
-            <th>Price Per Day</th>
+            <th>Price/Day</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -29,7 +29,7 @@
                 <td>@car.FuelType</td>
                 <td>@car.PricePerday.ToString("C")</td>
                 <td>
-                    <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-primary">Book Now</a>
+                    <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-success btn-sm">Book Now</a>
                 </td>
             </tr>
         }

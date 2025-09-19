@@ -54,7 +54,7 @@ namespace CarRental.Controllers
                 _temData.CustomerName = customer.FullName;
 
                 // Redirect to home or dashboard
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "CustomerDashboard");
             }
             else
             {

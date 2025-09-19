@@ -1,5 +1,5 @@
-﻿
-@model CarRental.ViewModel.UserCustomer
+﻿@model CarRental.ViewModel.UserCustomer
+
 
 <h2>Customer Registration</h2>
 
@@ -36,12 +36,13 @@
         </div>
     </div>
 
-    <div class="row mb-3">
-        <label asp-for="Gender" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <select asp-for="Gender" class="form-select" ></select>
-            <span asp-validation-for="Gender" class="text-danger"></span>
-        </div>
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Gender, new { @class = "form-label" })
+        @Html.DropDownListFor(m => m.Gender,
+        new SelectList(Enum.GetValues(typeof(CarRental.Ennum.CustomerGender))),
+                "Select Gender",
+                new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
     </div>
 
     <div class="row mb-3">

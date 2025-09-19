@@ -1,5 +1,6 @@
 ﻿using CarRental.Data;
 using CarRental.Models;
+using CarRental.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,6 @@ namespace CarRental.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CustomerRegister(CarRental.ViewModel.UserCustomer model)
         {
-            model.Gender = Ennum.CustomerGender.Female;
 
             if (!ModelState.IsValid)
             {
@@ -42,15 +42,14 @@ namespace CarRental.Controllers
             var user = new User
             {
                 UserName = model.UserName,
-                Password = model.Password, // Consider hashing in real apps!
-                Role = "Customer"           // Set default role as Customer
+                Password = model.Password, 
+                Role = "Customer"
             };
 
             // 2. Save User to DB
             _appdbcontext.Users.Add(user);
             await _appdbcontext.SaveChangesAsync();
 
-            // user.UserId is now populated
 
             // 3. Create Customer object from ViewModel
             var customer = new Customer
@@ -69,57 +68,54 @@ namespace CarRental.Controllers
             await _appdbcontext.SaveChangesAsync();
 
             // 5. Redirect or show success message
-            return RedirectToAction("Index", "Home"); // or wherever you want
+            return RedirectToAction("Index", "Home");
         }
 
 
-        //[HttpGet]
-        //public IActionResult UserRegister(Guid customerId)
-        //{
-        //    var usermodel = new User {};
-        //    ViewBag.CustomerId = customerId;
-        //    return View(usermodel);
-        //}
+        // Customer Register in Customer 
+        [HttpGet]
+        public IActionResult RegisterForCustomer() 
+        {
+            return View(); 
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult UserRegister(User user, Guid customerId)
-        //{
-        //    // Role assign பண்ணுறது ModelState validate செய்ய முன்
-        //    user.Role = "Customer";
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RegisterForCustomer(RegisterCustomerViewModel registerVm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(registerVm);
+            }
 
-        //    // Confirm password validation
-        //    if (user.Password != user.ConfirmPassword)
-        //    {
-        //        ModelState.AddModelError("ConfirmPassword", "Passwords do not match.");
-        //    }
+            var user = new User
+            {
+                UserId = Guid.NewGuid(),
+                UserName = registerVm.UserName,
+                Password = registerVm.Password,
+                Role = registerVm.Role
+            };
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ViewBag.CustomerId = customerId;
-        //        return View(user);
-        //    }
+             var customer = new Customer
+            {
+                CustomerId = Guid.NewGuid(),
+                FullName = registerVm.FullName,
+                Gender = registerVm.Gender,
+                Address = registerVm.Address,
+                PhoneNumber = registerVm.PhoneNumber,
+                UserEmail = registerVm.UserEmail,
+                LicenseNumber = registerVm.LicenseNumber,
+                UserId = user.UserId,
+                User = user
+            };
 
-        //    // Find the customer
-        //    var customer = _appdbcontext.Customers.Find(customerId);
-        //    if (customer == null)
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Customer not found.");
-        //        ViewBag.CustomerId = customerId;
-        //        return View(user);
-        //    }
+            _appdbcontext.Users.Add(user);
+            _appdbcontext.Customers.Add(customer);
+            _appdbcontext.SaveChanges();
 
-        //    // Link both sides
-        //    customer.User = user;
-        //    user.Customers = new List<Customer> { customer };
-
-        //    _appdbcontext.Users.Add(user);
-        //    _appdbcontext.SaveChanges();
-
-        //    TempData["SuccessMessage"] = "User and Customer registered successfully!";
-        //    return RedirectToAction("Index", "Home");
-        //}
-
+            TempData["SuccessMessage"] = "Customer registered successfully!";
+            return RedirectToPage("GuestView", "Guest");
+        }
 
     }
 }

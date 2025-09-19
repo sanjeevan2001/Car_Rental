@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<h1 class="mb-4">Welcome to Your Dashboard</h1>
+
+<div class="row">
+    <!-- Card: Available Cars -->
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Available Cars</h5>
+                <p class="card-text">Browse all cars that are currently available for booking.</p>
+                <a asp-action="AvailableCars" class="btn btn-primary">View Cars</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card: My Bookings -->
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title">My Bookings</h5>
+                <p class="card-text">Check your booking history and upcoming trips.</p>
+                <a asp-action="MyBookings" asp-route-customerId="@User.FindFirst("CustomerId")?.Value" class="btn btn-primary">View Bookings</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card: Profile -->
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title">My Profile</h5>
+                <p class="card-text">View and update your personal information.</p>
+                <a asp-controller="Profile" asp-action="Index" class="btn btn-primary">View Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional Welcome Message -->
+<div class="mt-4">
+    <p>Hello, <strong>@User.Identity.Name</strong>! Welcome back to CarRental. Use the options above to manage your bookings and profile.</p>
+</div>

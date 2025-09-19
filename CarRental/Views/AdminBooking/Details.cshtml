@@ -1,0 +1,29 @@
+﻿@model CarRental.Models.Booking
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Booking Details";
+}
+
+<div class="container mt-4">
+    <h2>Booking Details</h2>
+    <div class="card shadow-sm p-3">
+        <dl class="row">
+            <dt class="col-sm-3">Customer</dt>
+            <dd class="col-sm-9">@Model.Customer.FullName</dd>
+
+            <dt class="col-sm-3">Car</dt>
+            <dd class="col-sm-9">@Model.Car.CarName (@Model.Car.CarModel)</dd>
+
+            <dt class="col-sm-3">Pickup Date</dt>
+            <dd class="col-sm-9">@Model.PickupDate.ToShortDateString()</dd>
+
+            <dt class="col-sm-3">Return Date</dt>
+            <dd class="col-sm-9">@Model.ReturnDate.ToShortDateString()</dd>
+
+            <dt class="col-sm-3">Total Cost</dt>
+            <dd class="col-sm-9">@Model.TotalCost.ToString("C")</dd>
+        </dl>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>

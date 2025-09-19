@@ -37,6 +37,16 @@ namespace CarRental.Controllers
                 .Include(c => c.User)
                 .FirstOrDefaultAsync(c => c.User.UserName == username && c.User.Password == password);
 
+            if (username == "Admin" && password == "Admin123")
+            {
+
+                // Redirect to home or dashboard
+                return RedirectToAction("Index", "AdminDashboard");
+            }
+
+
+
+
             if (customer != null)
             {
                 // Store customer info in TemData

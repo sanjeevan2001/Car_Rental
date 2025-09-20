@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CarRental.Models.Customer>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Customer List";
+}
+
+<div class="container mt-5">
+    <h2 class="fw-bold text-dark mb-4">
+        <i class="bi bi-people-fill text-primary me-2"></i> Customers
+    </h2>
+
+    <a asp-action="AddCustomer" class="btn btn-success mb-3">
+        <i class="bi bi-plus-circle"></i> Add Customer
+    </a>
+
+    <table class="table table-striped table-hover shadow-sm rounded-4">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>License</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.FullName</td>
+                    <td>@customer.Gender</td>
+                    <td>@customer.PhoneNumber</td>
+                    <td>@customer.UserEmail</td>
+                    <td>@customer.LicenseNumber</td>
+                    <td>
+                        <a asp-action="CustomerDetails" asp-route-id="@customer.CustomerId" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="EditCustomer" asp-route-id="@customer.CustomerId" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="DeleteCustomer" asp-route-id="@customer.CustomerId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

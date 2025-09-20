@@ -20,13 +20,13 @@ namespace CarRental.Models
         public decimal TotalCost { get; set; }
 
         [Required]
-        [ForeignKey("CustomerId")]
+        //[ForeignKey("CustomerId")]
         public Guid CustomerId { get; set; }
 
         public Customer Customer { get; set; }
 
         [Required]
-        [ForeignKey("CarId")]
+        //[ForeignKey("CarId")]
         public Guid CarId { get; set; }
 
         public Car Car { get; set; }

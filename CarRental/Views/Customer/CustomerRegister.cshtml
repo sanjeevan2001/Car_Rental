@@ -1,89 +1,165 @@
 ﻿@model CarRental.ViewModel.UserCustomer
 
+<h2 class="title">Customer Registration</h2>
 
-<h2>Customer Registration</h2>
-
-<form method="post" class="needs-validation" novalidate>
-    <div class="row mb-3">
-        <label asp-for="UserName" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName" class="text-danger"></span>
+<div class="registration-card">
+    <form method="post" novalidate>
+        <div class="form-group">
+            <label asp-for="UserName"></label>
+            <input asp-for="UserName" />
+            <span asp-validation-for="UserName" class="error"></span>
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <label asp-for="Password" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <input asp-for="Password" class="form-control" type="password" />
-            <span asp-validation-for="Password" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" />
+            <span asp-validation-for="Password" class="error"></span>
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <label asp-for="ConfirmPassword" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <input asp-for="ConfirmPassword" class="form-control" type="password" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" type="password" />
+            <span asp-validation-for="ConfirmPassword" class="error"></span>
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <label asp-for="FullName" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <input asp-for="FullName" class="form-control" />
-            <span asp-validation-for="FullName" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" />
+            <span asp-validation-for="FullName" class="error"></span>
         </div>
-    </div>
 
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Gender, new { @class = "form-label" })
-        @Html.DropDownListFor(m => m.Gender,
-        new SelectList(Enum.GetValues(typeof(CarRental.Ennum.CustomerGender))),
-                "Select Gender",
-                new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="row mb-3">
-        <label asp-for="Address" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <input asp-for="Address" class="form-control" />
-            <span asp-validation-for="Address" class="text-danger"></span>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Gender)
+            @Html.DropDownListFor(m => m.Gender,
+                     new SelectList(Enum.GetValues(typeof(CarRental.Ennum.CustomerGender))),
+                     "Select Gender",
+                     new { @class = "dropdown" })
+            @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "error" })
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <label asp-for="PhoneNumber" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <input asp-for="PhoneNumber" class="form-control" />
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Address"></label>
+            <input asp-for="Address" />
+            <span asp-validation-for="Address" class="error"></span>
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <label asp-for="UserEmail" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <input asp-for="UserEmail" class="form-control" />
-            <span asp-validation-for="UserEmail" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" />
+            <span asp-validation-for="PhoneNumber" class="error"></span>
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <label asp-for="LicenseNumber" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-6">
-            <input asp-for="LicenseNumber" class="form-control" />
-            <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="UserEmail"></label>
+            <input asp-for="UserEmail" />
+            <span asp-validation-for="UserEmail" class="error"></span>
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col-sm-8">
-            <button type="submit" class="btn btn-primary">Register</button>
+        <div class="form-group">
+            <label asp-for="LicenseNumber"></label>
+            <input asp-for="LicenseNumber" />
+            <span asp-validation-for="LicenseNumber" class="error"></span>
         </div>
-    </div>
-</form>
+
+        <div class="form-group">
+            <button type="submit" class="themed-btn">Register</button>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<style>
+    /* Background */
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #021B2F, #0B385A);
+        font-family: "Segoe UI", system-ui, sans-serif;
+        color: #fff;
+        line-height: 1.5;
+    }
+
+    /* Title */
+    .title {
+        text-align: center;
+        margin: 40px 0 20px;
+        font-size: 30px;
+        font-weight: 700;
+        background: linear-gradient(90deg, #90E6FF, #01C8BC);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Card */
+    .registration-card {
+        background: #fff;
+        color: #021B2F;
+        max-width: 650px;
+        margin: 0 auto 50px;
+        padding: 35px 40px;
+        border-radius: 12px;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        border-top: 6px solid #01C8BC;
+    }
+
+    /* Form Group */
+    .form-group {
+        margin-bottom: 18px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #0B385A;
+    }
+
+    input,
+    .dropdown {
+        padding: 12px 14px;
+        border: 1.8px solid #dbeafe;
+        border-radius: 8px;
+        font-size: 15px;
+        background: #f9fbfd;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+        input:focus,
+        .dropdown:focus {
+            border-color: #01C8BC;
+            background: #fff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(144, 230, 255, 0.6);
+        }
+
+    /* Button */
+    .themed-btn {
+        background: linear-gradient(90deg, #01C8BC, #2DBAE1);
+        border: none;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+        .themed-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(90deg, #0B385A, #01C8BC);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
+
+    /* Validation error */
+    .error {
+        font-size: 13px;
+        color: #d93025;
+        margin-top: 4px;
+    }
+</style>

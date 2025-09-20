@@ -2,141 +2,81 @@
 using CarRental.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace CarRental.Controllers
 {
     public class AdminUserController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _dbContext;
 
-        public AdminUserController(AppDbContext context)
+        public AdminUserController(AppDbContext dbContext)
         {
-            _context = context;
-        }
-        public IActionResult Index()
-        {
-            return View();
-        }
-        // ✅ Admin Dashboard
-        public IActionResult AdminDashBoard()
-        {
-            return View();
+            _dbContext = dbContext;
         }
 
-        // ✅ Show Customer List
-        public async Task<IActionResult> CustomerList()
+        // GET: AdminUser
+        public async Task<IActionResult> Index()
         {
-            var customers = await _context.Customers.ToListAsync();
-            return View(customers);
+            var users = await _dbContext.Users.ToListAsync();
+            return View(users);
         }
 
-        // ✅ GET: Add New Customer
-        [HttpGet]
-        public IActionResult AddCustomer()
+        // GET: AdminUser/Details/5
+        public async Task<IActionResult> Details(Guid? id)
         {
-            return View();
+            if (id == null) return NotFound();
+
+            var user = await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.UserId == id);
+
+            if (user == null) return NotFound();
+
+            return View(user);
         }
 
-        // ✅ POST: Add New Customer
+        // GET: AdminUser/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
+        {
+            if (id == null) return NotFound();
+
+            var user = await _dbContext.Users.FindAsync(id);
+            if (user == null) return NotFound();
+
+            return View(user);
+        }
+
+        // POST: AdminUser/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddCustomer(Customer customer)
+        public async Task<IActionResult> Edit(Guid id, [Bind("UserId,Username,Password")] User user)
         {
-            if (ModelState.IsValid)
-            {
-                customer.CustomerId = Guid.NewGuid();
-                _context.Customers.Add(customer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(CustomerList));
-            }
-            return View(customer);
-        }
-
-        // ✅ GET: Edit Customer
-        [HttpGet]
-        public async Task<IActionResult> EditCustomer(Guid id)
-        {
-            if (id == Guid.Empty)
-                return NotFound();
-
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
-                return NotFound();
-
-            return View(customer);
-        }
-
-        // ✅ POST: Edit Customer
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditCustomer(Guid id, Customer customer)
-        {
-            if (id != customer.CustomerId)
-                return NotFound();
+            if (id != user.UserId) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(CustomerList));
+                    // Hash password if you want (recommended)
+                    // user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+                    _dbContext.Update(user);
+                    await _dbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Customers.Any(e => e.CustomerId == id))
-                        return NotFound();
-                    else
-                        throw;
+                    if (!UserExists(user.UserId)) return NotFound();
+                    else throw;
                 }
+                return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(user);
         }
 
-        // ✅ GET: Customer Details
-        [HttpGet]
-        public async Task<IActionResult> CustomerDetails(Guid id)
+        private bool UserExists(Guid id)
         {
-            if (id == Guid.Empty)
-                return NotFound();
-
-            var customer = await _context.Customers
-                .Include(c => c.Bookings)
-                .FirstOrDefaultAsync(c => c.CustomerId == id);
-
-            if (customer == null)
-                return NotFound();
-
-            return View(customer);
+            return _dbContext.Users.Any(e => e.UserId == id);
         }
-
-        // ✅ GET: Delete Customer (Confirmation Page)
-        [HttpGet]
-        public async Task<IActionResult> DeleteCustomer(Guid id)
-        {
-            if (id == Guid.Empty)
-                return NotFound();
-
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
-                return NotFound();
-
-            return View(customer);
-        }
-
-        // ✅ POST: Delete Customer
-        [HttpPost, ActionName("DeleteCustomer")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteCustomerConfirmed(Guid id)
-        {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-                await _context.SaveChangesAsync();
-            }
-            return RedirectToAction(nameof(CustomerList));
-        }
-
     }
 }

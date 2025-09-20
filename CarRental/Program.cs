@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("CarRentalSystem")));
 
-// Register TemService as a **singleton** (shared across requests)
+// Register TemData as a **singleton** (shared across requests)
 builder.Services.AddSingleton<TemData>();
 
 

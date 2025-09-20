@@ -2,9 +2,96 @@
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "Delete Customer";
+    ViewData["Title"] = "Edit Customer";
 }
 
+<h2>Edit Customer</h2>
+
+<form asp-action="EditCustomer" method="post">
+    <input type="hidden" asp-for="CustomerId" />
+
+    <div class="form-group mb-2">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="Gender"></label>
+        <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<CarRental.Ennum.CustomerGender>()">
+            <option value="">Select Gender</option>
+        </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="UserEmail"></label>
+        <input asp-for="UserEmail" class="form-control" />
+        <span asp-validation-for="UserEmail" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="LicenseNumber"></label>
+        <input asp-for="LicenseNumber" class="form-control" />
+        <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+    </div>
+
+    <hr />
+    <h4>User Credentials</h4>
+
+    <input type="hidden" asp-for="User.UserId" />
+
+    <div class="form-group mb-2">
+        <label asp-for="User.UserName"></label>
+        <input asp-for="User.UserName" class="form-control" />
+        <span asp-validation-for="User.UserName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="User.Password"></label>
+        <input asp-for="User.Password" type="password" class="form-control" />
+        <span asp-validation-for="User.Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="User.ConfirmPassword"></label>
+        <input asp-for="User.ConfirmPassword" type="password" class="form-control" />
+        <span asp-validation-for="User.ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+    <a asp-action="CustomerList" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
 <div class="container mt-5">
     <h2 class="fw-bold text-danger mb-4">
         <i class="bi bi-trash-fill me-2"></i> Delete Customer
@@ -34,4 +121,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> *@

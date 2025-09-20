@@ -1,10 +1,95 @@
-﻿@model CarRental.Models.Customer
+﻿@model CarRental.ViewModels.AddCustomerViewModel
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Add Customer";
 }
 
+
+
+<h2>Add New Customer</h2>
+
+<form asp-action="AddCustomer" method="post">
+    <div class="form-group mb-2">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="Gender"></label>
+        <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<CarRental.Ennum.CustomerGender>()">
+            <option value="">Select Gender</option>
+        </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="UserEmail"></label>
+        <input asp-for="UserEmail" class="form-control" />
+        <span asp-validation-for="UserEmail" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="LicenseNumber"></label>
+        <input asp-for="LicenseNumber" class="form-control" />
+        <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+    </div>
+
+    <hr />
+    <h4>User Credentials</h4>
+
+    <div class="form-group mb-2">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" type="password" class="form-control" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="CustomerList" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
 <div class="container mt-5">
     <h2 class="fw-bold text-dark mb-4">
         <i class="bi bi-person-plus-fill text-success me-2"></i> Add New Customer
@@ -56,4 +141,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> *@

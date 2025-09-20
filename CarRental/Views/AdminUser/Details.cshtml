@@ -1,0 +1,12 @@
+﻿@model CarRental.Models.User
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>User Details</h2>
+<div>
+    <p><strong>Username:</strong> @Model.UserName</p>
+    <p><strong>Password:</strong> @Model.Password</p>
+</div>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

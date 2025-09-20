@@ -1,35 +1,43 @@
-﻿@model CarRental.Models.Booking
+﻿@model CarRental.ViewModels.BookingViewModel
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Edit Booking";
 }
 
-<div class="container mt-4">
-    <h2>Edit Booking</h2>
+<h2>Edit Booking</h2>
 
-    <form asp-action="Edit" method="post" class="card p-3 shadow-sm">
-        <input type="hidden" asp-for="BookingId" />
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="BookingId" />
 
-        <div class="mb-3">
-            <label asp-for="CustomerId" class="form-label">Customer</label>
-            <select asp-for="CustomerId" asp-items="ViewBag.CustomerId" class="form-select"></select>
-        </div>
-        <div class="mb-3">
-            <label asp-for="CarId" class="form-label">Car</label>
-            <select asp-for="CarId" asp-items="ViewBag.CarId" class="form-select"></select>
-        </div>
-        <div class="mb-3">
-            <label asp-for="PickupDate" class="form-label"></label>
-            <input asp-for="PickupDate" class="form-control" type="date" />
-            <span asp-validation-for="PickupDate" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="ReturnDate" class="form-label"></label>
-            <input asp-for="ReturnDate" class="form-control" type="date" />
-            <span asp-validation-for="ReturnDate" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-warning">Update</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-    </form>
-</div>
+    <div class="mb-3">
+        <label asp-for="CustomerId" class="form-label">Customer</label>
+        <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.Customers"></select>
+        <span asp-validation-for="CustomerId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CarId" class="form-label">Car</label>
+        <select asp-for="CarId" class="form-control" asp-items="ViewBag.Cars"></select>
+        <span asp-validation-for="CarId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PickupDate" class="form-label"></label>
+        <input asp-for="PickupDate" type="date" class="form-control" />
+        <span asp-validation-for="PickupDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ReturnDate" class="form-label"></label>
+        <input asp-for="ReturnDate" type="date" class="form-control" />
+        <span asp-validation-for="ReturnDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

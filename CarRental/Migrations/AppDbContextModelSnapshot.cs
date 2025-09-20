@@ -191,7 +191,7 @@ namespace CarRental.Migrations
                     b.HasOne("CarRental.Models.User", "User")
                         .WithMany("Customers")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("User");
                 });

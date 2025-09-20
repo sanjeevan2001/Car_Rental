@@ -1,0 +1,100 @@
+﻿@model CarRental.Models.Customer
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Customer Details";
+}
+
+<h2>Customer Details</h2>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h4>@Model.FullName</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Email:</strong> @Model.UserEmail</p>
+        <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
+        <p><strong>Gender:</strong> @Model.Gender</p>
+        <p><strong>Address:</strong> @Model.Address</p>
+        <p><strong>License Number:</strong> @Model.LicenseNumber</p>
+        <p><strong>Username:</strong> @Model.User?.UserName</p>
+    </div>
+</div>
+
+<h4>Bookings</h4>
+@if (Model.Bookings != null && Model.Bookings.Any())
+{
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Booking ID</th>
+                <th>Booking Date</th>
+                <th>Car</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model.Bookings)
+            {
+                <tr>
+                    <td>@booking.BookingId</td>
+                    @* <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td> *@
+                    <td>@booking.Car?.CarName</td>
+                    @* <td>@booking.Status</td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No bookings available for this customer.</p>
+}
+
+<a asp-action="CustomerList" class="btn btn-primary">Back to List</a>
+<a asp-action="EditCustomer" asp-route-id="@Model.CustomerId" class="btn btn-warning">Edit</a>
+<a asp-action="DeleteCustomer" asp-route-id="@Model.CustomerId" class="btn btn-danger">Delete</a>
+
+
+
+
+
+
+
+
+
+
+
+@* 
+<div class="container mt-5">
+    <h2 class="fw-bold text-dark mb-4">
+        <i class="bi bi-person-badge-fill text-info me-2"></i> Customer Details
+    </h2>
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Full Name</dt>
+                <dd class="col-sm-9">@Model.FullName</dd>
+
+                <dt class="col-sm-3">Gender</dt>
+                <dd class="col-sm-9">@Model.Gender</dd>
+
+                <dt class="col-sm-3">Address</dt>
+                <dd class="col-sm-9">@Model.Address</dd>
+
+                <dt class="col-sm-3">Phone</dt>
+                <dd class="col-sm-9">@Model.PhoneNumber</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.UserEmail</dd>
+
+                <dt class="col-sm-3">License</dt>
+                <dd class="col-sm-9">@Model.LicenseNumber</dd>
+            </dl>
+
+            <a asp-action="EditCustomer" asp-route-id="@Model.CustomerId" class="btn btn-warning">Edit</a>
+            <a asp-action="CustomerList" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+</div> *@

@@ -49,6 +49,19 @@ namespace CarRental.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BookingViewModel model)
         {
+            // Validate PickupDate
+            if (model.PickupDate.Date < DateTime.Today)
+            {
+                ModelState.AddModelError(nameof(model.PickupDate), "Pickup date must be today or later.");
+            }
+
+            // Validate ReturnDate
+            if (model.ReturnDate <= model.PickupDate)
+            {
+                ModelState.AddModelError(nameof(model.ReturnDate), "Return date must be after pickup date.");
+            }
+
+
             if (ModelState.IsValid)
             {
                 var car = await _context.Cars.FindAsync(model.CarId);

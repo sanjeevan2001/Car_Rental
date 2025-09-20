@@ -20,27 +20,27 @@ namespace CarRental.Controllers
             return View();
         }
 
-        // ✅ Admin Dashboard
+        // Admin Dashboard
         public IActionResult AdminDashBoard()
         {
             return View();
         }
 
-        // ✅ List Customers
+        // List Customers
         public async Task<IActionResult> CustomerList()
         {
             var customers = await _context.Customers.Include(c => c.User).ToListAsync();
             return View(customers);
         }
 
-        // ✅ GET: Add Customer
+        // Add Customer
         [HttpGet]
         public IActionResult AddCustomer()
         {
             return View();
         }
 
-        // ✅ POST: Add Customer
+        // Add Customer
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddCustomer(AddCustomerViewModel model)
@@ -78,12 +78,11 @@ namespace CarRental.Controllers
                 return RedirectToAction(nameof(CustomerList));
             }
 
-            // If validation fails, return the same view
             return View(model);
         }
 
 
-        // ✅ GET: Edit Customer
+        // Edit Customer
         [HttpGet]
         public async Task<IActionResult> EditCustomer(Guid id)
         {
@@ -100,7 +99,7 @@ namespace CarRental.Controllers
             return View(customer);
         }
 
-        // ✅ POST: Edit Customer
+        // Edit Customer
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditCustomer(Guid id, Customer customer)
@@ -132,7 +131,7 @@ namespace CarRental.Controllers
             return View(customer);
         }
 
-        // ✅ GET: Customer Details
+        // Customer Details
         [HttpGet]
         public async Task<IActionResult> CustomerDetails(Guid id)
         {
@@ -150,7 +149,7 @@ namespace CarRental.Controllers
             return View(customer);
         }
 
-        // ✅ GET: Delete Customer
+        // Delete Customer
         [HttpGet]
         public async Task<IActionResult> DeleteCustomer(Guid id)
         {
@@ -167,7 +166,7 @@ namespace CarRental.Controllers
             return View(customer);
         }
 
-        //  POST: Delete Customer
+        // Delete Customer
         [HttpPost, ActionName("DeleteCustomer")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteCustomerConfirmed(Guid id)

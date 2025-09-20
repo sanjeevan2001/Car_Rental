@@ -48,13 +48,6 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link @(ViewData["Title"]?.ToString() == "Dashboard" ? "active text-warning fw-bold" : "")"
-                               asp-area="" asp-controller="AdminDashboard" asp-action="Dashboard" aria-current="page">
-                                <i class="bi bi-house-door me-1"></i> Dashboard 2
-                            </a>
-                        </li>
-
 
 
 
@@ -87,17 +80,6 @@
                                     </a>
                                 </li>
                                 
-                                <li>
-                                    <a class="dropdown-item @(ViewData["Title"]?.ToString() == "Index" ? "active fw-bold text-warning" : "")"
-                                       asp-area="" asp-controller="AdminCustomer" asp-action="Index">
-                                        <i class="bi bi-house-door-fill me-1"></i> Index
-                                    </a>
-                                </li>
-
-
-
-
-
 
 
                             </ul>
@@ -150,55 +132,24 @@
     <!-- Footer -->
     <footer class="bg-dark text-light pt-5 pb-4 mt-5 border-top border-secondary">
         <div class="container">
-            <div class="row gy-4">
+            <div class="row gy-4 justify-content-between align-items-start">
 
                 <!-- Company Overview -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-6 col-md-12">
                     <h5 class="text-uppercase fw-bold mb-3">CarRental Admin</h5>
                     <p class="small text-muted">
-                        Efficiently manage your rental fleet, customer bookings, user accounts, and system settings — all in one place. Built with modern technology for car rental businesses that demand performance and reliability.
+                        Efficiently manage your rental fleet, customer bookings, user accounts, and system settings — all in one place.
+                        Built with modern technology for businesses that demand performance and reliability.
                     </p>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="col-lg-4 col-md-6">
-                    <h5 class="text-uppercase fw-bold mb-3">Quick Access</h5>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2">
-                            <a href="/dashboard" class="text-light text-decoration-none">
-                                <i class="bi bi-speedometer2 me-2"></i>Dashboard Overview
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/vehicles" class="text-light text-decoration-none">
-                                <i class="bi bi-truck-front me-2"></i>Vehicle Management
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/bookings" class="text-light text-decoration-none">
-                                <i class="bi bi-calendar-check me-2"></i>Booking Records
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/users" class="text-light text-decoration-none">
-                                <i class="bi bi-people me-2"></i>User Accounts
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="/settings" class="text-light text-decoration-none">
-                                <i class="bi bi-gear me-2"></i>System Configuration
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
                 <!-- Contact or Support Info -->
-                <div class="col-lg-4 col-md-12">
+                <div class="col-lg-5 col-md-12">
                     <h5 class="text-uppercase fw-bold mb-3">Support & Info</h5>
-                    <p class="small text-muted mb-1"><strong>Email:</strong> support@carrentaladmin.com</p>
-                    <p class="small text-muted mb-1"><strong>Phone:</strong> +1 (800) 123-4567</p>
-                    <p class="small text-muted mb-1"><strong>Version:</strong> 2.3.1 (Updated Sep 2025)</p>
-                    <p class="small text-muted mb-0"><strong>Built with:</strong> ASP.NET Core & Bootstrap 5</p>
+                    <p class="small text-muted mb-2"><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> support@carrentaladmin.com</p>
+                    <p class="small text-muted mb-2"><i class="bi bi-telephone-fill me-2"></i><strong>Phone:</strong> +1 (800) 123-4567</p>
+                    <p class="small text-muted mb-2"><i class="bi bi-gear-fill me-2"></i><strong>Version:</strong> 2.3.1 (Sep 2025)</p>
+                    <p class="small text-muted mb-0"><i class="bi bi-code-slash me-2"></i><strong>Built with:</strong> ASP.NET Core & Bootstrap 5</p>
                 </div>
 
             </div>
@@ -215,6 +166,19 @@
             </div>
         </div>
     </footer>
+
+    <!-- Extra Styling -->
+    <style>
+        footer h5 {
+            letter-spacing: 1px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: #0dcaf0; /* Bootstrap cyan hover */
+        }
+    </style>
+
 
 
 

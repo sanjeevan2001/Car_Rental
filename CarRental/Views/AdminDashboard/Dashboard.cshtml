@@ -16,46 +16,75 @@
 
     <!-- Statistic Cards -->
     <div class="row g-4">
+        <!-- Total Cars -->
         <div class="col-md-3">
-            <div class="card shadow-lg border-0 h-100">
-                <div class="card-body text-center bg-gradient-primary text-white rounded">
+            <div class="card stat-card shadow-lg border-0 h-100">
+                <div class="card-body text-center bg-primary text-white rounded-4">
                     <i class="bi bi-car-front-fill fs-1 mb-2"></i>
-                    <h5 class="card-title">Total Cars</h5>
-                    <p class="fs-3 fw-bold">@Model.TotalCars</p>
+                    <h6 class="card-title text-uppercase fw-bold">Total Cars</h6>
+                    <p class="fs-2 fw-bolder mb-0">@Model.TotalCars</p>
                 </div>
             </div>
         </div>
 
+        <!-- Available Cars -->
         <div class="col-md-3">
-            <div class="card shadow-lg border-0 h-100">
-                <div class="card-body text-center bg-gradient-success text-white rounded">
+            <div class="card stat-card shadow-lg border-0 h-100">
+                <div class="card-body text-center bg-success text-white rounded-4">
                     <i class="bi bi-check-circle-fill fs-1 mb-2"></i>
-                    <h5 class="card-title">Available Cars</h5>
-                    <p class="fs-3 fw-bold">@Model.AvailableCars</p>
+                    <h6 class="card-title text-uppercase fw-bold">Available Cars</h6>
+                    <p class="fs-2 fw-bolder mb-0">@Model.AvailableCars</p>
                 </div>
             </div>
         </div>
 
+        <!-- Total Bookings -->
         <div class="col-md-3">
-            <div class="card shadow-lg border-0 h-100">
-                <div class="card-body text-center bg-gradient-warning text-dark rounded">
+            <div class="card stat-card shadow-lg border-0 h-100">
+                <div class="card-body text-center bg-warning text-dark rounded-4">
                     <i class="bi bi-calendar2-check-fill fs-1 mb-2"></i>
-                    <h5 class="card-title">Total Bookings</h5>
-                    <p class="fs-3 fw-bold">@Model.TotalBookings</p>
+                    <h6 class="card-title text-uppercase fw-bold">Total Bookings</h6>
+                    <p class="fs-2 fw-bolder mb-0">@Model.TotalBookings</p>
                 </div>
             </div>
         </div>
 
+        <!-- Total Customers -->
         <div class="col-md-3">
-            <div class="card shadow-lg border-0 h-100">
-                <div class="card-body text-center bg-gradient-danger text-white rounded">
+            <div class="card stat-card shadow-lg border-0 h-100">
+                <div class="card-body text-center bg-danger text-white rounded-4">
                     <i class="bi bi-people-fill fs-1 mb-2"></i>
-                    <h5 class="card-title">Total Customers</h5>
-                    <p class="fs-3 fw-bold">@Model.TotalCustomers</p>
+                    <h6 class="card-title text-uppercase fw-bold">Total Customers</h6>
+                    <p class="fs-2 fw-bolder mb-0">@Model.TotalCustomers</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Custom CSS -->
+    <style>
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px) scale(1.03);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            }
+
+            .stat-card .card-body {
+                padding: 2rem 1rem;
+            }
+
+            .stat-card i {
+                transition: transform 0.3s ease;
+            }
+
+            .stat-card:hover i {
+                transform: scale(1.2);
+            }
+    </style>
+
 
     <!-- Quick Links -->
     <div class="card shadow mt-5 border-0">
@@ -69,10 +98,10 @@
             <a asp-controller="AdminBooking" asp-action="Index" class="btn btn-outline-warning m-2 px-4">
                 <i class="bi bi-journal-check"></i> Manage Bookings
             </a>
-            <a asp-controller="AdminUser" asp-action="Index" class="btn btn-outline-success m-2 px-4">
+            <a asp-controller="AdminCustomer" asp-action="CustomerList" class="btn btn-outline-success m-2 px-4">
                 <i class="bi bi-person-badge"></i> Manage Customers
             </a>
-            <a asp-controller="User" asp-action="Index" class="btn btn-outline-dark m-2 px-4">
+            <a asp-controller="AdminUser" asp-action="Index" class="btn btn-outline-dark m-2 px-4">
                 <i class="bi bi-shield-lock"></i> Manage Users
             </a>
         </div>

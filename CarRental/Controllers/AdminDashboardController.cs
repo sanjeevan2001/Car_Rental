@@ -16,13 +16,6 @@ namespace CarRental.Controllers
 
         public IActionResult Index()
         {
-           
-
-            return View();
-        }
-
-        public IActionResult Dashboard()
-        {
             var model = new AdminDashboardViewModel
             {
                 TotalCars = _context.Cars.Count(),
@@ -33,5 +26,6 @@ namespace CarRental.Controllers
 
             return View(model);
         }
+
     }
 }

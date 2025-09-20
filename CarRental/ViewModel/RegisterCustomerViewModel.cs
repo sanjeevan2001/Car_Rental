@@ -1,15 +1,29 @@
 ﻿using CarRental.Ennum;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CarRental.Models
+namespace CarRental.ViewModel
 {
-    public class Customer
+    public class RegisterCustomerViewModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CustomerId { get; set; }
+        // ----- User Fields -----
+        [Required(ErrorMessage = "Username is required")]
+        [MaxLength(100)]
+        public string UserName { get; set; }
 
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        [StringLength(30, MinimumLength = 8, ErrorMessage = "Password must be 8-30 characters long")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Passwords do not match")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Role { get; set; } = "Customer";
+
+        // ----- Customer Fields -----
         [Required(ErrorMessage = "Full name is required")]
         [StringLength(100)]
         public string FullName { get; set; }
@@ -34,12 +48,5 @@ namespace CarRental.Models
         [RegularExpression(@"^[A-Za-z0-9\-\/]{5,20}$",
             ErrorMessage = "License Number must be 5-20 characters long (letters, numbers, - or / allowed)")]
         public string LicenseNumber { get; set; }
-
-        // Optional link to a User
-        public Guid? UserId { get; set; }
-        public User? User { get; set; }
-
-        public ICollection<Booking>? Bookings { get; set; } = new List<Booking>();
-
     }
 }

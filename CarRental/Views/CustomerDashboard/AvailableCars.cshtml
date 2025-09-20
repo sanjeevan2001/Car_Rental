@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CarRental.Models.Car>
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "Available Cars";
+}
+
+<h2>Available Cars</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Car Name</th>
+            <th>Model</th>
+            <th>Brand</th>
+            <th>Seats</th>
+            <th>Fuel Type</th>
+            <th>Price/Day</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.CarName</td>
+                <td>@car.CarModel</td>
+                <td>@car.CarBrand</td>
+                <td>@car.Seats</td>
+                <td>@car.FuelType</td>
+                <td>@car.PricePerday.ToString("C")</td>
+                <td>
+                    <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-success btn-sm">Book Now</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

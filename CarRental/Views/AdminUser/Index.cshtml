@@ -1,11 +1,30 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <nav>Admin Menu</nav>
-    <div class="container">
-    </div>
-</body>
-</html>
+﻿@model IEnumerable<CarRental.Models.User>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    // ViewData["Title"] = "User";
+}
+
+
+<h2>Manage Users</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Password</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.UserId" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@user.UserId" class="btn btn-sm btn-info">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

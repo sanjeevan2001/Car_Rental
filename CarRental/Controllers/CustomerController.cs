@@ -3,6 +3,7 @@ using CarRental.Models;
 using CarRental.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace CarRental.Controllers
 {
@@ -42,8 +43,9 @@ namespace CarRental.Controllers
             var user = new User
             {
                 UserName = model.UserName,
-                Password = model.Password, 
-                Role = "Customer"
+                Password = model.Password,
+                Role = "Customer",
+                PhoneNumber = model.PhoneNumber
             };
 
             // 2. Save User to DB
@@ -71,51 +73,110 @@ namespace CarRental.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-        // Customer Register in Customer 
+        // User Register Form
         [HttpGet]
-        public IActionResult RegisterForCustomer() 
+        public IActionResult UserRegister()
         {
-            return View(); 
+            return View();
+        }
+
+        // POST: Save User for Customer
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserRegister(CustomerSignupViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // Check if username already exists
+            var existingUser = await _appdbcontext.Users
+                .FirstOrDefaultAsync(u => u.UserName == model.UserName);
+
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("UserName", "Username is already taken.");
+                return View(model);
+            }
+
+            // Hash the password 
+            string hashedPassword = model.Password;
+
+            // Create new User
+            var user = new User
+            {
+                UserId = Guid.NewGuid(),
+                UserName = model.UserName,
+                Password = hashedPassword,
+                Role = model.Role,
+                PhoneNumber = model.PhoneNumber
+            };
+
+            _appdbcontext.Users.Add(user);
+
+            await _appdbcontext.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "User registered successfully!";
+            return RedirectToAction("RegisterForCustomer", "Customer");
+        }
+
+
+
+        [HttpGet]
+        public IActionResult RegisterForCustomer()
+        {
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult RegisterForCustomer(RegisterCustomerViewModel registerVm)
+        public IActionResult RegisterForCustomer(RegisterCustomerViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(registerVm);
+                return View(model);
             }
 
-            var user = new User
-            {
-                UserId = Guid.NewGuid(),
-                UserName = registerVm.UserName,
-                Password = registerVm.Password,
-                Role = registerVm.Role
-            };
+            // Step 1: Check if Phone Number exists in Users table
+            var user = _appdbcontext.Users.FirstOrDefault(u => u.PhoneNumber == model.PhoneNumber);
 
-             var customer = new Customer
+            if (user == null)
+            {
+                ModelState.AddModelError("PhoneNumber", "This phone number is not registered as a User.");
+                return View(model);
+            }
+
+            // Step 2: Check if already registered as Customer
+            var existingCustomer = _appdbcontext.Customers.FirstOrDefault(c => c.PhoneNumber == model.PhoneNumber);
+            if (existingCustomer != null)
+            {
+                ModelState.AddModelError("PhoneNumber", "This phone number is already registered as a Customer.");
+                return View(model);
+            }
+
+            // Step 3: Map ViewModel → Customer
+            var customer = new Customer
             {
                 CustomerId = Guid.NewGuid(),
-                FullName = registerVm.FullName,
-                Gender = registerVm.Gender,
-                Address = registerVm.Address,
-                PhoneNumber = registerVm.PhoneNumber,
-                UserEmail = registerVm.UserEmail,
-                LicenseNumber = registerVm.LicenseNumber,
-                UserId = user.UserId,
-                User = user
+                FullName = model.FullName,
+                Gender = model.Gender,
+                Address = model.Address,
+                PhoneNumber = model.PhoneNumber,
+                UserEmail = model.UserEmail,
+                LicenseNumber = model.LicenseNumber,
+                // Important: Assign UserId from Users table
+                UserId = user.UserId
             };
 
-            _appdbcontext.Users.Add(user);
             _appdbcontext.Customers.Add(customer);
             _appdbcontext.SaveChanges();
 
-            TempData["SuccessMessage"] = "Customer registered successfully!";
-            return RedirectToPage("GuestView", "Guest");
+            TempData["Success"] = "Customer registration successful!";
+            return RedirectToAction("Index", "Home");
         }
+
+
 
     }
 }

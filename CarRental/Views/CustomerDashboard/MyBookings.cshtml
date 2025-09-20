@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CarRental.Models.Booking>
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Bookings";
+}
+
+<h2>My Bookings</h2>
+
+@if (!Model.Any())
+{
+    <p>You have no bookings yet. <a asp-action="AvailableCars">Book a car now</a>.</p>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Car</th>
+                <th>Pickup Date</th>
+                <th>Return Date</th>
+                <th>Total Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.Car.CarName (@booking.Car.CarModel)</td>
+                    <td>@booking.PickupDate.ToShortDateString()</td>
+                    <td>@booking.ReturnDate.ToShortDateString()</td>
+                    <td>@booking.TotalCost.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

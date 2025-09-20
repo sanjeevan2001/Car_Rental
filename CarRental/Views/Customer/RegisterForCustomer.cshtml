@@ -1,0 +1,76 @@
+﻿@model CarRental.ViewModel.RegisterCustomerViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+            <div class="card shadow-lg border-0 rounded-3 overflow-hidden d-flex flex-column flex-md-row">
+
+                <!-- Left Image -->
+                <div class="col-md-6 p-0">
+                    <img src="~/images/Extra/LoginPage.jpg" class="img-fluid h-100 w-100" style="object-fit: cover;" alt="Car Image" />
+                </div>
+
+                <!-- Right Form -->
+                <div class="col-md-6 p-4 bg-white">
+                    <h2 class="text-center mb-4 text-primary fw-bold">Register</h2>
+
+                    @using (Html.BeginForm("RegisterForCustomer", "Customer", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.FullName, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Full Name" })
+                            @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Gender, new { @class = "form-label" })
+                            @Html.DropDownListFor(m => m.Gender,
+                                     new SelectList(Enum.GetValues(typeof(CarRental.Ennum.CustomerGender))),
+                                     "Select Gender",
+                                     new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Address, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
+                            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.PhoneNumber, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number" })
+                            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.UserEmail, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.UserEmail, new { @class = "form-control", placeholder = "Email" })
+                            @Html.ValidationMessageFor(m => m.UserEmail, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.LicenseNumber, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.LicenseNumber, new { @class = "form-control", placeholder = "License Number" })
+                            @Html.ValidationMessageFor(m => m.LicenseNumber, "", new { @class = "text-danger" })
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 fw-bold">Next</button>
+                    }
+
+                    <p class="small text-muted mt-3 text-center">
+                        Already have an account?
+                        <a  asp-controller="Login" asp-action="Index" class="fw-bold text-decoration-none text-primary">Login</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

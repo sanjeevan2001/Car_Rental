@@ -10,9 +10,9 @@
         <h2 class="fw-bold text-primary">
             <i class="bi bi-journal-check me-2"></i> Bookings
         </h2>
-        <a asp-action="Create" class="btn btn-success btn-lg">
+        @* <a asp-action="Create" class="btn btn-success btn-lg">
             <i class="bi bi-plus-circle me-1"></i> Add Booking
-        </a>
+        </a> *@
     </div>
 
     <div class="card shadow-lg border-0 rounded-4">
@@ -32,14 +32,14 @@
                     <tbody>
                         @if (Model != null && Model.Any())
                         {
-                            foreach (var booking in Model)
+                            @foreach (var booking in Model)
                             {
                                 <tr>
                                     <td>@booking.CustomerName</td>
                                     <td>@booking.CarName</td>
-                                    <td>@booking.PickupDate:yyyy-MM-dd</td>
-                                    <td>@booking.ReturnDate:yyyy-MM-dd</td>
-                                    <td class="fw-bold text-success">@booking.TotalCost:C</td>
+                                    <td>@booking.PickupDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@booking.ReturnDate.ToString("yyyy-MM-dd")</td>
+                                    <td class="fw-bold text-success">@booking.TotalCost.ToString("C", new System.Globalization.CultureInfo("si-LK"))</td>
                                     <td class="text-center">
                                         <a asp-action="Edit" asp-route-id="@booking.BookingId" class="btn btn-primary btn-sm me-1">
                                             <i class="bi bi-pencil-square"></i> Edit
@@ -50,6 +50,7 @@
                                     </td>
                                 </tr>
                             }
+
                         }
                         else
                         {

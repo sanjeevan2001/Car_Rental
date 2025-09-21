@@ -62,6 +62,24 @@
                 font-weight: 600;
             }
 
+/* pending */
+        .tokkeler-navbar {
+            background-color: #0f172a;
+        }
+
+            .tokkeler-navbar .nav-link {
+                color: #f8fafc;
+            }
+
+                .tokkeler-navbar .nav-link.active {
+                    color: #0ea5e9;
+                    font-weight: bold;
+                }
+
+            .tokkeler-navbar .navbar-brand {
+                color: #ffffff;
+            }
+
         /* Content container */
         .content-wrapper {
             min-height: 80vh;
@@ -133,7 +151,7 @@
 <body>
     <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-lg sticky-top">
+        <nav class="navbar navbar-expand-lg sticky-top tokkeler-navbar">
             <div class="container-fluid">
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="AdminDashboard" asp-action="Index">
                     <i class="bi bi-bootstrap-reboot me-2"></i> Phoenix Admin

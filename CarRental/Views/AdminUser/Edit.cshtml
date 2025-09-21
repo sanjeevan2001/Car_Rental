@@ -1,22 +1,78 @@
 ﻿@model CarRental.Models.User
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edit User";
 }
 
-<h2>Edit User</h2>
+<div class="container my-5 animate-fade-slide">
+    <h2 class="text-primary mb-4">Edit User</h2>
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="UserId" />
-    <div class="mb-3">
-        <label asp-for="UserName" class="form-label"></label>
-        <input asp-for="UserName" class="form-control" />
-        <span asp-validation-for="UserName" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Password" class="form-label"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-success">Save</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+    <form asp-action="Edit" method="post" class="card shadow-sm p-4" style="border-radius: 1rem;">
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="mb-3">
+            <label asp-for="UserName" class="form-label fw-semibold"></label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label fw-semibold"></label>
+            <input asp-for="Password" class="form-control" type="password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success me-2">
+            <i class="bi bi-check-circle me-1"></i> Save
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-1"></i> Cancel
+        </a>
+    </form>
+</div>
+
+<style>
+    /* Fade-in slide-up animation */
+    @@keyframes fadeSlideUp {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-fade-slide {
+        opacity: 0;
+        animation: fadeSlideUp 0.8s forwards;
+    }
+
+    h2 {
+        font-weight: 700;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .btn-success, .btn-secondary {
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-success:hover {
+            background-color: #198754;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #6c757d;
+            color: #fff;
+        }
+</style>

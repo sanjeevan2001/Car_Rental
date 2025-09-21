@@ -5,25 +5,33 @@
     ViewData["Title"] = "Booking Details";
 }
 
-<div class="container mt-4">
-    <h2>Booking Details</h2>
-    <div class="card shadow-sm p-3">
-        <dl class="row">
-            <dt class="col-sm-3">Customer</dt>
+<div class="container mt-5">
+    <h2 class="fw-bold mb-4 text-info">
+        <i class="bi bi-journal-check me-2"></i> Booking Details
+    </h2>
+
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+        <dl class="row mb-0">
+            <dt class="col-sm-3 fw-bold">Customer</dt>
             <dd class="col-sm-9">@Model.Customer.FullName</dd>
 
-            <dt class="col-sm-3">Car</dt>
+            <dt class="col-sm-3 fw-bold">Car</dt>
             <dd class="col-sm-9">@Model.Car.CarName (@Model.Car.CarModel)</dd>
 
-            <dt class="col-sm-3">Pickup Date</dt>
-            <dd class="col-sm-9">@Model.PickupDate.ToShortDateString()</dd>
+            <dt class="col-sm-3 fw-bold">Pickup Date</dt>
+            <dd class="col-sm-9">@Model.PickupDate:yyyy-MM-dd</dd>
 
-            <dt class="col-sm-3">Return Date</dt>
-            <dd class="col-sm-9">@Model.ReturnDate.ToShortDateString()</dd>
+            <dt class="col-sm-3 fw-bold">Return Date</dt>
+            <dd class="col-sm-9">@Model.ReturnDate:yyyy-MM-dd</dd>
 
-            <dt class="col-sm-3">Total Cost</dt>
-            <dd class="col-sm-9">@Model.TotalCost.ToString("C")</dd>
+            <dt class="col-sm-3 fw-bold">Total Cost</dt>
+            <dd class="col-sm-9">@Model.TotalCost:C</dd>
         </dl>
-        <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+        <div class="mt-4">
+            <a asp-action="Index" class="btn btn-secondary btn-lg">
+                <i class="bi bi-arrow-left me-1"></i> Back
+            </a>
+        </div>
     </div>
 </div>

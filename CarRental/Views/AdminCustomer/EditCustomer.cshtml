@@ -5,120 +5,125 @@
     ViewData["Title"] = "Edit Customer";
 }
 
-<h2>Edit Customer</h2>
-
-<form asp-action="EditCustomer" method="post">
-    <input type="hidden" asp-for="CustomerId" />
-
-    <div class="form-group mb-2">
-        <label asp-for="FullName"></label>
-        <input asp-for="FullName" class="form-control" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="Gender"></label>
-        <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<CarRental.Ennum.CustomerGender>()">
-            <option value="">Select Gender</option>
-        </select>
-        <span asp-validation-for="Gender" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="PhoneNumber"></label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="UserEmail"></label>
-        <input asp-for="UserEmail" class="form-control" />
-        <span asp-validation-for="UserEmail" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="LicenseNumber"></label>
-        <input asp-for="LicenseNumber" class="form-control" />
-        <span asp-validation-for="LicenseNumber" class="text-danger"></span>
-    </div>
-
-    <hr />
-    <h4>User Credentials</h4>
-
-    <input type="hidden" asp-for="User.UserId" />
-
-    <div class="form-group mb-2">
-        <label asp-for="User.UserName"></label>
-        <input asp-for="User.UserName" class="form-control" />
-        <span asp-validation-for="User.UserName" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="User.Password"></label>
-        <input asp-for="User.Password" type="password" class="form-control" />
-        <span asp-validation-for="User.Password" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-2">
-        <label asp-for="User.ConfirmPassword"></label>
-        <input asp-for="User.ConfirmPassword" type="password" class="form-control" />
-        <span asp-validation-for="User.ConfirmPassword" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-success">Update</button>
-    <a asp-action="CustomerList" class="btn btn-secondary">Cancel</a>
-</form>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* 
-<div class="container mt-5">
-    <h2 class="fw-bold text-danger mb-4">
-        <i class="bi bi-trash-fill me-2"></i> Delete Customer
+<div class="container py-5">
+    <h2 class="text-center text-primary fw-bold mb-4">
+        <i class="bi bi-pencil-square me-2"></i> Edit Customer
     </h2>
 
-    <div class="alert alert-warning">
-        Are you sure you want to delete this customer?
+    <div class="card glass-card shadow-lg p-4 mx-auto" style="max-width: 800px;">
+        <form asp-action="EditCustomer" method="post">
+            <input type="hidden" asp-for="CustomerId" />
+            <input type="hidden" asp-for="User.UserId" />
+
+            <!-- Personal Info -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control form-input" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Gender" class="form-label"></label>
+                    <select asp-for="Gender" class="form-select form-input" asp-items="Html.GetEnumSelectList<CarRental.Ennum.CustomerGender>()">
+                        <option value="">Select Gender</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Address" class="form-label"></label>
+                    <input asp-for="Address" class="form-control form-input" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control form-input" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="UserEmail" class="form-label"></label>
+                    <input asp-for="UserEmail" class="form-control form-input" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="LicenseNumber" class="form-label"></label>
+                    <input asp-for="LicenseNumber" class="form-control form-input" />
+                    <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- User Credentials -->
+            <h4 class="text-secondary mb-3"><i class="bi bi-shield-lock-fill me-2"></i> User Credentials</h4>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label asp-for="User.UserName" class="form-label"></label>
+                    <input asp-for="User.UserName" class="form-control form-input" />
+                    <span asp-validation-for="User.UserName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="User.Password" class="form-label"></label>
+                    <input asp-for="User.Password" type="password" class="form-control form-input" />
+                    <span asp-validation-for="User.Password" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="User.ConfirmPassword" class="form-label"></label>
+                    <input asp-for="User.ConfirmPassword" type="password" class="form-control form-input" />
+                    <span asp-validation-for="User.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3">
+                <button type="submit" class="btn btn-success btn-hover">
+                    <i class="bi bi-check-circle me-1"></i> Update
+                </button>
+                <a asp-action="CustomerList" class="btn btn-secondary btn-hover">
+                    <i class="bi bi-x-circle me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-3">Full Name</dt>
-                <dd class="col-sm-9">@Model.FullName</dd>
+<style>
+    .glass-card {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-                <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9">@Model.UserEmail</dd>
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        }
 
-                <dt class="col-sm-3">Phone</dt>
-                <dd class="col-sm-9">@Model.PhoneNumber</dd>
-            </dl>
+    .form-input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13,110,253,0.4);
+        transition: all 0.3s ease;
+    }
 
-            <form asp-action="DeleteCustomer" method="post">
-                <input type="hidden" asp-for="CustomerId" />
-                <button type="submit" class="btn btn-danger">Delete</button>
-                <a asp-action="CustomerList" class="btn btn-secondary">Cancel</a>
-            </form>
-        </div>
-    </div>
-</div> *@
+    .btn-hover {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

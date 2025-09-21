@@ -3,39 +3,89 @@
     ViewData["Title"] = "Customer Dashboard";
 }
 
-<h1 class="mb-4">Welcome, @ViewBag.CustomerName!</h1>
+<h1 class="mb-4 text-primary animate-slide-fade">Welcome, @ViewBag.CustomerName!</h1>
 
 <div class="row">
     <!-- Available Cars -->
-    <div class="col-md-4">
-        <div class="card text-center shadow-sm mb-4">
+    <div class="col-md-4 mb-4 animate-slide-fade" style="animation-delay: 0.1s;">
+        <div class="card text-center shadow-lg h-100" style="background: rgba(255,255,255,0.95); border: 1px solid var(--phoenix-blue);">
             <div class="card-body">
-                <h5 class="card-title">Available Cars</h5>
-                <p class="card-text">Browse all cars that are currently available for booking.</p>
-                <a asp-action="AvailableCars" class="btn btn-primary">View Cars</a>
+                <h5 class="card-title text-primary">Available Cars</h5>
+                <p class="card-text text-secondary">Browse all cars that are currently available for booking.</p>
+                <a asp-action="AvailableCars" class="btn btn-primary fw-bold">View Cars</a>
             </div>
         </div>
     </div>
 
     <!-- My Bookings -->
-    <div class="col-md-4">
-        <div class="card text-center shadow-sm mb-4">
+    <div class="col-md-4 mb-4 animate-slide-fade" style="animation-delay: 0.3s;">
+        <div class="card text-center shadow-lg h-100" style="background: rgba(255,255,255,0.95); border: 1px solid var(--phoenix-blue);">
             <div class="card-body">
-                <h5 class="card-title">My Bookings</h5>
-                <p class="card-text">Check your booking history and upcoming trips.</p>
-                <a asp-action="MyBookings" class="btn btn-primary">View Bookings</a>
+                <h5 class="card-title text-primary">My Bookings</h5>
+                <p class="card-text text-secondary">Check your booking history and upcoming trips.</p>
+                <a asp-action="MyBookings" class="btn btn-primary fw-bold">View Bookings</a>
             </div>
         </div>
     </div>
 
     <!-- Profile -->
-    <div class="col-md-4">
-        <div class="card text-center shadow-sm mb-4">
+    <div class="col-md-4 mb-4 animate-slide-fade" style="animation-delay: 0.5s;">
+        <div class="card text-center shadow-lg h-100" style="background: rgba(255,255,255,0.95); border: 1px solid var(--phoenix-blue);">
             <div class="card-body">
-                <h5 class="card-title">My Profile</h5>
-                <p class="card-text">View and update your personal information.</p>
-                <a asp-controller="Profile" asp-action="Index" class="btn btn-primary">View Profile</a>
+                <h5 class="card-title text-primary">My Profile</h5>
+                <p class="card-text text-secondary">View and update your personal information.</p>
+                <a asp-controller="Profile" asp-action="Index" class="btn btn-primary fw-bold">View Profile</a>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    /* Fade-in slide-up animation */
+    @@keyframes slideFadeIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-slide-fade {
+        opacity: 0;
+        animation: slideFadeIn 0.8s forwards;
+    }
+
+    /* Heading and card font styles */
+    h1 {
+        font-weight: 700;
+        color: var(--phoenix-blue);
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .card-title {
+        font-weight: 600;
+        color: var(--phoenix-blue);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .card-text {
+        color: var(--phoenix-muted);
+        font-size: 0.95rem;
+    }
+
+    .btn-primary {
+        transition: 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0b5ed7;
+        }
+</style>

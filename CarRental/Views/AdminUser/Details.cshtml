@@ -2,11 +2,60 @@
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "User Details";
 }
 
-<h2>User Details</h2>
-<div>
-    <p><strong>Username:</strong> @Model.UserName</p>
-    <p><strong>Password:</strong> @Model.Password</p>
+<div class="container my-5 animate-fade-slide">
+    <h2 class="text-primary mb-4">User Details</h2>
+
+    <div class="card shadow-sm p-4 mb-4" style="border-radius: 1rem;">
+        <p><strong class="text-dark">Username:</strong> <span class="text-muted">@Model.UserName</span></p>
+        <p><strong class="text-dark">Password:</strong> <span class="text-muted">@Model.Password</span></p>
+    </div>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left-circle me-1"></i> Back
+    </a>
 </div>
-<a asp-action="Index" class="btn btn-secondary">Back</a>
+
+<style>
+    /* Fade-in slide-up animation */
+    @@keyframes fadeSlideUp {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-fade-slide {
+        opacity: 0;
+        animation: fadeSlideUp 0.8s forwards;
+    }
+
+    h2 {
+        font-weight: 700;
+    }
+
+    .card p {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .btn-secondary {
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-secondary:hover {
+            background-color: #6c757d;
+            color: #fff;
+        }
+</style>

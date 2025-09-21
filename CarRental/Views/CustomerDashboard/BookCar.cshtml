@@ -4,21 +4,80 @@
     ViewData["Title"] = "Book Car";
 }
 
-<h2>Book @Model.CarName (@Model.CarModel)</h2>
+<div class="container my-4 animate-slide-fade">
+    <h2 class="mb-4 text-primary animate-slide-fade" style="animation-delay: 0.1s;">
+        Book @Model.CarName (@Model.CarModel)
+    </h2>
 
-<form asp-action="BookCar" method="post">
-    <input type="hidden" asp-for="CarId" value="@Model.CarId" />
+    <form asp-action="BookCar" method="post" class="p-4 shadow-lg rounded animate-slide-fade" style="background: rgba(255,255,255,0.95); animation-delay: 0.3s;">
+        <input type="hidden" asp-for="CarId" value="@Model.CarId" />
 
-    <div class="form-group mb-3">
-        <label>Pickup Date</label>
-        <input type="date" name="pickupDate" class="form-control" required />
-    </div>
+        <div class="form-group mb-3">
+            <label class="form-label fw-semibold">Pickup Date</label>
+            <input type="date" name="pickupDate" class="form-control" required />
+        </div>
 
-    <div class="form-group mb-3">
-        <label>Return Date</label>
-        <input type="date" name="returnDate" class="form-control" required />
-    </div>
+        <div class="form-group mb-3">
+            <label class="form-label fw-semibold">Return Date</label>
+            <input type="date" name="returnDate" class="form-control" required />
+        </div>
 
-    <button type="submit" class="btn btn-success">Confirm Booking</button>
-    <a asp-action="AvailableCars" class="btn btn-secondary">Cancel</a>
-</form>
+        <button type="submit" class="btn btn-primary fw-bold me-2">Confirm Booking</button>
+        <a asp-action="AvailableCars" class="btn btn-secondary fw-bold">Cancel</a>
+    </form>
+</div>
+
+<style>
+    /* Fade-in slide-up animation */
+    @@keyframes slideFadeIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-slide-fade {
+        opacity: 0;
+        animation: slideFadeIn 0.8s forwards;
+    }
+
+    /* Heading style */
+    h2 {
+        font-weight: 700;
+        color: var(--phoenix-blue);
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Form shadow & card style */
+    form {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        form:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+
+    /* Buttons */
+    .btn-primary {
+        transition: 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0b5ed7;
+        }
+
+    .btn-secondary:hover {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>

@@ -24,6 +24,8 @@ namespace CarRental.Models
         [Column(TypeName = "decimal(10, 2)")]
         public decimal TotalCost { get; set; }
 
+        
+
         [Required]
         //[ForeignKey("CustomerId")]
         public Guid CustomerId { get; set; }

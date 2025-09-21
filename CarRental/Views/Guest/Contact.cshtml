@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+<!-- Hero Section -->
+<div class="hero-section" style="background: url('/images/Extra/ContactPage1.jpg') center/cover no-repeat;" data-aos="fade-up" data-aos-duration="1200">
+    <div class="text-center" style="position: relative; z-index: 1;">
+        <h1 class="fw-bold" data-aos="zoom-in" data-aos-delay="300">Contact Phoenix</h1>
+        <p class="lead" data-aos="fade-up" data-aos-delay="600">
+            Have questions or need assistance? Reach out to us — we're here to help you every step of the way.
+        </p>
+    </div>
+</div>
+
+<!-- Contact Info + Form Section -->
+<div class="container my-5">
+    <div class="row gy-5 align-items-center">
+
+        <!-- Contact Details -->
+        <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
+            <div class="p-4 rounded shadow bg-white">
+                <h2 class="fw-bold mb-4">Get in Touch</h2>
+                <p class="mb-2"><strong>Address:</strong> 123 Phoenix Street, Suite 400, YourCity, YourCountry</p>
+                <p class="mb-2"><strong>Email:</strong> support@phoenix.com</p>
+                <p class="mb-2"><strong>Phone:</strong> +1 (800) 123-4567</p>
+                <p class="mb-0"><strong>Working Hours:</strong> Mon - Fri, 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-md-6" data-aos="fade-left" data-aos-delay="400">
+            <div class="p-4 rounded shadow bg-white">
+                <h2 class="fw-bold mb-4">Send Us a Message</h2>
+                <form asp-action="SendMessage" method="post">
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="Email" name="Email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Message" class="form-label">Message</label>
+                        <textarea class="form-control" id="Message" name="Message" rows="5" placeholder="Write your message here" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Map Section -->
+<div class="container my-5" data-aos="fade-up" data-aos-duration="1200">
+    <h2 class="fw-bold text-center mb-4">Our Location</h2>
+    <div class="ratio ratio-16x9 shadow rounded">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.123456789!2d-122.123456789!3d37.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f1234567890ab%3A0xc1234567890abcd!2sPhoenix%20Car%20Rental!5e0!3m2!1sen!2sus!4v1691234567890!5m2!1sen!2sus"
+                style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+    </div>
+</div>

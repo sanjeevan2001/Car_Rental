@@ -59,7 +59,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
 
-    pattern: "{controller=Customer}/{action=CustomerRegister}/{id?}");
+    pattern: "{controller=Guest}/{action=Contact}/{id?}");
 
 // Sanjee
 //app.MapControllerRoute(

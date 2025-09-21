@@ -4,6 +4,68 @@
     ViewData["Title"] = "My Bookings";
 }
 
+<div class="container my-5">
+    <h2 class="mb-4 text-gradient text-center animate-slide-fade">My Bookings</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center animate-slide-fade" style="animation-delay: 0.3s;">
+            You have no bookings yet. <a asp-action="AvailableCars" class="text-decoration-underline text-primary">Book a car now</a>.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var booking in Model)
+            {
+                <div class="col-md-6 col-lg-4 animate-slide-fade">
+                    <div class="booking-card p-4 shadow-lg rounded-4">
+                        <h5 class="fw-bold mb-2">@booking.Car.CarName (@booking.Car.CarModel)</h5>
+                        <p class="mb-1"><strong>Pickup:</strong> @booking.PickupDate.ToShortDateString()</p>
+                        <p class="mb-1"><strong>Return:</strong> @booking.ReturnDate.ToShortDateString()</p>
+                        <p class="mb-3 fw-semibold"><strong>Total Cost:</strong> @booking.TotalCost.ToString("C")</p>
+                        <a asp-action="AvailableCars" class="btn btn-gradient w-100 fw-bold">
+                            Book Another Car
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    /* Gradient text */
+    .text-gradient {
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Slide fade animation */
+@@keyframes slideFadeIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-slide-fade {
+        opacity: 0;
+@* @model IEnumerable<CarRental.Models.Booking>
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Bookings";
+}
+
 <div class="container my-4 animate-fade-slide">
     <h2 class="mb-4 text-primary animate-fade-slide" style="animation-delay: 0.1s;">My Bookings</h2>
 
@@ -88,4 +150,4 @@
     h2 {
         font-weight: 700;
     }
-</style>
+</style> *@

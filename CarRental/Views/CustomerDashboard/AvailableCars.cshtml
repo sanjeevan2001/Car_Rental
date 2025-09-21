@@ -4,6 +4,113 @@
     ViewData["Title"] = "Available Cars";
 }
 
+<div class="container my-5">
+    <h2 class="mb-4 text-gradient text-center animate-slide-fade">Available Cars</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center animate-slide-fade">
+            No cars are currently available. Please check back later.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var car in Model)
+            {
+                <div class="col-md-6 col-lg-4 animate-slide-fade">
+                    <div class="car-card p-4 shadow-lg rounded-4">
+                        <h5 class="fw-bold mb-2">@car.CarName (@car.CarModel)</h5>
+                        <p class="mb-1"><strong>Brand:</strong> @car.CarBrand</p>
+                        <p class="mb-1"><strong>Seats:</strong> @car.Seats</p>
+                        <p class="mb-1"><strong>Fuel:</strong> @car.FuelType</p>
+                        <p class="mb-3 fw-semibold"><strong>Price/Day:</strong> @car.PricePerday.ToString("C")</p>
+                        <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-gradient w-100 fw-bold">
+                            <i class="bi bi-car-front-fill me-1"></i> Book Now
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    /* Gradient text for headers */
+    .text-gradient {
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Card animation */
+    @@keyframes slideFadeIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-slide-fade {
+        opacity: 0;
+        animation: slideFadeIn 0.9s ease forwards;
+    }
+
+    /* Car card styling (Glassmorphism) */
+    .car-card {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+    /* Buttons */
+    .btn-gradient {
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        border: none;
+        color: #fff;
+        border-radius: 12px;
+        transition: 0.3s ease;
+    }
+
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #0056b3, #0096c7);
+            transform: translateY(-2px);
+        }
+
+    /* Text styling */
+    h5 {
+        font-weight: 700;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: #333;
+    }
+</style>
+
+
+
+@* @model IEnumerable<CarRental.Models.Car>
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "Available Cars";
+}
+
 <div class="container my-4 animate-fade-slide">
     <h2 class="mb-4 text-primary animate-fade-slide" style="animation-delay: 0.1s;">Available Cars</h2>
 
@@ -102,4 +209,4 @@
     h2 {
         font-weight: 700;
     }
-</style>
+</style> *@

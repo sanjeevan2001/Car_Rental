@@ -39,7 +39,7 @@
                                     <td>@booking.CarName</td>
                                     <td>@booking.PickupDate.ToString("yyyy-MM-dd")</td>
                                     <td>@booking.ReturnDate.ToString("yyyy-MM-dd")</td>
-                                    <td class="fw-bold text-success">@booking.TotalCost.ToString("C", new System.Globalization.CultureInfo("si-LK"))</td>
+                                    <td class="fw-bold text-success">LKR @booking.TotalCost.ToString("N2")</td>
                                     <td class="text-center">
                                         <a asp-action="Edit" asp-route-id="@booking.BookingId" class="btn btn-primary btn-sm me-1">
                                             <i class="bi bi-pencil-square"></i> Edit

@@ -4,6 +4,114 @@
     ViewData["Title"] = "Book Car";
 }
 
+<div class="container d-flex justify-content-center align-items-center my-5">
+    <div class="booking-card p-5 shadow-lg rounded-4 animate-slide-fade">
+        <h2 class="mb-4 fw-bold text-center text-gradient">
+            Book @Model.CarName <span class="fw-light">(@Model.CarModel)</span>
+        </h2>
+
+        <form asp-action="BookCar" method="post" class="mt-4">
+            <input type="hidden" asp-for="CarId" value="@Model.CarId" />
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Pickup Date</label>
+                <input type="date" name="pickupDate" class="form-control trendy-input" required />
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Return Date</label>
+                <input type="date" name="returnDate" class="form-control trendy-input" required />
+            </div>
+
+            <div class="d-flex justify-content-between mt-5">
+                <button type="submit" class="btn btn-gradient px-4 fw-bold">🚗 Confirm Booking</button>
+                <a asp-action="AvailableCars" class="btn btn-outline-secondary px-4 fw-bold">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Gradient text */
+    .text-gradient {
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Booking card with glassmorphism */
+    .booking-card {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        max-width: 550px;
+        width: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+    /* Input styling */
+    .trendy-input {
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        padding: 12px;
+        transition: 0.3s ease;
+    }
+
+        .trendy-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0,123,255,0.2);
+        }
+
+    /* Gradient button */
+    .btn-gradient {
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        transition: 0.3s;
+    }
+
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #0056b3, #0096c7);
+            transform: translateY(-2px);
+        }
+
+    /* Slide fade animation */
+    @@keyframes slideFadeIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-slide-fade {
+        opacity: 0;
+        animation: slideFadeIn 0.9s ease forwards;
+    }
+</style>
+
+
+
+@* @model CarRental.Models.Car
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "Book Car";
+}
+
 <div class="container my-4 animate-slide-fade">
     <h2 class="mb-4 text-primary animate-slide-fade" style="animation-delay: 0.1s;">
         Book @Model.CarName (@Model.CarModel)
@@ -80,4 +188,4 @@
         background-color: #6c757d;
         border-color: #6c757d;
     }
-</style>
+</style> *@

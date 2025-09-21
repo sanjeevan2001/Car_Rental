@@ -4,33 +4,88 @@
     ViewData["Title"] = "My Bookings";
 }
 
-<h2>My Bookings</h2>
+<div class="container my-4 animate-fade-slide">
+    <h2 class="mb-4 text-primary animate-fade-slide" style="animation-delay: 0.1s;">My Bookings</h2>
 
-@if (!Model.Any())
-{
-    <p>You have no bookings yet. <a asp-action="AvailableCars">Book a car now</a>.</p>
-}
-else
-{
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Car</th>
-                <th>Pickup Date</th>
-                <th>Return Date</th>
-                <th>Total Cost</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var booking in Model)
-            {
-                <tr>
-                    <td>@booking.Car.CarName (@booking.Car.CarModel)</td>
-                    <td>@booking.PickupDate.ToShortDateString()</td>
-                    <td>@booking.ReturnDate.ToShortDateString()</td>
-                    <td>@booking.TotalCost.ToString("C")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info animate-fade-slide" style="animation-delay: 0.3s;">
+            You have no bookings yet. <a asp-action="AvailableCars" class="text-decoration-underline text-primary">Book a car now</a>.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive animate-fade-slide" style="animation-delay: 0.3s;">
+            <table class="table table-hover align-middle shadow-sm rounded">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Car</th>
+                        <th>Pickup Date</th>
+                        <th>Return Date</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Model)
+                    {
+                        <tr class="align-middle">
+                            <td>@booking.Car.CarName (@booking.Car.CarModel)</td>
+                            <td>@booking.PickupDate.ToShortDateString()</td>
+                            <td>@booking.ReturnDate.ToShortDateString()</td>
+                            <td>@booking.TotalCost.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<style>
+    /* Fade-in slide-up animation */
+    @@keyframes fadeSlideUp {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-fade-slide {
+        opacity: 0;
+        animation: fadeSlideUp 0.8s forwards;
+    }
+
+    /* Table styling */
+    table {
+        background: #ffffff;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    thead.table-primary th {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.1);
+        transition: 0.3s;
+    }
+
+    a.text-primary:hover {
+        color: #0b5ed7;
+        text-decoration: underline;
+    }
+
+    h2 {
+        font-weight: 700;
+    }
+</style>

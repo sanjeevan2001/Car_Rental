@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using CarRental
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -14,7 +17,6 @@
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- Global Styles -->
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -65,7 +67,6 @@
         }
     </style>
 
-    <!-- Page-specific Styles -->
     @RenderSection("Styles", required: false)
 </head>
 <body>
@@ -84,7 +85,7 @@
                 </ul>
                 <div class="d-flex">
                     <a asp-area="" asp-controller="Login" asp-action="Index" class="btn btn-outline-primary me-2">Login</a>
-                    <a asp-area="" asp-controller="Customer" asp-action="CustomerRegister" class="btn btn-primary">Register</a>
+                    <a asp-area="" asp-controller="Customer" asp-action="UserRegister" class="btn btn-primary">Register</a>
                 </div>
             </div>
         </div>
@@ -118,6 +119,7 @@
                     <p class="small mb-1"><strong>Phone:</strong> +1 (800) 123-4567</p>
                 </div>
             </div>
+
             <hr class="my-4" style="border-color: rgba(255,255,255,0.2);">
             <div class="text-center small">&copy; 2025 Phoenix. All rights reserved.</div>
         </div>
@@ -130,7 +132,6 @@
         AOS.init({ once: true });
     </script>
 
-    <!-- Page-specific Scripts -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

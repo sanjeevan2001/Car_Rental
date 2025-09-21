@@ -19,7 +19,7 @@
     <div class="card glass-card shadow-lg border-0 rounded-4">
         <div class="card-body p-4">
             <table class="table table-hover align-middle text-center">
-                <thead class="table-success">
+                <thead class="table-success text-dark">
                     <tr>
                         <th>Car Name</th>
                         <th>Brand</th>
@@ -36,7 +36,7 @@
                     {
                         foreach (var car in Model)
                         {
-                            <tr>
+                            <tr class="text-dark">
                                 <td>@car.CarName</td>
                                 <td>@car.CarBrand</td>
                                 <td>@car.CarModel</td>
@@ -54,10 +54,10 @@
                                     }
                                 </td>
                                 <td class="text-center">
-                                    <a asp-action="Details" asp-route-id="@car.CarId" class="btn btn-info btn-sm me-1">
+                                    <a asp-action="Details" asp-route-id="@car.CarId" class="btn btn-info btn-sm me-1 btn-hover">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a asp-action="Edit" asp-route-id="@car.CarId" class="btn btn-warning btn-sm me-1">
+                                    <a asp-action="Edit" asp-route-id="@car.CarId" class="btn btn-warning btn-sm me-1 btn-hover">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                     <a asp-action="Delete" asp-route-id="@car.CarId" class="btn btn-danger btn-sm btn-hover"
@@ -82,16 +82,17 @@
 
 <style>
     .glass-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
         border-radius: 1rem;
         border: 1px solid rgba(255, 255, 255, 0.3);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #212529; /* ensures text visibility */
     }
 
         .glass-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
         }
 
     .btn-hover {
@@ -100,6 +101,19 @@
 
         .btn-hover:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
         }
+
+    .table th, .table td {
+        vertical-align: middle;
+        color: #212529; /* ensures table text is always visible */
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(40, 167, 69, 0.05); /* subtle hover effect */
+    }
+
+    .badge {
+        font-weight: 500;
+    }
 </style>

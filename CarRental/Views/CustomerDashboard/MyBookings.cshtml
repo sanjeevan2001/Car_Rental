@@ -4,20 +4,20 @@
     ViewData["Title"] = "My Bookings";
 }
 
-<div class="container my-4 animate-fade-slide">
-    <h2 class="mb-4 text-primary animate-fade-slide" style="animation-delay: 0.1s;">My Bookings</h2>
+<div class="container my-5">
+    <h2 class="mb-4 text-primary text-center animate-slide-fade">My Bookings</h2>
 
     @if (!Model.Any())
     {
-        <div class="alert alert-info animate-fade-slide" style="animation-delay: 0.3s;">
-            You have no bookings yet. <a asp-action="AvailableCars" class="text-decoration-underline text-primary">Book a car now</a>.
+        <div class="alert alert-info text-center animate-slide-fade">
+            You have no bookings yet. <a asp-action="AvailableCars" class="text-primary text-decoration-underline">Book a car now</a>.
         </div>
     }
     else
     {
-        <div class="table-responsive animate-fade-slide" style="animation-delay: 0.3s;">
-            <table class="table table-hover align-middle shadow-sm rounded">
-                <thead class="table-primary">
+        <div class="table-responsive animate-slide-fade">
+            <table class="table bookings-table shadow-sm">
+                <thead class="table-header">
                     <tr>
                         <th>Car</th>
                         <th>Pickup Date</th>
@@ -28,11 +28,11 @@
                 <tbody>
                     @foreach (var booking in Model)
                     {
-                        <tr class="align-middle">
-                            <td>@booking.Car.CarName (@booking.Car.CarModel)</td>
+                        <tr>
+                            <td>@booking.Car.CarBrand @booking.Car.CarModel (@booking.Car.CarName)</td>
                             <td>@booking.PickupDate.ToShortDateString()</td>
                             <td>@booking.ReturnDate.ToShortDateString()</td>
-                            <td>@booking.TotalCost.ToString("C")</td>
+                            <td>LKR @booking.TotalCost.ToString("N0")</td>
                         </tr>
                     }
                 </tbody>
@@ -42,50 +42,78 @@
 </div>
 
 <style>
-    /* Fade-in slide-up animation */
-    @@keyframes fadeSlideUp {
-        0%
+    /* Animation */
+    @@keyframes slideFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-    {
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-slide-fade {
         opacity: 0;
-        transform: translateY(25px);
+        animation: slideFadeIn 0.8s forwards;
     }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    }
-
-    .animate-fade-slide {
-        opacity: 0;
-        animation: fadeSlideUp 0.8s forwards;
+    /* Headings */
+    h2 {
+        font-weight: 700;
+        color: #0d6efd;
     }
 
     /* Table styling */
-    table {
-        background: #ffffff;
-        border-radius: 0.5rem;
+    .bookings-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: rgba(255,255,255,0.9);
+        border-radius: 0.75rem;
         overflow: hidden;
     }
 
-    thead.table-primary th {
-        color: #fff;
-        font-weight: 600;
-    }
+        .bookings-table thead.table-header {
+            background-color: #0d6efd;
+        }
 
-    tbody tr:hover {
-        background-color: rgba(13, 110, 253, 0.1);
-        transition: 0.3s;
-    }
+        .bookings-table thead th {
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+        }
 
+        .bookings-table tbody td {
+            color: #343a40;
+            text-align: center;
+            vertical-align: middle;
+            padding: 0.75rem;
+        }
+
+        .bookings-table tbody tr {
+            transition: background 0.3s, transform 0.3s;
+            cursor: default;
+        }
+
+            .bookings-table tbody tr:hover {
+                background-color: rgba(13, 110, 253, 0.08);
+                transform: translateY(-2px);
+            }
+
+    /* Links */
     a.text-primary:hover {
         color: #0b5ed7;
         text-decoration: underline;
     }
 
-    h2 {
-        font-weight: 700;
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .bookings-table tbody td, .bookings-table thead th {
+            font-size: 0.85rem;
+            padding: 0.5rem;
+        }
     }
 </style>

@@ -4,34 +4,102 @@
     ViewData["Title"] = "Available Cars";
 }
 
-<h2>Available Cars</h2>
+<div class="container my-4 animate-fade-slide">
+    <h2 class="mb-4 text-primary animate-fade-slide" style="animation-delay: 0.1s;">Available Cars</h2>
 
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Car Name</th>
-            <th>Model</th>
-            <th>Brand</th>
-            <th>Seats</th>
-            <th>Fuel Type</th>
-            <th>Price/Day</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var car in Model)
-        {
-            <tr>
-                <td>@car.CarName</td>
-                <td>@car.CarModel</td>
-                <td>@car.CarBrand</td>
-                <td>@car.Seats</td>
-                <td>@car.FuelType</td>
-                <td>@car.PricePerday.ToString("C")</td>
-                <td>
-                    <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-success btn-sm">Book Now</a>
-                </td>
-            </tr>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info animate-fade-slide" style="animation-delay: 0.3s;">
+            No cars are currently available. Please check back later.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive animate-fade-slide" style="animation-delay: 0.3s;">
+            <table class="table table-hover align-middle shadow-sm rounded">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Model</th>
+                        <th>Brand</th>
+                        <th>Seats</th>
+                        <th>Fuel Type</th>
+                        <th>Price/Day</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var car in Model)
+                    {
+                        <tr class="align-middle">
+                            <td>@car.CarName</td>
+                            <td>@car.CarModel</td>
+                            <td>@car.CarBrand</td>
+                            <td>@car.Seats</td>
+                            <td>@car.FuelType</td>
+                            <td>@car.PricePerday.ToString("C")</td>
+                            <td>
+                                <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-success btn-sm">
+                                    <i class="bi bi-car-front-fill me-1"></i> Book Now
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<style>
+    /* Fade-in slide-up animation */
+    @@keyframes fadeSlideUp {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-fade-slide {
+        opacity: 0;
+        animation: fadeSlideUp 0.8s forwards;
+    }
+
+    /* Table styling */
+    table {
+        background: #ffffff;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    thead.table-primary th {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.1);
+        transition: 0.3s;
+    }
+
+    .btn-success {
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-success:hover {
+            background-color: #198754;
         }
-    </tbody>
-</table>
+
+    h2 {
+        font-weight: 700;
+    }
+</style>

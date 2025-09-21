@@ -5,40 +5,61 @@
     ViewData["Title"] = "Create Booking";
 }
 
-<h2>Create Booking</h2>
+<div class="container mt-5">
+    <h2 class="fw-bold mb-4 text-primary">
+        <i class="bi bi-journal-plus me-2"></i> Create Booking
+    </h2>
 
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label asp-for="CustomerId" class="form-label">Customer</label>
-        <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.Customers">
-            <option value="">-- Select Customer --</option>
-        </select>
-        <span asp-validation-for="CustomerId" class="text-danger"></span>
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post">
+                <div class="row g-3">
+                    <!-- Customer Selection -->
+                    <div class="col-md-6">
+                        <label asp-for="CustomerId" class="form-label fw-bold">Customer</label>
+                        <select asp-for="CustomerId" class="form-select" asp-items="ViewBag.Customers">
+                            <option value="">-- Select Customer --</option>
+                        </select>
+                        <span asp-validation-for="CustomerId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Car Selection -->
+                    <div class="col-md-6">
+                        <label asp-for="CarId" class="form-label fw-bold">Car</label>
+                        <select asp-for="CarId" class="form-select" asp-items="ViewBag.Cars">
+                            <option value="">-- Select Car --</option>
+                        </select>
+                        <span asp-validation-for="CarId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Pickup Date -->
+                    <div class="col-md-6">
+                        <label asp-for="PickupDate" class="form-label fw-bold">Pickup Date</label>
+                        <input asp-for="PickupDate" type="date" class="form-control" />
+                        <span asp-validation-for="PickupDate" class="text-danger"></span>
+                    </div>
+
+                    <!-- Return Date -->
+                    <div class="col-md-6">
+                        <label asp-for="ReturnDate" class="form-label fw-bold">Return Date</label>
+                        <input asp-for="ReturnDate" type="date" class="form-control" />
+                        <span asp-validation-for="ReturnDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="bi bi-save2 me-1"></i> Save Booking
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-arrow-left me-1"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label asp-for="CarId" class="form-label">Car</label>
-        <select asp-for="CarId" class="form-control" asp-items="ViewBag.Cars">
-            <option value="">-- Select Car --</option>
-        </select>
-        <span asp-validation-for="CarId" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="PickupDate" class="form-label"></label>
-        <input asp-for="PickupDate" type="date" class="form-control" />
-        <span asp-validation-for="PickupDate" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="ReturnDate" class="form-label"></label>
-        <input asp-for="ReturnDate" type="date" class="form-control" />
-        <span asp-validation-for="ReturnDate" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-success">Save</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

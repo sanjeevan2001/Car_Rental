@@ -1,7 +1,9 @@
 ﻿using CarRental.Data;
 using CarRental.Models;
+using CarRental.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace CarRental.Controllers
 {
@@ -30,7 +32,6 @@ namespace CarRental.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CustomerRegister(CarRental.ViewModel.UserCustomer model)
         {
-            model.Gender = Ennum.CustomerGender.Female;
 
             if (!ModelState.IsValid)
             {
@@ -42,15 +43,15 @@ namespace CarRental.Controllers
             var user = new User
             {
                 UserName = model.UserName,
-                Password = model.Password, // Consider hashing in real apps!
-                Role = "Customer"           // Set default role as Customer
+                Password = model.Password,
+                Role = "Customer",
+                PhoneNumber = model.PhoneNumber
             };
 
             // 2. Save User to DB
             _appdbcontext.Users.Add(user);
             await _appdbcontext.SaveChangesAsync();
 
-            // user.UserId is now populated
 
             // 3. Create Customer object from ViewModel
             var customer = new Customer
@@ -69,56 +70,112 @@ namespace CarRental.Controllers
             await _appdbcontext.SaveChangesAsync();
 
             // 5. Redirect or show success message
-            return RedirectToAction("Index", "Home"); // or wherever you want
+            return RedirectToAction("Index", "Home");
+        }
+
+        // User Register Form
+        [HttpGet]
+        public IActionResult UserRegister()
+        {
+            return View();
+        }
+
+        // POST: Save User for Customer
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserRegister(CustomerSignupViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // Check if username already exists
+            var existingUser = await _appdbcontext.Users
+                .FirstOrDefaultAsync(u => u.UserName == model.UserName);
+
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("UserName", "Username is already taken.");
+                return View(model);
+            }
+
+            // Hash the password 
+            string hashedPassword = model.Password;
+
+            // Create new User
+            var user = new User
+            {
+                UserId = Guid.NewGuid(),
+                UserName = model.UserName,
+                Password = hashedPassword,
+                Role = model.Role,
+                PhoneNumber = model.PhoneNumber
+            };
+
+            _appdbcontext.Users.Add(user);
+
+            await _appdbcontext.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "User registered successfully!";
+            return RedirectToAction("RegisterForCustomer", "Customer");
         }
 
 
-        //[HttpGet]
-        //public IActionResult UserRegister(Guid customerId)
-        //{
-        //    var usermodel = new User {};
-        //    ViewBag.CustomerId = customerId;
-        //    return View(usermodel);
-        //}
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult UserRegister(User user, Guid customerId)
-        //{
-        //    // Role assign பண்ணுறது ModelState validate செய்ய முன்
-        //    user.Role = "Customer";
+        [HttpGet]
+        public IActionResult RegisterForCustomer()
+        {
+            return View();
+        }
 
-        //    // Confirm password validation
-        //    if (user.Password != user.ConfirmPassword)
-        //    {
-        //        ModelState.AddModelError("ConfirmPassword", "Passwords do not match.");
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RegisterForCustomer(RegisterCustomerViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ViewBag.CustomerId = customerId;
-        //        return View(user);
-        //    }
+            // Step 1: Check if Phone Number exists in Users table
+            var user = _appdbcontext.Users.FirstOrDefault(u => u.PhoneNumber == model.PhoneNumber);
 
-        //    // Find the customer
-        //    var customer = _appdbcontext.Customers.Find(customerId);
-        //    if (customer == null)
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Customer not found.");
-        //        ViewBag.CustomerId = customerId;
-        //        return View(user);
-        //    }
+            if (user == null)
+            {
+                ModelState.AddModelError("PhoneNumber", "This phone number is not registered as a User.");
+                return View(model);
+            }
 
-        //    // Link both sides
-        //    customer.User = user;
-        //    user.Customers = new List<Customer> { customer };
+            // Step 2: Check if already registered as Customer
+            var existingCustomer = _appdbcontext.Customers.FirstOrDefault(c => c.PhoneNumber == model.PhoneNumber);
+            if (existingCustomer != null)
+            {
+                ModelState.AddModelError("PhoneNumber", "This phone number is already registered as a Customer.");
+                return View(model);
+            }
 
-        //    _appdbcontext.Users.Add(user);
-        //    _appdbcontext.SaveChanges();
+            // Step 3: Map ViewModel → Customer
+            var customer = new Customer
+            {
+                CustomerId = Guid.NewGuid(),
+                FullName = model.FullName,
+                Gender = model.Gender,
+                Address = model.Address,
+                PhoneNumber = model.PhoneNumber,
+                UserEmail = model.UserEmail,
+                LicenseNumber = model.LicenseNumber,
+                // Important: Assign UserId from Users table
+                UserId = user.UserId
+            };
 
-        //    TempData["SuccessMessage"] = "User and Customer registered successfully!";
-        //    return RedirectToAction("Index", "Home");
-        //}
+            _appdbcontext.Customers.Add(customer);
+            _appdbcontext.SaveChanges();
+
+            TempData["Success"] = "Customer registration successful!";
+            return RedirectToAction("Index", "Home");
+        }
+
 
 
     }

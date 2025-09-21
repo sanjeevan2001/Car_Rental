@@ -1,0 +1,68 @@
+﻿@model CarRental.Models.Customer
+
+@{
+    ViewData["Title"] = "Delete Customer";
+}
+
+<div class="container py-5">
+    <h2 class="text-center text-danger fw-bold mb-4">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> Delete Customer
+    </h2>
+
+    <div class="alert alert-warning shadow-sm text-center">
+        <i class="bi bi-exclamation-circle-fill me-2"></i>
+        Are you sure you want to delete this customer? This action cannot be undone.
+    </div>
+
+    <div class="card glass-card shadow-lg mb-4">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">@Model.FullName</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Email:</strong> @Model.UserEmail</p>
+            <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
+            <p><strong>Username:</strong> @Model.User?.UserName</p>
+            <p><strong>License Number:</strong> @Model.LicenseNumber</p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3">
+        <form asp-action="DeleteCustomer" method="post">
+            <input type="hidden" asp-for="CustomerId" />
+            <button type="submit" class="btn btn-danger btn-hover">
+                <i class="bi bi-trash me-1"></i> Yes, Delete
+            </button>
+        </form>
+        <a asp-action="CustomerList" class="btn btn-secondary btn-hover">
+            <i class="bi bi-x-circle me-1"></i> Cancel
+        </a>
+    </div>
+</div>
+
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+    .btn-hover {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+    .alert-warning i {
+        vertical-align: middle;
+    }
+</style>

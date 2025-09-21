@@ -21,7 +21,7 @@ namespace CarRental.ViewModel
 
         [Required]
         [MaxLength(50)]
-        public string Role { get; set; } = "Customer"; // default role
+        public string Role { get; set; } = "Customer";
 
         // ----- Customer Fields -----
         [Required(ErrorMessage = "Full name is required")]

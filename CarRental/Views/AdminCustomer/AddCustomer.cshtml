@@ -1,0 +1,166 @@
+﻿@model CarRental.ViewModels.AddCustomerViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Add Customer";
+}
+
+<!-- Full-page background -->
+<div class="bg-image"></div>
+
+<!-- Centered Glass Form -->
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="glass-card p-5 shadow-lg animate-form w-100" style="max-width: 900px;">
+        <h2 class="mb-4 text-center fw-bold">
+            <i class="bi bi-person-plus-fill me-2"></i> Add New Customer
+        </h2>
+
+        <form asp-action="AddCustomer" method="post">
+            <!-- Personal Info -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control form-input" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Gender" class="form-label"></label>
+                    <select asp-for="Gender" class="form-select form-input" asp-items="Html.GetEnumSelectList<CarRental.Ennum.CustomerGender>()">
+                        <option value="">Select Gender</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Address" class="form-label"></label>
+                    <input asp-for="Address" class="form-control form-input" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control form-input" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="UserEmail" class="form-label"></label>
+                    <input asp-for="UserEmail" class="form-control form-input" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="LicenseNumber" class="form-label"></label>
+                    <input asp-for="LicenseNumber" class="form-control form-input" />
+                    <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <!-- User Credentials -->
+            <h4 class="mb-3 text-center text-secondary">
+                <i class="bi bi-shield-lock-fill me-2"></i> User Credentials
+            </h4>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <input asp-for="UserName" class="form-control form-input" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="password" class="form-control form-input" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control form-input" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3">
+                <button type="submit" class="btn btn-success btn-hover">
+                    <i class="bi bi-check-circle me-1"></i> Save
+                </button>
+                <a asp-action="CustomerList" class="btn btn-secondary btn-hover">
+                    <i class="bi bi-x-circle me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Full-page background image */
+    .bg-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/images/Extra/AdminPage1.jpg') no-repeat center center;
+        background-size: cover; /* Ensures full coverage */
+        z-index: -1;
+        filter: brightness(0.7);
+    }
+
+    /* Glass card */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    /* Fade-in animation */
+    @@keyframes fadeSlideUp {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-form {
+        opacity: 0;
+        animation: fadeSlideUp 0.8s forwards;
+    }
+
+    /* Input focus glow */
+    .form-input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 10px rgba(13,110,253,0.4);
+        transition: all 0.3s ease;
+    }
+
+    /* Button hover effects */
+    .btn-hover {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+    /* Labels and headings color for better contrast */
+    .form-label, h2, h4 {
+        color: #fff;
+    }
+
+    hr {
+        border-color: rgba(255,255,255,0.3);
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

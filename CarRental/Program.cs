@@ -60,7 +60,7 @@ app.UseAuthorization();
 //    name: "default",
 
 
-    pattern: "{controller=Guest}/{action=news1}/{id?}");
+
 
 
 // Sanjee

@@ -44,9 +44,6 @@ namespace CarRental.Controllers
                 return RedirectToAction("Index", "AdminDashboard");
             }
 
-
-
-
             if (customer != null)
             {
                 // Store customer info in TemData

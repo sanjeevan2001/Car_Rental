@@ -167,7 +167,7 @@ namespace CarRental.Controllers
 
             // Otherwise, go to home/dashboard
             TempData["Success"] = "Customer registration successful!";
-            return RedirectToAction("Index", "CustomerDashboard");
+            return RedirectToAction("Index", "Login");
         }
     }
 }

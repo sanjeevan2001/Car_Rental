@@ -5,102 +5,15 @@
     ViewData["Title"] = "Booking Details";
 }
 
-<style>
-    /* Page fade-in animation */
-    .page-animate {
-        animation: fadeInUp 0.8s ease-in-out;
-    }
-    @@keyframes fadeInUp {
-        from
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-    {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    }
-
-    /* Title */
-    .page-title {
-        font-size: 1.9rem;
-        font-weight: 800;
-        color: #0dcaf0;
-        letter-spacing: 0.5px;
-        text-shadow: 0 2px 6px rgba(13, 202, 240, 0.3);
-        animation: slideIn 0.9s ease;
-    }
-    @@keyframes slideIn {
-        from
-
-    {
-        opacity: 0;
-        transform: translateX(-25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    }
-
-    /* Card */
-    .details-card {
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-        border: 1px solid rgba(13, 202, 240, 0.15);
-        transition: all 0.3s ease;
-    }
-
-        .details-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(13, 202, 240, 0.25);
-        }
-
-    /* Labels and values */
-    dt {
-        color: #0d6efd;
-        font-weight: 700;
-        font-size: 1rem;
-    }
-
-    dd {
-        color: #212529;
-        font-weight: 500;
-        font-size: 1rem;
-        transition: color 0.3s ease;
-    }
-
-        dd:hover {
-            color: #0dcaf0;
-        }
-
-    /* Back button */
-    .btn-back {
-        border-radius: 12px;
-        font-weight: 600;
-        padding: 12px 22px;
-        transition: all 0.3s ease;
-    }
-
-        .btn-back:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(108,117,125,0.35);
-        }
-</style>
-
-<div class="container mt-5 page-animate">
-    <h2 class="page-title mb-4">
+<div class="container mt-5 animate__animated animate__fadeIn">
+    <h2 class="page-title fw-bold text-info animate__animated animate__fadeInDown">
         <i class="bi bi-journal-check me-2"></i> Booking Details
     </h2>
 
-    <div class="card details-card p-4">
+    <div class="glass-card animate__animated animate__fadeInUp">
         <dl class="row mb-0">
             <dt class="col-sm-3">Customer</dt>
             <dd class="col-sm-9">@Model.Customer.FullName</dd>
@@ -115,13 +28,108 @@
             <dd class="col-sm-9">@Model.ReturnDate:yyyy-MM-dd</dd>
 
             <dt class="col-sm-3">Total Cost</dt>
-            <dd class="col-sm-9">@Model.TotalCost:C</dd>
+            <dd class="col-sm-9">LKR @Model.TotalCost.ToString("N2")</dd>
         </dl>
 
         <div class="mt-4">
-            <a asp-action="Index" class="btn btn-secondary btn-lg btn-back">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg btn-back">
                 <i class="bi bi-arrow-left me-1"></i> Back
             </a>
         </div>
     </div>
 </div>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #1c1c1c;
+        color: #fff;
+    }
+
+    .page-title {
+        font-size: 1.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Glass Card */
+    .glass-card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(18px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+        }
+
+    dt {
+        color: #0dcaf0;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    dd {
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+    }
+
+        dd:hover {
+            color: #0dcaf0;
+        }
+
+    .btn-back {
+        border-radius: 0.5rem;
+        font-weight: 600;
+        padding: 12px 22px;
+        transition: all 0.3s ease;
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.25);
+    }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(108,117,125,0.35);
+            background: rgba(255,255,255,0.15);
+        }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@media(max - width:576px) {
+        .glass-card
+
+    {
+        padding: 1.5rem;
+    }
+
+    }
+</style>

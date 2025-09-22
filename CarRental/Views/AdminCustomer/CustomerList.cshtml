@@ -32,11 +32,11 @@
                 @foreach (var customer in Model)
                 {
                     <tr>
-                        <td>@customer.FullName</td>
-                        <td>@customer.UserEmail</td>
-                        <td>@customer.PhoneNumber</td>
-                        <td>@customer.User?.UserName</td>
-                        <td>@customer.LicenseNumber</td>
+                        <td class="text-dark">@customer.FullName</td>
+                        <td class="text-dark">@customer.UserEmail</td>
+                        <td class="text-dark">@customer.PhoneNumber</td>
+                        <td class="text-dark">@customer.User?.UserName</td>
+                        <td class="text-dark">@customer.LicenseNumber</td>
                         <td>
                             <a asp-action="CustomerDetails" asp-route-id="@customer.CustomerId" class="btn btn-info btn-sm btn-hover me-1">
                                 <i class="bi bi-eye"></i>
@@ -80,17 +80,20 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
 
+    /* Table header */
+    .table-dark th {
+        color: #fff; /* black header text */
+        font-weight: 600;
+    }
+
+    /* Table body cells */
+    .table-hover tbody td {
+        color: #000000; /* black body text */
+    }
+
     /* Table row hover */
     table tbody tr:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Text color adjustments for readability */
-    .table-dark th {
-        color: #fff;
-    }
-
-    .table-hover td {
-        color: #fff;
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #000000; /* keep text black on hover */
     }
 </style>

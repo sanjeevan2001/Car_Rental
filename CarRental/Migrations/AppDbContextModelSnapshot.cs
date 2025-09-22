@@ -150,9 +150,6 @@ namespace CarRental.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -168,8 +165,6 @@ namespace CarRental.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Feedbacks");
                 });
@@ -232,15 +227,6 @@ namespace CarRental.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CarRental.Models.Feedback", b =>
-                {
-                    b.HasOne("CarRental.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("CarRental.Models.Car", b =>

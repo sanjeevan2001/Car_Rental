@@ -66,7 +66,7 @@ app.UseAuthorization();
 // Sanjee
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=AdminDashboard}/{action=Index}/{id?}");
+    pattern: "{controller=Guest}/{action=news1}/{id?}");
 
 
 app.Run();

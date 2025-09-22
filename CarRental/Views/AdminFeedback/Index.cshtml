@@ -5,34 +5,163 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="container mt-4">
-    <h2 class="mb-4 text-primary fw-bold">User Feedbacks</h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-    <table class="table table-bordered table-striped shadow-sm">
-        <thead class="table-dark" style="color: #ffffff;">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Message</th>
-                <th>Date Submitted</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody style="color: #212529;">
-            @foreach (var feedback in Model)
-            {
-                <tr class="align-middle">
-                    <td>@feedback.Name</td>
-                    <td>@feedback.Email</td>
-                    <td>@(feedback.Message.Length > 50 ? feedback.Message.Substring(0, 50) + "..." : feedback.Message)</td>
-                    <td>@feedback.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@feedback.Id" class="btn btn-sm btn-info text-white">View</a>
-                        <a asp-action="Delete" asp-route-id="@feedback.Id" class="btn btn-sm btn-danger text-white">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="container my-5">
 
+    <!-- Page Title -->
+    <h2 class="page-title mb-4 animate__animated animate__fadeInDown">
+        <i class="bi bi-chat-left-text me-2"></i> User Feedbacks
+    </h2>
+
+    <!-- Glass Card Table -->
+    <div class="card glass-card shadow-lg p-4 animate__animated animate__fadeInUp">
+        <div class="table-responsive">
+            <table class="table table-hover table-borderless mb-0 text-center custom-table">
+                <thead class="table-header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Date Submitted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var fb in Model)
+                        {
+                            <tr>
+                                <td>@fb.Name</td>
+                                <td>@fb.Email</td>
+                                <td>
+                                    @(fb.Message.Length > 50 ? fb.Message.Substring(0, 50) + "..." : fb.Message)
+                                </td>
+                                <td>@fb.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@fb.Id" class="btn btn-sm btn-info btn-hover me-1">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@fb.Id" class="btn btn-sm btn-danger btn-hover">
+                                        <i class="bi bi-trash3-fill"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-muted">No feedbacks available.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<style>
+    /* Page Title */
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0d6efd;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Glass Card */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #fff;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+        }
+
+    /* Table Header */
+    .table-header {
+        background: linear-gradient(90deg, #0d6efd, #6610f2);
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    /* Table Body */
+    .custom-table tbody tr {
+        background-color: rgba(255,255,255,0.05);
+        color: #fff;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .custom-table tbody tr:hover {
+            background-color: rgba(255,255,255,0.15);
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+    table td, table th {
+        vertical-align: middle;
+        padding: 0.75rem 1rem;
+        color: #fff;
+    }
+
+    /* Buttons */
+    .btn-hover {
+        font-weight: 600;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #b02a37;
+        }
+
+    /* Animate.css duration */
+    .animate__fadeInUp, .animate__fadeInDown {
+        animation-duration: 0.8s;
+    }
+
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .btn-hover
+
+    {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    }
+</style>

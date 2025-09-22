@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarRental.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialmigration : Migration
+    public partial class initial_migration_4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -97,6 +97,27 @@ namespace CarRental.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Feedbacks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Feedbacks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Feedbacks_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_CarId",
                 table: "Bookings",
@@ -111,6 +132,11 @@ namespace CarRental.Migrations
                 name: "IX_Customers_UserId",
                 table: "Customers",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Feedbacks_CustomerId",
+                table: "Feedbacks",
+                column: "CustomerId");
         }
 
         /// <inheritdoc />
@@ -118,6 +144,9 @@ namespace CarRental.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Bookings");
+
+            migrationBuilder.DropTable(
+                name: "Feedbacks");
 
             migrationBuilder.DropTable(
                 name: "Cars");

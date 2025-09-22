@@ -204,6 +204,18 @@
                                 <i class="bi bi-people-fill me-1"></i> Users
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewData["Title"]?.ToString() == "Users" ? "active" : "")"
+                               asp-area="" asp-controller="AdminFeedback" asp-action="Index">
+                                <i class="bi bi-info-circle me-1"></i> Feedback
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewData["Title"]?.ToString() == "Users" ? "active" : "")"
+                               asp-area="" asp-controller="AdminAbout" asp-action="About">
+                                <i class="bi bi-info-circle me-1"></i> About
+                            </a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">

@@ -1,0 +1,110 @@
+﻿@model CarRental.ViewModels.BookingViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edit Booking";
+}
+
+<div class="container mt-5 animate__animated animate__fadeIn">
+    <h2 class="fw-bold mb-4 text-primary d-flex align-items-center">
+        <i class="bi bi-pencil-square me-2"></i> Edit Booking
+    </h2>
+
+    <div class="card shadow-lg border-0 rounded-4 p-4 booking-form-card">
+        <form asp-action="Edit" method="post" class="needs-validation" novalidate>
+            <input type="hidden" asp-for="BookingId" />
+
+            <!-- Customer -->
+            <div class="mb-3">
+                <label asp-for="CustomerId" class="form-label fw-bold text-secondary">Customer</label>
+                <select asp-for="CustomerId" class="form-select custom-input" asp-items="ViewBag.Customers" required>
+                    <option value="">-- Select Customer --</option>
+                </select>
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+
+            <!-- Car -->
+            <div class="mb-3">
+                <label asp-for="CarId" class="form-label fw-bold text-secondary">Car</label>
+                <select asp-for="CarId" class="form-select custom-input" asp-items="ViewBag.Cars" required>
+                    <option value="">-- Select Car --</option>
+                </select>
+                <span asp-validation-for="CarId" class="text-danger"></span>
+            </div>
+
+            <!-- Pickup Date -->
+            <div class="mb-3">
+                <label asp-for="PickupDate" class="form-label fw-bold text-secondary">Pickup Date</label>
+                <input asp-for="PickupDate" type="date" class="form-control custom-input" required />
+                <span asp-validation-for="PickupDate" class="text-danger"></span>
+            </div>
+
+            <!-- Return Date -->
+            <div class="mb-3">
+                <label asp-for="ReturnDate" class="form-label fw-bold text-secondary">Return Date</label>
+                <input asp-for="ReturnDate" type="date" class="form-control custom-input" required />
+                <span asp-validation-for="ReturnDate" class="text-danger"></span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-success btn-lg action-btn">
+                    <i class="bi bi-save me-1"></i> Update Booking
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg action-btn">
+                    <i class="bi bi-arrow-left me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    /* Card animation */
+    .booking-form-card {
+        animation: fadeInUp 0.7s ease-in-out;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .booking-form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Input focus effect */
+    .custom-input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Button animation */
+    .action-btn {
+        transition: all 0.3s ease-in-out;
+        border-radius: 12px;
+    }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+    /* FadeInUp keyframes */
+    @@keyframes fadeInUp {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+</style>

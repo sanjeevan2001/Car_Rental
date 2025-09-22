@@ -1,71 +1,218 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CarRental.ViewModels.AdminDashboardViewModel
+
 @{
-    // Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    // ViewData["Title"] = "Admin Dashboard...";
+    ViewData["Title"] = "Admin Dashboard";
 }
 
+<!-- Full-page background -->
+<div class="bg-image"></div>
 
-<h2 class="mb-4 fw-bold text-primary border-bottom pb-2">
-    <i class="bi bi-person-plus-fill me-2"></i> 📊 Admin Dashboard
-</h2>
+<div class="container py-5">
+    <h2 class="fw-bold text-center mb-5 text-white">
+        <i class="bi bi-speedometer2 text-warning me-2"></i> Admin Dashboard
+    </h2>
 
-<div class="container-fluid mt-4">
-
-
-
-    <div class="row g-4">
-
+    <!-- Statistic Cards -->
+    <div class="row g-4 justify-content-center animate-dashboard">
         <!-- Total Cars -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 rounded-3 bg-primary text-white h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-car-front display-4 mb-3"></i>
-                    <h5 class="card-title">Total Cars</h5>
-                    <h3 class="fw-bold">@ViewBag.TotalCars</h3>
+        <div class="col-lg-3 col-md-6">
+            <div class="card stat-card shadow-lg border-0 h-100 text-center rounded-4 bg-gradient-primary text-white">
+                <div class="card-body">
+                    <i class="bi bi-car-front-fill fs-1 mb-2 icon-hover"></i>
+                    <h6 class="card-title text-uppercase fw-bold">Total Cars</h6>
+                    <p class="fs-2 fw-bolder mb-0">@Model.TotalCars</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Available Cars -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card stat-card shadow-lg border-0 h-100 text-center rounded-4 bg-gradient-success text-white">
+                <div class="card-body">
+                    <i class="bi bi-check-circle-fill fs-1 mb-2 icon-hover"></i>
+                    <h6 class="card-title text-uppercase fw-bold">Available Cars</h6>
+                    <p class="fs-2 fw-bolder mb-0">@Model.AvailableCars</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Bookings -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card stat-card shadow-lg border-0 h-100 text-center rounded-4 bg-gradient-warning text-dark">
+                <div class="card-body">
+                    <i class="bi bi-calendar2-check-fill fs-1 mb-2 icon-hover"></i>
+                    <h6 class="card-title text-uppercase fw-bold">Total Bookings</h6>
+                    <p class="fs-2 fw-bolder mb-0">@Model.TotalBookings</p>
                 </div>
             </div>
         </div>
 
         <!-- Total Customers -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 rounded-3 bg-success text-white h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-people-fill display-4 mb-3"></i>
-                    <h5 class="card-title">Total Customers</h5>
-                    <h3 class="fw-bold">@ViewBag.TotalCustomers</h3>
+        <div class="col-lg-3 col-md-6">
+            <div class="card stat-card shadow-lg border-0 h-100 text-center rounded-4 bg-gradient-danger text-white">
+                <div class="card-body">
+                    <i class="bi bi-people-fill fs-1 mb-2 icon-hover"></i>
+                    <h6 class="card-title text-uppercase fw-bold">Total Customers</h6>
+                    <p class="fs-2 fw-bolder mb-0">@Model.TotalCustomers</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Active Rentals -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 rounded-3 bg-warning text-dark h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-key-fill display-4 mb-3"></i>
-                    <h5 class="card-title">Active Rentals</h5>
-                    <h3 class="fw-bold">@ViewBag.ActiveRentals</h3>
-                </div>
+    <!-- Quick Access Dashboard Cards -->
+    <div class="row g-4 justify-content-center mt-5 animate-quicklinks">
+        <div class="col-lg-3 col-md-6">
+            <div class="card dash-card text-center p-4 shadow">
+                <i class="bi bi-people-fill text-success fs-1 mb-3"></i>
+                <h5 class="fw-bold mb-3">Manage Customers</h5>
+                <a asp-controller="AdminCustomer" asp-action="CustomerList" class="btn btn-success w-100 btn-hover">View Customers</a>
             </div>
         </div>
 
-        <!-- Earnings -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 rounded-3 bg-danger text-white h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-currency-dollar display-4 mb-3"></i>
-                    <h5 class="card-title">Total Earnings</h5>
-                    <h3 class="fw-bold">$@ViewBag.TotalEarnings</h3>
-                </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card dash-card text-center p-4 shadow">
+                <i class="bi bi-car-front-fill text-primary fs-1 mb-3"></i>
+                <h5 class="fw-bold mb-3">Manage Cars</h5>
+                <a asp-controller="AdminCar" asp-action="Index" class="btn btn-primary w-100 btn-hover">View Cars</a>
             </div>
         </div>
 
+        <div class="col-lg-3 col-md-6">
+            <div class="card dash-card text-center p-4 shadow">
+                <i class="bi bi-journal-check text-warning fs-1 mb-3"></i>
+                <h5 class="fw-bold mb-3">Manage Bookings</h5>
+                <a asp-controller="AdminBooking" asp-action="Index" class="btn btn-warning w-100 btn-hover">View Bookings</a>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card dash-card text-center p-4 shadow">
+                <i class="bi bi-shield-lock-fill text-danger fs-1 mb-3"></i>
+                <h5 class="fw-bold mb-3">Manage Users</h5>
+                <a asp-controller="AdminUser" asp-action="Index" class="btn btn-danger w-100 btn-hover">View Users</a>
+            </div>
+
+        </div>
     </div>
 </div>
 
+<style>
+    /* Full-page background image */
+    .bg-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/images/Extra/ContactPage.jpg') no-repeat center center/cover;
+        z-index: -1;
+        filter: brightness(0.6);
+    }
 
+    /* Fade-in animation */
+    @@keyframes fadeSlideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
+    .animate-dashboard {
+        opacity: 0;
+        animation: fadeSlideUp 0.8s forwards;
+    }
 
+    .animate-quicklinks {
+        opacity: 0;
+        animation: fadeSlideUp 1s 0.3s forwards;
+    }
+
+    /* Statistic Cards */
+    .stat-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
+    .icon-hover {
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .stat-card:hover .icon-hover {
+        transform: scale(1.3);
+    }
+
+    /* Gradients */
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #0d6efd, #6ba8ff);
+    }
+
+    .bg-gradient-success {
+        background: linear-gradient(135deg, #198754, #6be78a);
+    }
+
+    .bg-gradient-warning {
+        background: linear-gradient(135deg, #ffc107, #ffe38f);
+    }
+
+    .bg-gradient-danger {
+        background: linear-gradient(135deg, #dc3545, #ff7a7a);
+    }
+
+    /* Dashboard Cards */
+    .dash-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.3);
+        min-height: 230px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: #fff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .dash-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .dash-card i {
+            transition: transform 0.3s ease;
+        }
+
+        .dash-card:hover i {
+            transform: scale(1.2);
+        }
+
+    /* Buttons Hover */
+    .btn-hover {
+        transition: all 0.3s ease;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+    h5, h6 {
+        color: #fff;
+    }
+
+    @@media (max-width: 768px) {
+        .dash-card, .stat-card {
+            min-height: 250px;
+        }
+    }
+</style>

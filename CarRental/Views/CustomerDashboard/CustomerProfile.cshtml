@@ -1,0 +1,138 @@
+﻿@model CarRental.Models.Customer
+@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <!-- Profile Card -->
+            <div class="card profile-card shadow-sm p-4 animate-profile text-center">
+
+                <!-- Centered Icon, Name, Email -->
+                <div class="mb-4">
+                    <i class="bi bi-person-circle profile-icon mb-3"></i>
+                    <h3 class="profile-name mb-1">@Model.FullName</h3>
+                    <small class="profile-email">@Model.UserEmail</small>
+                </div>
+
+                <hr class="profile-divider">
+
+                <!-- Profile Details -->
+                <div class="row g-3 text-start">
+                    <div class="col-6">
+                        <p class="profile-label">Gender</p>
+                        <p class="profile-value">@Model.Gender</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="profile-label">Phone</p>
+                        <p class="profile-value">@Model.PhoneNumber</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="profile-label">Address</p>
+                        <p class="profile-value">@Model.Address</p>
+                    </div>
+                    <div class="col-12">
+                        <p class="profile-label">License Number</p>
+                        <p class="profile-value">@Model.LicenseNumber</p>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="@Url.Action("EditProfile", "CustomerDashboard")" class="btn btn-primary btn-lg px-5 btn-hover">
+                        <i class="bi bi-pencil-square me-2"></i> Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Profile Card */
+    .profile-card {
+        background: #ffffff;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .profile-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+    /* Profile Icon */
+    .profile-icon {
+        font-size: 5rem;
+        color: #0d6efd;
+    }
+
+    /* Text Styling */
+    .profile-name {
+        font-weight: 700;
+        color: #212529;
+    }
+
+    .profile-email {
+        color: #6c757d;
+    }
+
+    .profile-label {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 0.25rem;
+    }
+
+    .profile-value {
+        font-weight: 600;
+        color: #343a40;
+    }
+
+    .profile-divider {
+        border-color: #dee2e6;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background-color: #0d6efd;
+        color: #fff;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+    /* Animate Profile Card */
+    .animate-profile {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeSlideUp 0.6s forwards;
+    }
+
+    @@keyframes fadeSlideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .profile-card {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />

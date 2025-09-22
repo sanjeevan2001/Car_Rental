@@ -1,0 +1,63 @@
+﻿@model CarRental.Models.Feedback
+
+@{
+    ViewData["Title"] = "Feedback Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary fw-bold">
+        <i class="bi bi-chat-dots me-2"></i> Feedback Details
+    </h2>
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header text-white fw-bold"
+             style="background: linear-gradient(90deg, #0d6efd, #6610f2);">
+            <i class="bi bi-person-circle me-2"></i> User Feedback
+        </div>
+        <div class="card-body p-4">
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label text-muted fw-semibold">Name:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-plaintext fw-medium">@Model.Name</p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label text-muted fw-semibold">Email:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-plaintext">@Model.Email</p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label text-muted fw-semibold">Message:</label>
+                <div class="col-sm-9">
+                    <div class="border-start border-4 border-primary rounded bg-light p-3 text-dark"
+                         style="white-space: pre-wrap;">
+                        @Model.Message
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label text-muted fw-semibold">Submitted On:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-plaintext">
+                        @Model.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Back
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger rounded-pill px-4">
+                    <i class="bi bi-trash me-1"></i> Delete
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

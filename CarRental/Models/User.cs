@@ -13,6 +13,11 @@ namespace CarRental.Models
         [MaxLength(100)]
         public string UserName { get; set; }
 
+        [Required(ErrorMessage = "Phone number is required")]
+        [Phone(ErrorMessage = "Invalid phone number")]
+        [MaxLength(15)]
+        public string PhoneNumber { get; set; }
+
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [StringLength(30, MinimumLength = 8, ErrorMessage = "Password must be 8-30 characters long")]

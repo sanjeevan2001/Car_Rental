@@ -1,0 +1,127 @@
+﻿@model CarRental.Models.Booking
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Booking Details";
+}
+
+<style>
+    /* Page fade-in animation */
+    .page-animate {
+        animation: fadeInUp 0.8s ease-in-out;
+    }
+    @@keyframes fadeInUp {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Title */
+    .page-title {
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: #0dcaf0;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 6px rgba(13, 202, 240, 0.3);
+        animation: slideIn 0.9s ease;
+    }
+    @@keyframes slideIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateX(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    }
+
+    /* Card */
+    .details-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        border: 1px solid rgba(13, 202, 240, 0.15);
+        transition: all 0.3s ease;
+    }
+
+        .details-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(13, 202, 240, 0.25);
+        }
+
+    /* Labels and values */
+    dt {
+        color: #0d6efd;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    dd {
+        color: #212529;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+    }
+
+        dd:hover {
+            color: #0dcaf0;
+        }
+
+    /* Back button */
+    .btn-back {
+        border-radius: 12px;
+        font-weight: 600;
+        padding: 12px 22px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(108,117,125,0.35);
+        }
+</style>
+
+<div class="container mt-5 page-animate">
+    <h2 class="page-title mb-4">
+        <i class="bi bi-journal-check me-2"></i> Booking Details
+    </h2>
+
+    <div class="card details-card p-4">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Customer</dt>
+            <dd class="col-sm-9">@Model.Customer.FullName</dd>
+
+            <dt class="col-sm-3">Car</dt>
+            <dd class="col-sm-9">@Model.Car.CarName (@Model.Car.CarModel)</dd>
+
+            <dt class="col-sm-3">Pickup Date</dt>
+            <dd class="col-sm-9">@Model.PickupDate:yyyy-MM-dd</dd>
+
+            <dt class="col-sm-3">Return Date</dt>
+            <dd class="col-sm-9">@Model.ReturnDate:yyyy-MM-dd</dd>
+
+            <dt class="col-sm-3">Total Cost</dt>
+            <dd class="col-sm-9">@Model.TotalCost:C</dd>
+        </dl>
+
+        <div class="mt-4">
+            <a asp-action="Index" class="btn btn-secondary btn-lg btn-back">
+                <i class="bi bi-arrow-left me-1"></i> Back
+            </a>
+        </div>
+    </div>
+</div>

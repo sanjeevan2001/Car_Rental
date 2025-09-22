@@ -1,0 +1,149 @@
+﻿@model CarRental.Models.Customer
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edit Customer";
+}
+
+<div class="container py-5">
+
+    <!-- Page Title -->
+    <h2 class="text-center text-primary fw-bold mb-5 animate__animated animate__fadeInDown">
+        <i class="bi bi-pencil-square me-2"></i> Edit Customer
+    </h2>
+
+    <!-- Edit Form Card -->
+    <div class="card glass-card shadow-lg p-4 mx-auto animate__animated animate__zoomIn" style="max-width: 850px;">
+        <form asp-action="EditCustomer" method="post">
+            <input type="hidden" asp-for="CustomerId" />
+            <input type="hidden" asp-for="User.UserId" />
+
+            <!-- Personal Info -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control form-input" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Gender" class="form-label"></label>
+                    <select asp-for="Gender" class="form-select form-input" asp-items="Html.GetEnumSelectList<CarRental.Ennum.CustomerGender>()">
+                        <option value="">Select Gender</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Address" class="form-label"></label>
+                    <input asp-for="Address" class="form-control form-input" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control form-input" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="UserEmail" class="form-label"></label>
+                    <input asp-for="UserEmail" class="form-control form-input" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="LicenseNumber" class="form-label"></label>
+                    <input asp-for="LicenseNumber" class="form-control form-input" />
+                    <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- User Credentials -->
+            <h4 class="text-secondary mb-3 animate__animated animate__fadeIn">
+                <i class="bi bi-shield-lock-fill me-2"></i> User Credentials
+            </h4>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label asp-for="User.UserName" class="form-label"></label>
+                    <input asp-for="User.UserName" class="form-control form-input" />
+                    <span asp-validation-for="User.UserName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="User.Password" class="form-label"></label>
+                    <input asp-for="User.Password" type="password" class="form-control form-input" />
+                    <span asp-validation-for="User.Password" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="User.ConfirmPassword" class="form-label"></label>
+                    <input asp-for="User.ConfirmPassword" type="password" class="form-control form-input" />
+                    <span asp-validation-for="User.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-center gap-3 animate__animated animate__fadeInUp">
+                <button type="submit" class="btn btn-success btn-hover px-4 py-2">
+                    <i class="bi bi-check-circle me-1"></i> Update
+                </button>
+                <a asp-action="CustomerList" class="btn btn-secondary btn-hover px-4 py-2">
+                    <i class="bi bi-x-circle me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Glassmorphism Card */
+    .glass-card {
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+        }
+
+    /* Input Focus Animation */
+    .form-input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 10px rgba(13,110,253,0.4);
+        transition: all 0.3s ease;
+    }
+
+    /* Button Hover */
+    .btn-hover {
+        transition: all 0.3s ease;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+        }
+
+    /* Responsive Buttons */
+    @@media (max-width: 576px) {
+        .btn-hover
+
+    {
+        width: 100%;
+    }
+
+    .d-flex.justify-content-center {
+        flex-direction: column;
+        gap: 1rem !important;
+    }
+
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!-- Animate.css CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />

@@ -26,6 +26,8 @@ namespace CarRental.ViewModels
         public string? ImageUrl { get; set; }
 
         public IFormFile? ImageFile { get; set; }  // <-- handles upload
-        
+        [Display(Name = "Availability")]
+        public bool IsAvailable { get; set; } = true; // default
+
     }
 }

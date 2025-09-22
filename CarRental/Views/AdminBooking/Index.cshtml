@@ -45,10 +45,10 @@
                                     <td>@booking.ReturnDate.ToString("yyyy-MM-dd")</td>
                                     <td class="fw-bold text-success">LKR @booking.TotalCost.ToString("N2")</td>
                                     <td class="text-center">
-                                        <a asp-action="Edit" asp-route-id="@booking.BookingId"
+                                        @* <a asp-action="Edit" asp-route-id="@booking.BookingId"
                                            class="btn btn-primary btn-sm me-1 action-btn">
                                             <i class="bi bi-pencil-square"></i> Edit
-                                        </a>
+                                        </a> *@
                                         <a asp-action="Delete" asp-route-id="@booking.BookingId"
                                            class="btn btn-danger btn-sm action-btn">
                                             <i class="bi bi-trash3-fill"></i> Delete

@@ -13,38 +13,37 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        position: relative;
     }
 
-    /* Animated gradient overlay */
-    body::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(120deg, rgba(0, 0, 80, 0.6), rgba(0, 40, 120, 0.5), rgba(0, 0, 40, 0.6));
-        background-size: 200% 200%;
-        animation: moveGradient 12s ease infinite;
-        backdrop-filter: blur(4px);
-        z-index: 0;
-    }
+        /* Blurred + Gradient Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0,0,80,0.4), rgba(0,40,120,0.3), rgba(0,0,40,0.4));
+            background-size: 200% 200%;
+            animation: moveGradient 12s ease infinite;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 0;
+        }
 
     @@keyframes moveGradient {
-        0%
-        
-        {
+        0% {
             background-position: 0% 50%;
         }
 
-        50% 
-        {
+        50% {
             background-position: 100% 50%;
         }
 
-        100% 
-        {
+        100% {
             background-position: 0% 50%;
         }
     }
 
+    /* Glassmorphic login card */
     .login-card {
         position: relative;
         z-index: 1;
@@ -54,28 +53,26 @@
         max-width: 420px;
         width: 100%;
         box-shadow: 0 12px 40px rgba(0, 0, 64, 0.5);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
         border: 1px solid rgba(255, 255, 255, 0.25);
         animation: fadeInUp 0.8s ease;
         transition: all 0.4s ease;
     }
 
-    .login-card:hover {
-        transform: translateY(-5px);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        box-shadow: 0 16px 50px rgba(0, 0, 100, 0.7);
-    }
+        .login-card:hover {
+            transform: translateY(-5px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 16px 50px rgba(0, 0, 100, 0.7);
+        }
 
     @@keyframes fadeInUp {
-        from
-        {
+        from {
             opacity: 0;
             transform: translateY(30px);
         }
 
-        to 
-        {
+        to {
             opacity: 1;
             transform: translateY(0);
         }
@@ -101,16 +98,16 @@
         font-weight: 500;
     }
 
-    .custom-input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-    }
+        .custom-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
 
-    .custom-input:focus {
-        border-color: #66a3ff;
-        box-shadow: 0 0 10px rgba(102, 163, 255, 0.6);
-        background: transparent;
-        color: #fff;
-    }
+        .custom-input:focus {
+            border-color: #66a3ff;
+            box-shadow: 0 0 10px rgba(102, 163, 255, 0.6);
+            background: transparent;
+            color: #fff;
+        }
 
     .custom-btn {
         background: linear-gradient(90deg, #001f3f, #0040c0);
@@ -120,11 +117,11 @@
         transition: all 0.3s ease;
     }
 
-    .custom-btn:hover {
-        background: linear-gradient(90deg, #003366, #0056b3);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 0, 120, 0.6);
-    }
+        .custom-btn:hover {
+            background: linear-gradient(90deg, #003366, #0056b3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 120, 0.6);
+        }
 
     .link-text {
         text-decoration: none;
@@ -133,10 +130,10 @@
         transition: all 0.3s ease;
     }
 
-    .link-text:hover {
-        color: #fff;
-        text-decoration: underline;
-    }
+        .link-text:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
 
     hr {
         border: none;
@@ -182,7 +179,7 @@
             </button>
         </div>
 
-        <!-- Skip Button -->
+        <!-- Guest Access -->
         <div class="d-grid mb-3">
             <a asp-controller="Guest" asp-action="GuestView" class="btn btn-outline-light btn-lg">
                 <i class="bi bi-skip-forward-fill me-1"></i> Continue as Guest
@@ -194,7 +191,7 @@
         <!-- Sign Up -->
         <p class="small text-light mb-0">
             Don't have an account?
-            <a href="/Customer/CustomerRegister" class="link-text">Sign Up</a>
+            <a href="/Customer/UserRegister" class="link-text">Sign Up</a>
         </p>
     </form>
 </div>

@@ -52,6 +52,7 @@ namespace CarRental.Controllers
                 {
                     UserId = Guid.NewGuid(),
                     UserName = model.UserName,
+                    PhoneNumber = model.PhoneNumber,
                     Password = model.Password,
                     ConfirmPassword = model.ConfirmPassword,
                     Role = "Customer"

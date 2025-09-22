@@ -19,8 +19,18 @@ namespace CarRental.Controllers
         // GET: Customer Dashboard Home
         public IActionResult Index()
         {
-            // Optionally pass customer name to view
+            // Customer name
             ViewBag.CustomerName = _temData.CustomerName;
+
+            // Show only top 3 available cars as "featured"
+            var featuredCars = _dbContext.Cars
+                .Where(c => c.IsAvailable)
+                .OrderBy(c => c.PricePerday)   // cheapest cars first
+                .Take(3)
+                .ToList();
+
+            ViewBag.FeaturedCars = featuredCars;
+
             return View();
         }
 
@@ -121,5 +131,71 @@ namespace CarRental.Controllers
 
             return RedirectToAction(nameof(MyBookings));
         }
+
+        // GET: Customer Profile
+        public async Task<IActionResult> CustomerProfile()
+        {
+            // Check if customer is logged in
+            if (!_temData.CustomerID.HasValue || _temData.CustomerID.Value == Guid.Empty)
+                return RedirectToAction("GuestView", "Guest");
+
+            var customer = await _dbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == _temData.CustomerID.Value);
+            
+
+            if (customer == null)
+                return NotFound("Customer not found. ");
+
+            return View(customer);
+        }
+
+        // GET: Edit Customer Profile
+        [HttpGet]
+        public async Task<IActionResult> EditProfile()
+        {
+            if (!_temData.CustomerID.HasValue || _temData.CustomerID.Value == Guid.Empty)
+                return RedirectToAction("GuestView", "Guest");
+
+            var customer = await _dbContext.Customers
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.CustomerId == _temData.CustomerID.Value);
+
+            if (customer == null)
+                return NotFound("Customer not found.");
+
+            return View(customer);
+        }
+
+        // POST: Edit Customer Profile
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProfile(Customer model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var customer = await _dbContext.Customers
+                .FirstOrDefaultAsync(c => c.CustomerId == model.CustomerId);
+
+            if (customer == null)
+                return NotFound("Customer not found.");
+
+            // Update fields safely
+            customer.FullName = model.FullName?.Trim() ?? customer.FullName;
+            customer.Gender = model.Gender;
+            customer.Address = model.Address?.Trim() ?? customer.Address;
+            customer.UserEmail = model.UserEmail?.Trim() ?? customer.UserEmail;
+            customer.PhoneNumber = model.PhoneNumber?.Trim() ?? customer.PhoneNumber;
+            customer.LicenseNumber = model.LicenseNumber?.Trim() ?? customer.LicenseNumber;
+
+            await _dbContext.SaveChangesAsync();
+
+            // Update TempData
+            _temData.CustomerName = customer.FullName;
+
+            TempData["Success"] = "Profile updated successfully!";
+            return RedirectToAction("CustomerProfile"); // Make sure this action exists
+        }
+
+
     }
 }

@@ -18,7 +18,9 @@
     <div class="row align-items-stretch gy-5">
         <!-- Image Column -->
         <div class="col-md-6 d-flex" data-aos="fade-right" data-aos-delay="200">
-            <img src="/images/Extra/AboutPage3.jpg" class="img-fluid rounded shadow-lg flex-fill" alt="About Phoenix">
+            <div class="glass-card flex-fill">
+                <img src="/images/Extra/AboutPage3.jpg" class="img-fluid rounded shadow-lg" alt="About Phoenix">
+            </div>
         </div>
         <!-- Text Column -->
         <div class="col-md-6 d-flex flex-column justify-content-center" data-aos="fade-left" data-aos-delay="400">
@@ -35,11 +37,11 @@
             </p>
 
             <h2 class="fw-bold mt-4 mb-3">Why Choose Phoenix?</h2>
-            <ul class="list-unstyled">
-                <li class="mb-2">🚗 Wide selection of vehicles including economy, luxury, SUVs, and vans</li>
-                <li class="mb-2">⚡ Easy online booking in just a few clicks</li>
-                <li class="mb-2">🕒 24/7 customer support for a worry-free experience</li>
-                <li class="mb-2">💰 Transparent pricing with no hidden charges</li>
+            <ul class="list-unstyled why-choose">
+                <li>🚗 Wide selection of vehicles including economy, luxury, SUVs, and vans</li>
+                <li>⚡ Easy online booking in just a few clicks</li>
+                <li>🕒 24/7 customer support for a worry-free experience</li>
+                <li>💰 Transparent pricing with no hidden charges</li>
             </ul>
         </div>
     </div>
@@ -47,9 +49,9 @@
 
 <!-- Call-to-Action Section -->
 <div class="container my-5 text-center booking-section" data-aos="zoom-in-up" data-aos-duration="1000">
-    <h2 class="fw-bold mb-3 text-white">Start Your Journey with Phoenix Today</h2>
-    <p class="mb-4 text-white">Book your car easily and experience the best in convenience, reliability, and comfort.</p>
-    <a href="@Url.Action("Index", "Booking")" class="btn btn-lg btn-primary">Book a Car</a>
+    <h2 class="fw-bold mb-3">Start Your Journey with Phoenix Today</h2>
+    <p class="mb-4">Book your car easily and experience the best in convenience, reliability, and comfort.</p>
+    <a href="@Url.Action("UserRegister", "Customer")" class="btn btn-lg btn-primary">Book a Car</a>
 </div>
 
 @section Styles {
@@ -60,7 +62,7 @@
             height: 60vh;
             min-height: 400px;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/Extra/AboutPage1.jpg') center/cover no-repeat;
-            color: #ffffff; /* Hero text white */
+            color: #fff;
             border-radius: 20px;
             margin-bottom: 60px;
             display: flex;
@@ -76,20 +78,30 @@
                 text-shadow: 0 0 15px rgba(0,0,0,0.7);
             }
 
-        /* About Content Section */
-        .about-content .col-md-6 img {
+        /* Glass card effect for image */
+        .glass-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px;
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* image covers the full height of text */
         }
 
+        /* About Content Text */
         .about-content h2 {
-            color: #002147; /* Dark blue headings */
+            color: #002147;
         }
 
         .about-content p,
-        .about-content ul li {
-            color: #000000; /* Black text */
+        .about-content ul.why-choose li {
+            color: #000;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .about-content ul.why-choose li {
+            margin-bottom: 10px;
         }
 
         /* Call-to-Action Section */
@@ -126,6 +138,14 @@
                 .hero-section p {
                     font-size: 1rem;
                 }
+
+            .about-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .about-content p, .about-content ul.why-choose li {
+                font-size: 0.95rem;
+            }
         }
     </style>
 }

@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Phoenix</title>
 
+    <!-- Favicon / Logo -->
+    <link rel="icon" href="~/images/Extra/Pheonix.jpg" type="image/png" />
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -30,6 +33,11 @@
             font-weight: 800;
             font-size: 1.5rem;
         }
+
+            .navbar-brand img {
+                height: 40px;
+                margin-right: 10px;
+            }
 
         .navbar .btn-primary {
             background: #0040c0;
@@ -58,12 +66,9 @@
 
         /* Responsive Fix */
         @@media (max-width: 768px) {
-            .navbar-brand
-
-        {
-            font-size: 1.2rem;
-        }
-
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
         }
     </style>
 
@@ -73,7 +78,10 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
         <div class="container">
-            <a class="navbar-brand text-primary" asp-area="" asp-controller="Guest" asp-action="GuestView">Phoenix</a>
+            <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Guest" asp-action="GuestView">
+                <img src="~/images/Extra/Pheonix.jpg" alt="Phoenix Logo" />
+                <span>Phoenix</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -101,7 +109,10 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-4 text-center text-md-start">
-                    <h5 class="fw-bold">Phoenix</h5>
+                    <h5 class="fw-bold d-flex align-items-center">
+                        <img src="~/images/Extra/Pheonix.jpg" alt="Phoenix Logo" height="30" class="me-2" />
+                        Phoenix
+                    </h5>
                     <p class="small">Your trusted partner for easy and affordable car rentals. Explore, book, and drive with confidence anywhere, anytime.</p>
                 </div>
                 <div class="col-md-4 text-center text-md-start">
@@ -110,7 +121,7 @@
                         <li><a asp-area="" asp-controller="Guest" asp-action="GuestView">Home</a></li>
                         <li><a asp-area="" asp-controller="Guest" asp-action="About">About</a></li>
                         <li><a asp-area="" asp-controller="Guest" asp-action="Contact">Contact</a></li>
-                        <li><a asp-area="" asp-controller="Customer" asp-action="CustomerRegister">Register</a></li>
+                        <li><a asp-area="" asp-controller="Customer" asp-action="UserRegister">Register</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 text-center text-md-start">

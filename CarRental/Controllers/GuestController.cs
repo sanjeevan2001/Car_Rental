@@ -1,4 +1,6 @@
 ﻿using CarRental.Data;
+using CarRental.Models;
+using CarRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Controllers
@@ -29,8 +31,34 @@ namespace CarRental.Controllers
 
         public IActionResult Contact()
         {
-            return View();
+            return View(new ContactViewModel());
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SendMessage(ContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var feedback = new Feedback
+                {
+                    Id = Guid.NewGuid(),
+                    Name = model.Name,
+                    Email = model.Email,
+                    Message = model.Message,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                _appDbContext.Feedbacks.Add(feedback);
+                _appDbContext.SaveChanges();
+
+                TempData["SuccessMessage"] = "Thank you for your feedback! We'll get back to you soon.";
+                return RedirectToAction("Contact");
+            }
+
+            return View("Contact", model);
+        }
+
+     
        
         public IActionResult news1()
         {

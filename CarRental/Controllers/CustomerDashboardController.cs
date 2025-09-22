@@ -78,6 +78,15 @@ namespace CarRental.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BookCar(Guid carId, DateTime pickupDate, DateTime returnDate)
         {
+            if (pickupDate.Date < DateTime.Today)
+            {
+                ModelState.AddModelError("PickupDate", "Pickup date must be today or later.");
+            }
+
+            if (returnDate.Date <= pickupDate.Date)
+            {
+                ModelState.AddModelError("ReturnDate", "Return date must be after Pickup date.");
+            }
             var customerId = _temData.CustomerID;
             if (customerId == Guid.Empty)
                 return BadRequest("Invalid customer.");

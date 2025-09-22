@@ -1,0 +1,52 @@
+﻿@model CarRental.Models.Feedback
+
+@{
+    ViewData["Title"] = "Feedback Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary fw-bold">Feedback Details</h2>
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white fw-bold">
+            User Feedback
+        </div>
+        <div class="card-body">
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label fw-semibold">Name:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-plaintext">@Model.Name</p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label fw-semibold">Email:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-plaintext">@Model.Email</p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label fw-semibold">Message:</label>
+                <div class="col-sm-9">
+                    <div class="border rounded p-3 bg-light text-dark" style="white-space: pre-wrap;">
+                        @Model.Message
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label fw-semibold">Submitted On:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-plaintext">@Model.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</p>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

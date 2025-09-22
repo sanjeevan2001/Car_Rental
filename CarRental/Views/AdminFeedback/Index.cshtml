@@ -1,0 +1,38 @@
+﻿@model IEnumerable<CarRental.Models.Feedback>
+
+@{
+    ViewData["Title"] = "Admin - Feedbacks";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary fw-bold">User Feedbacks</h2>
+
+    <table class="table table-bordered table-striped shadow-sm">
+        <thead class="table-dark" style="color: #ffffff;">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Date Submitted</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody style="color: #212529;">
+            @foreach (var feedback in Model)
+            {
+                <tr class="align-middle">
+                    <td>@feedback.Name</td>
+                    <td>@feedback.Email</td>
+                    <td>@(feedback.Message.Length > 50 ? feedback.Message.Substring(0, 50) + "..." : feedback.Message)</td>
+                    <td>@feedback.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@feedback.Id" class="btn btn-sm btn-info text-white">View</a>
+                        <a asp-action="Delete" asp-route-id="@feedback.Id" class="btn btn-sm btn-danger text-white">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

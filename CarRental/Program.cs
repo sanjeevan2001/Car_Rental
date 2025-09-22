@@ -60,13 +60,11 @@ app.MapControllerRoute(
 //    name: "default",
 
 
-
-
-
 // Sanjee
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=AdminDashboard}/{action=Index}/{id?}");
+
 
 
 app.Run();

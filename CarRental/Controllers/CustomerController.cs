@@ -37,6 +37,7 @@ namespace CarRental.Controllers
             var user = new User
             {
                 UserName = model.UserName,
+
                 Password = model.Password,
                 Role = "Customer",
                 PhoneNumber = model.PhoneNumber
@@ -65,6 +66,7 @@ namespace CarRental.Controllers
 
             // 5. Redirect or show success message
             return RedirectToAction("CustomerList", "AdminCustomer");
+
         }
 
         // User Register Form

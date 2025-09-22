@@ -5,6 +5,7 @@ namespace CarRental.ViewModel
 {
     public class RegisterCustomerViewModel
     {
+
         [Required(ErrorMessage = "Full name is required")]
         [StringLength(100)]
         public string FullName { get; set; }

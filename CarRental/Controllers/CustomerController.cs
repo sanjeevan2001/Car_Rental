@@ -37,9 +37,11 @@ namespace CarRental.Controllers
             var user = new User
             {
                 UserName = model.UserName,
+
                 Password = model.Password,
                 Role = "Customer",
                 PhoneNumber = model.PhoneNumber
+
             };
 
             // 2. Save User to DB
@@ -64,7 +66,9 @@ namespace CarRental.Controllers
             await _appdbcontext.SaveChangesAsync();
 
             // 5. Redirect or show success message
+
             return RedirectToAction("CustomerList", "AdminCustomer");
+
         }
 
         // User Register Form
@@ -73,6 +77,7 @@ namespace CarRental.Controllers
         {
             return View();
         }
+
 
         // POST: Save User for Customer
         [HttpPost]
@@ -87,6 +92,7 @@ namespace CarRental.Controllers
             // Check if username already exists
             var existingUser = await _appdbcontext.Users
                 .FirstOrDefaultAsync(u => u.UserName == model.UserName);
+
 
             if (existingUser != null)
             {

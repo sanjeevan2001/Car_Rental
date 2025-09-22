@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CarRental.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Controllers
 {
     public class GuestController : Controller
     {
+        private readonly AppDbContext _appDbContext;
+
+        public GuestController(AppDbContext appDbContext)
+        {
+            _appDbContext = appDbContext;
+        }
         public IActionResult Index()
         {
             return View();
@@ -11,7 +18,8 @@ namespace CarRental.Controllers
 
         public IActionResult GuestView()
         {
-            return View();
+            var cars = _appDbContext.Cars.ToList();
+            return View(cars);
         }
 
         public IActionResult About()
@@ -24,5 +32,9 @@ namespace CarRental.Controllers
             return View();
         }
        
+        public IActionResult news1()
+        {
+            return View();
+        }
     }
 }

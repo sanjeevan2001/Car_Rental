@@ -2,93 +2,164 @@
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Customer Registration";
 }
 
-<div class="container py-5 d-flex justify-content-center align-items-start" style="min-height:100vh;">
-    <div class="col-12 col-md-6">
+<!-- Full-page background -->
+<div class="bg-image"></div>
 
-        <h2 class="text-center mb-4 text-white fw-bold">Customer Registration</h2>
+<!-- Centered Glass Card Form -->
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="glass-card p-5 shadow-lg animate-form w-100" style="max-width: 600px;">
 
-        <div class="card p-4 shadow-lg rounded-4 animate__animated animate__fadeInUp" style="background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+        <h2 class="mb-4 text-center fw-bold text-white">
+            <i class="bi bi-person-plus-fill me-2"></i> Customer Registration
+        </h2>
 
-            <form method="post" novalidate>
-                <div class="mb-3">
-                    <label asp-for="UserName" class="form-label text-white"></label>
-                    <input asp-for="UserName" class="form-control" placeholder="Enter Username" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="Password" class="form-label text-white"></label>
-                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter Password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="ConfirmPassword" class="form-label text-white"></label>
-                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
+        <form asp-action="CustomerRegister" method="post" novalidate>
+            <!-- Personal Info -->
+            <div class="row g-3 mb-3">
+                <div class="col-12">
                     <label asp-for="FullName" class="form-label text-white"></label>
-                    <input asp-for="FullName" class="form-control" placeholder="Full Name" />
+                    <input asp-for="FullName" class="form-control form-input" placeholder="Full Name" />
                     <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
-
-                <div class="mb-3">
-                    @Html.LabelFor(m => m.Gender, new { @class = "form-label text-white" })
-                    @Html.DropDownListFor(m => m.Gender,
-                    new SelectList(Enum.GetValues(typeof(CarRental.Ennum.CustomerGender))),
-                                        "Select Gender",
-                                        new { @class = "form-select" })
-                    @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                <div class="col-12">
+                    <label asp-for="Gender" class="form-label text-white"></label>
+                    <select asp-for="Gender" class="form-select form-input" asp-items="Html.GetEnumSelectList<CarRental.Ennum.CustomerGender>()">
+                        <option value="">Select Gender</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
-
-                <div class="mb-3">
+                <div class="col-12">
                     <label asp-for="Address" class="form-label text-white"></label>
-                    <input asp-for="Address" class="form-control" placeholder="Address" />
+                    <input asp-for="Address" class="form-control form-input" placeholder="Address" />
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
-
-                <div class="mb-3">
+                <div class="col-12">
                     <label asp-for="PhoneNumber" class="form-label text-white"></label>
-                    <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
+                    <input asp-for="PhoneNumber" class="form-control form-input" placeholder="Phone Number" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
-
-                <div class="mb-3">
+                <div class="col-12">
                     <label asp-for="UserEmail" class="form-label text-white"></label>
-                    <input asp-for="UserEmail" class="form-control" placeholder="Email" />
+                    <input asp-for="UserEmail" class="form-control form-input" placeholder="Email" />
                     <span asp-validation-for="UserEmail" class="text-danger"></span>
                 </div>
-
-                <div class="mb-3">
+                <div class="col-12">
                     <label asp-for="LicenseNumber" class="form-label text-white"></label>
-                    <input asp-for="LicenseNumber" class="form-control" placeholder="License Number" />
+                    <input asp-for="LicenseNumber" class="form-control form-input" placeholder="License Number" />
                     <span asp-validation-for="LicenseNumber" class="text-danger"></span>
                 </div>
+            </div>
 
-                <button type="submit" class="btn btn-primary w-100 fw-bold">Register</button>
-            </form>
-        </div>
+            <hr class="my-4" />
+
+            <!-- User Credentials -->
+            <h4 class="mb-3 text-center text-white">
+                <i class="bi bi-shield-lock-fill me-2"></i> User Credentials
+            </h4>
+            <div class="row g-3 mb-4">
+                <div class="col-12">
+                    <label asp-for="UserName" class="form-label text-white"></label>
+                    <input asp-for="UserName" class="form-control form-input" placeholder="Username" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Password" class="form-label text-white"></label>
+                    <input asp-for="Password" type="password" class="form-control form-input" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="ConfirmPassword" class="form-label text-white"></label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control form-input" placeholder="Confirm Password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3">
+                <button type="submit" class="btn btn-success btn-hover">
+                    <i class="bi bi-check-circle me-1"></i> Register
+                </button>
+                <a asp-controller="AdminCustomer" asp-action="CustomerList" class="btn btn-secondary btn-hover">
+                    <i class="bi bi-x-circle me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
     </div>
 </div>
+
+<style>
+    /* Full-page background image */
+    .bg-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/images/Extra/UserRegipage.jpg') no-repeat center center;
+        background-size: cover;
+        z-index: -1;
+        filter: brightness(0.7);
+    }
+
+    /* Glass card styling */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    /* Form animation */
+    @@keyframes fadeSlideUp {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-form {
+        opacity: 0;
+        animation: fadeSlideUp 0.8s forwards;
+    }
+
+    /* Input focus glow */
+    .form-input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 10px rgba(13,110,253,0.4);
+        transition: all 0.3s ease;
+    }
+
+    /* Button hover effect */
+    .btn-hover {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+    /* Labels color */
+    .form-label, h2, h4 {
+        color: #fff;
+    }
+
+    hr {
+        border-color: rgba(255,255,255,0.3);
+    }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-<style>
-    body {
-        background: url('/images/Extra/UserRegipage.jpg') no-repeat center center fixed;
-        background-size: cover;
-    }
-
-    /* optional: text shadow for readability */
-    .form-label {
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-</style>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />

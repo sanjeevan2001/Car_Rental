@@ -47,13 +47,13 @@ app.UseAuthorization();
 
 //app.MapControllerRoute(
 //    name: "areas",
-//    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+//    pattern: "{area:exists}/{controller=Guest}/{action=GuestView}/{id?}");
 
 
 // Tharmi
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Customer}/{action=CustomerRegister}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Guest}/{action=GuestView}/{id?}");
 
 // Gowtham
 //app.MapControllerRoute(
@@ -64,9 +64,9 @@ app.UseAuthorization();
 
 
 // Sanjee
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=AdminDashboard}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=AdminDashboard}/{action=Index}/{id?}");
 
 
 app.Run();

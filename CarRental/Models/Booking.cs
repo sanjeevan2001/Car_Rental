@@ -47,5 +47,19 @@ namespace CarRental.Models
             }
             return ValidationResult.Success;
         }
+        // Return Date must be after Pickup Date
+        public static ValidationResult ValidateReturnDate(DateTime returnDate, ValidationContext context)
+        {
+            var instance = context.ObjectInstance as Booking;
+            if (instance == null)
+                return ValidationResult.Success;
+
+            if (returnDate.Date <= instance.PickupDate.Date)
+            {
+                return new ValidationResult("Return date must be after Pickup date.");
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }

@@ -5,34 +5,93 @@
     ViewData["Title"] = "User Details";
 }
 
-<div class="container my-5 animate-fade-slide">
-    <h2 class="text-primary mb-4">User Details</h2>
+<div class="container my-5 d-flex justify-content-center">
 
-    <div class="card shadow-sm p-4 mb-4" style="border-radius: 1rem;">
-        <p><strong class="text-dark">Username:</strong> <span class="text-muted">@Model.UserName</span></p>
-        <p><strong class="text-dark">Password:</strong> <span class="text-muted">@Model.Password</span></p>
+    <!-- Glass Card -->
+    <div class="card glass-card shadow-lg p-5 animate__animated animate__fadeInUp" style="max-width: 500px; width: 100%;">
+        <!-- Page Title -->
+        <h2 class="text-primary mb-4 text-center animate__animated animate__fadeInDown">
+            <i class="bi bi-person-circle me-2"></i> User Details
+        </h2>
+
+        <!-- User Info -->
+        <div class="user-info mb-4">
+            <p><strong>Username:</strong> <span>@Model.UserName</span></p>
+            <p><strong>Password:</strong> <span>@Model.Password</span></p>
+        </div>
+
+        <!-- Back Button -->
+        <div class="d-flex justify-content-center">
+            <a asp-action="Index" class="btn btn-secondary btn-hover px-4 py-2">
+                <i class="bi bi-arrow-left-circle me-1"></i> Back
+            </a>
+        </div>
     </div>
 
-    <a asp-action="Index" class="btn btn-secondary">
-        <i class="bi bi-arrow-left-circle me-1"></i> Back
-    </a>
 </div>
 
 <style>
-    /* Fade-in slide-up animation */
+    /* Glassmorphism Card */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
+
+    /* Page Title */
+    h2 {
+        font-weight: 700;
+    }
+
+    /* User Info */
+    .user-info p {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        color: #fff;
+    }
+
+    .user-info strong {
+        color: #0d6efd;
+    }
+
+    /* Button Hover */
+    .btn-hover {
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    /* Fade-in animation fallback */
     @@keyframes fadeSlideUp {
-        0%
+        0% {
+            opacity: 0;
+            transform: translateY(25px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .animate-fade-slide {
@@ -40,22 +99,16 @@
         animation: fadeSlideUp 0.8s forwards;
     }
 
-    h2 {
-        font-weight: 700;
-    }
-
-    .card p {
-        font-size: 1rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .btn-secondary {
-        font-weight: 600;
-        transition: 0.3s;
-    }
-
-        .btn-secondary:hover {
-            background-color: #6c757d;
-            color: #fff;
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .glass-card {
+            padding: 2rem 1.5rem;
         }
+
+        .btn-hover {
+            width: 100%;
+        }
+    }
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />

@@ -4,68 +4,135 @@
     ViewData["Title"] = "Available Cars";
 }
 
-<div class="container my-4 animate-fade-slide">
-    <h2 class="mb-4 text-primary animate-fade-slide" style="animation-delay: 0.1s;">Available Cars</h2>
+<div class="container my-5">
+
+
+    <!-- Page Title -->
+    <h2 class="page-title mb-4 animate__animated animate__fadeInDown text-center">
+        <i class="bi bi-car-front-fill me-2"></i> Available Cars
+    </h2>
+
 
     @if (!Model.Any())
     {
-        <div class="alert alert-info animate-fade-slide" style="animation-delay: 0.3s;">
+        <div class="alert alert-info text-center animate__animated animate__fadeInUp">
             No cars are currently available. Please check back later.
         </div>
     }
     else
     {
-        <div class="table-responsive animate-fade-slide" style="animation-delay: 0.3s;">
-            <table class="table table-hover align-middle shadow-sm rounded">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Car Name</th>
-                        <th>Model</th>
-                        <th>Brand</th>
-                        <th>Seats</th>
-                        <th>Fuel Type</th>
-                        <th>Price/Day</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var car in Model)
-                    {
-                        <tr class="align-middle">
-                            <td>@car.CarName</td>
-                            <td>@car.CarModel</td>
-                            <td>@car.CarBrand</td>
-                            <td>@car.Seats</td>
-                            <td>@car.FuelType</td>
-                            <td>@car.PricePerday.ToString("C")</td>
-                            <td>
-                                <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-success btn-sm">
-                                    <i class="bi bi-car-front-fill me-1"></i> Book Now
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="row g-4">
+            @foreach (var car in Model)
+            {
+                <div class="col-lg-4 col-md-6 animate__animated animate__fadeInUp">
+                    <div class="card car-card h-100 shadow-lg border-0 rounded-4">
+                        <div class="card-img-wrapper position-relative">
+                            <img src="@car.ImageUrl"
+                                 class="card-img-top rounded-top-4"
+                                 alt="@car.CarName"
+                                 style="height:200px; object-fit:cover;">
+                            <div class="overlay-text">
+                                <strong>@car.CarBrand @car.CarModel</strong>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <p class="car-detail mb-1"><strong>Name:</strong> @car.CarName</p>
+                            <p class="car-detail mb-2"><strong>Seats:</strong> @car.Seats | <strong>Fuel:</strong> @car.FuelType</p>
+                            <p class="car-price fw-bold mb-3">LKR @car.PricePerday.ToString("N0") / day</p>
+                            <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-success btn-hover rounded-pill fw-bold">
+                                <i class="bi bi-cart-plus-fill me-1"></i> Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     }
 </div>
 
 <style>
-    /* Fade-in slide-up animation */
+    /* Page Title */
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0d6efd;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Card */
+    .car-card {
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .car-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+        }
+
+    /* Image Overlay for Brand + Model */
+    .card-img-wrapper {
+        position: relative;
+    }
+
+    .overlay-text {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 0.5rem;
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+        font-weight: 600;
+        font-size: 1rem;
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+    }
+
+    /* Card Body Text */
+    .car-detail {
+        color: #e0e0e0;
+        font-size: 0.95rem;
+    }
+
+    .car-price {
+        color: #0dcaf0;
+        font-size: 1.1rem;
+    }
+
+    /* Buttons */
+    .btn-hover {
+        transition: all 0.3s ease;
+    }
+
+        .btn-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+        font-weight: 600;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    /* Animations */
     @@keyframes fadeSlideUp {
-        0%
+        0% {
+            opacity: 0;
+            transform: translateY(25px);
+        }
 
-    {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .animate-fade-slide {
@@ -73,33 +140,18 @@
         animation: fadeSlideUp 0.8s forwards;
     }
 
-    /* Table styling */
-    table {
-        background: #ffffff;
-        border-radius: 0.5rem;
-        overflow: hidden;
-    }
-
-    thead.table-primary th {
-        color: #fff;
-        font-weight: 600;
-    }
-
-    tbody tr:hover {
-        background-color: rgba(13, 110, 253, 0.1);
-        transition: 0.3s;
-    }
-
-    .btn-success {
-        font-weight: 600;
-        transition: 0.3s;
-    }
-
-        .btn-success:hover {
-            background-color: #198754;
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .car-card {
+            margin-bottom: 1rem;
         }
 
-    h2 {
-        font-weight: 700;
+        .overlay-text {
+            font-size: 0.9rem;
+        }
     }
+
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+

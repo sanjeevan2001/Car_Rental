@@ -16,12 +16,6 @@ namespace CarRental.Controllers
             _appdbcontext = appDbContext;
         }
 
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult CustomerRegister()
         {
@@ -70,7 +64,7 @@ namespace CarRental.Controllers
             await _appdbcontext.SaveChangesAsync();
 
             // 5. Redirect or show success message
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CustomerList", "AdminCustomer");
         }
 
         // User Register Form
@@ -138,7 +132,7 @@ namespace CarRental.Controllers
                 return View(model);
             }
 
-            // Step 1: Check if Phone Number exists in Users table
+            // Check if Phone Number exists in Users table
             var user = _appdbcontext.Users.FirstOrDefault(u => u.PhoneNumber == model.PhoneNumber);
 
             if (user == null)
@@ -147,7 +141,7 @@ namespace CarRental.Controllers
                 return View(model);
             }
 
-            // Step 2: Check if already registered as Customer
+            // Check if already registered as Customer
             var existingCustomer = _appdbcontext.Customers.FirstOrDefault(c => c.PhoneNumber == model.PhoneNumber);
             if (existingCustomer != null)
             {
@@ -155,7 +149,7 @@ namespace CarRental.Controllers
                 return View(model);
             }
 
-            // Step 3: Map ViewModel → Customer
+            // Map ViewModel → Customer
             var customer = new Customer
             {
                 CustomerId = Guid.NewGuid(),
@@ -165,18 +159,15 @@ namespace CarRental.Controllers
                 PhoneNumber = model.PhoneNumber,
                 UserEmail = model.UserEmail,
                 LicenseNumber = model.LicenseNumber,
-                // Important: Assign UserId from Users table
                 UserId = user.UserId
             };
 
             _appdbcontext.Customers.Add(customer);
             _appdbcontext.SaveChanges();
 
+            // Otherwise, go to home/dashboard
             TempData["Success"] = "Customer registration successful!";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "CustomerDashboard");
         }
-
-
-
     }
 }

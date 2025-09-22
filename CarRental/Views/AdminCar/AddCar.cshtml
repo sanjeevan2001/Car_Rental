@@ -49,6 +49,15 @@
                     <span asp-validation-for="PricePerday" class="text-danger"></span>
                 </div>
 
+                <div class="col-md-6">
+                    <label asp-for="IsAvailable" class="form-label fw-bold"></label>
+                    <select asp-for="IsAvailable" class="form-select">
+                        <option value="true">Available</option>
+                        <option value="false">Not Available</option>
+                    </select>
+                    <span asp-validation-for="IsAvailable" class="text-danger"></span>
+                </div>
+
                 <div class="col-md-12">
                     <label asp-for="ImageFile" class="form-label fw-bold">Upload Car Image</label>
                     <input asp-for="ImageFile" type="file" class="form-control file-input" />

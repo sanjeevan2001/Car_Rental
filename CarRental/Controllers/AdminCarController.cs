@@ -68,7 +68,7 @@ namespace CarRental.Controllers
                     FuelType = model.FuelType,
                     PricePerday = model.PricePerday,
                     ImageUrl = imagePath,
-                    IsAvailable = true // default
+                    IsAvailable = model.IsAvailable
                 };
 
                 _dbContext.Cars.Add(car);

@@ -5,11 +5,11 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="container mt-4">
+<div class="container mt-5">
     <h2 class="mb-4 text-primary fw-bold">User Feedbacks</h2>
 
-    <table class="table table-bordered table-striped shadow-sm">
-        <thead class="table-dark" style="color: #ffffff;">
+    <table class="table shadow-sm table-hover align-middle">
+        <thead style="background: linear-gradient(90deg, #0d6efd, #6610f2); color: #ffffff;">
             <tr>
                 <th>Name</th>
                 <th>Email</th>
@@ -18,21 +18,52 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody style="color: #212529;">
+        <tbody>
             @foreach (var feedback in Model)
             {
-                <tr class="align-middle">
+                <tr style="background-color:  #ffffff");">
                     <td>@feedback.Name</td>
                     <td>@feedback.Email</td>
-                    <td>@(feedback.Message.Length > 50 ? feedback.Message.Substring(0, 50) + "..." : feedback.Message)</td>
+                    <td>
+                        @(feedback.Message.Length > 50 ? feedback.Message.Substring(0, 50) + "..." : feedback.Message)
+                    </td>
                     <td>@feedback.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@feedback.Id" class="btn btn-sm btn-info text-white">View</a>
-                        <a asp-action="Delete" asp-route-id="@feedback.Id" class="btn btn-sm btn-danger text-white">Delete</a>
+                        <a asp-action="Details" asp-route-id="@feedback.Id"
+                           class="btn btn-sm btn-info rounded-pill text-white me-1">
+                            View
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@feedback.Id"
+                           class="btn btn-sm btn-danger rounded-pill text-white">
+                            Delete
+                        </a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-
 </div>
+<style>
+    tbody tr:hover {
+        background-color: #e2e6ea !important;
+        transition: background-color 0.2s;
+    }
+
+    td {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+        td[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            background: #212529;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: normal;
+            z-index: 1000;
+        }
+</style>

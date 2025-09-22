@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+<!-- Hero Section -->
+<div class="hero-section d-flex align-items-center justify-content-center text-center text-white"
+     data-aos="fade-up" data-aos-duration="1200">
+    <div class="container" data-aos="zoom-in" data-aos-delay="300">
+        <h1 class="fw-bold display-4">Contact Phoenix</h1>
+        <p class="lead mt-3" data-aos="fade-up" data-aos-delay="600">
+            Have questions or need assistance? Reach out to us — we're here to help you every step of the way.
+        </p>
+    </div>
+</div>
+
+<!-- Contact Info + Form Section -->
+<div class="container my-5 py-4">
+    <div class="row gy-5 align-items-stretch">
+
+        <!-- Contact Details -->
+        <div class="col-md-5" data-aos="fade-right" data-aos-delay="200">
+            <div class="glass-card p-4 rounded shadow-lg h-100 contact-details">
+                <h2 class="fw-bold mb-4 text-primary">Get in Touch</h2>
+                <p><i class="bi bi-geo-alt-fill text-danger"></i> <strong>Address:</strong><br> 123 Phoenix Street, Suite 400, YourCity, YourCountry</p>
+                <p><i class="bi bi-envelope-fill text-success"></i> <strong>Email:</strong><br> support@phoenix.com</p>
+                <p><i class="bi bi-telephone-fill text-info"></i> <strong>Phone:</strong><br> +1 (800) 123-4567</p>
+                <p><i class="bi bi-clock-fill text-warning"></i> <strong>Working Hours:</strong><br> Mon - Fri, 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-md-7" data-aos="fade-left" data-aos-delay="400">
+            <div class="glass-card p-4 rounded shadow-lg h-100">
+                <h2 class="fw-bold mb-4 text-primary">Send Us a Message</h2>
+                <form asp-action="SendMessage" method="post">
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control form-control-lg" id="Name" name="Name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control form-control-lg" id="Email" name="Email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Message" class="form-label">Message</label>
+                        <textarea class="form-control form-control-lg" id="Message" name="Message" rows="5" placeholder="Write your message here" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg px-4">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        /* Hero Section */
+        .hero-section {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/Extra/ContactPage1.jpg') center/cover no-repeat;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 60px;
+            overflow: hidden;
+        }
+
+            .hero-section h1,
+            .hero-section p {
+                color: #fff;
+                text-shadow: 0 0 15px rgba(0,0,0,0.7);
+            }
+
+        /* Glass Card Effect */
+        .glass-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .glass-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            }
+
+        /* Contact Details Text */
+        .contact-details p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .contact-details strong {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* Form Input Focus */
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 6px rgba(13,110,253,0.4);
+        }
+
+        /* Buttons */
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            transform: scale(1.05);
+            transition: 0.3s ease-in-out;
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .hero-section {
+                height: 50vh;
+            }
+
+                .hero-section h1 {
+                    font-size: 2rem;
+                }
+
+                .hero-section p {
+                    font-size: 1rem;
+                }
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+    </script>
+}

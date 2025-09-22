@@ -1,74 +1,169 @@
-﻿@*
-    
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<CarRental.ViewModels.BookingViewModel>
+
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Bookings";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-<h2 class="mb-4 fw-bold text-primary border-bottom pb-2">
-    <i class="bi bi-calendar-check me-2"></i> 📅 Booking Management
-</h2>
+<div class="container my-5">
 
-<div class="container-fluid mt-3">
-    <div class="table-responsive shadow-sm rounded bg-white p-3">
-        <table class="table table-hover align-middle">
-            <thead class="table-primary">
-                <tr>
-                    <th>#</th>
-                    <th>Customer</th>
-                    <th>Car</th>
-                    <th>Pickup Date</th>
-                    <th>Return Date</th>
-                    <th>Status</th>
-                    <th>Total ($)</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Any())
-                {
-                    int count = 1;
-                    foreach (var booking in Model)
+    <!-- Page Title -->
+    <h2 class="page-title mb-4 animate__animated animate__fadeInDown">
+        <i class="bi bi-journal-check me-2"></i> Bookings
+    </h2>
+
+    <!-- Glass Card Table -->
+    <div class="card glass-card shadow-lg p-4 animate__animated animate__fadeInUp">
+        <div class="table-responsive">
+            <table class="table table-hover table-borderless mb-0 text-center custom-table">
+                <thead class="table-header">
+                    <tr>
+                        <th>Customer</th>
+                        <th>Car</th>
+                        <th>Pickup Date</th>
+                        <th>Return Date</th>
+                        <th>Total Cost</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var booking in Model)
+                        {
+                            <tr>
+                                <td>@booking.CustomerName</td>
+                                <td>@booking.CarName</td>
+                                <td>@booking.PickupDate.ToString("yyyy-MM-dd")</td>
+                                <td>@booking.ReturnDate.ToString("yyyy-MM-dd")</td>
+                                <td class="fw-bold text-success">LKR @booking.TotalCost.ToString("N2")</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@booking.BookingId" class="btn btn-sm btn-info btn-hover me-1">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@booking.BookingId" class="btn btn-sm btn-danger btn-hover">
+                                        <i class="bi bi-trash3-fill"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td>@count</td>
-                            <td>@booking.CustomerName</td>
-                            <td>@booking.CarName</td>
-                            <td>@booking.PickupDate.ToString("yyyy-MM-dd")</td>
-                            <td>@booking.ReturnDate.ToString("yyyy-MM-dd")</td>
-                            <td>
-                                <span class="badge
-                                                    @(booking.Status == "Pending" ? "bg-warning text-dark" :
-                                                                                                                  booking.Status == "Approved" ? "bg-success" :
-                                                                                                                  booking.Status == "Cancelled" ? "bg-danger" : "bg-secondary")">
-                            @booking.Status
-                        </span>
-                    </td>
-                    <td>@booking.TotalAmount.ToString("F2")</td>
-                    <td>
-                        <a href="/Admin/Booking/Details/@booking.Id" class="btn btn-sm btn-info text-white me-1">
-                            <i class="bi bi-eye"></i>
-                        </a>
-                        <a href="/Admin/Booking/Edit/@booking.Id" class="btn btn-sm btn-primary me-1">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="/Admin/Booking/Cancel/@booking.Id" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to cancel this booking?');">
-                            <i class="bi bi-x-circle"></i>
-                        </a>
-                    </td>
-                </tr>
-                                count++;
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="bi bi-info-circle me-2"></i> No bookings available.
+                            </td>
+                        </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="8" class="text-center text-muted">No bookings found.</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+<style>
+    /* Page Title */
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0d6efd;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Glass Card */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #fff;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+        }
+
+    /* Table Header */
+    .table-header {
+        background: linear-gradient(90deg, #0d6efd, #6610f2);
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    /* Table Body */
+    .custom-table tbody tr {
+        background-color: rgba(255,255,255,0.05);
+        color: #fff;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .custom-table tbody tr:hover {
+            background-color: rgba(255,255,255,0.15);
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+    table td, table th {
+        vertical-align: middle;
+        padding: 0.75rem 1rem;
+        color: #fff;
+    }
+
+    /* Buttons */
+    .btn-hover {
+        font-weight: 600;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #b02a37;
+        }
+
+    /* Animate.css */
+    .animate__fadeInUp, .animate__fadeInDown {
+        animation-duration: 0.8s;
+    }
+
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .btn-hover
+
+    {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    }
+</style>

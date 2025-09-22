@@ -1,0 +1,135 @@
+﻿@model CarRental.Models.Booking
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Booking Details";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<div class="container mt-5 animate__animated animate__fadeIn">
+    <h2 class="page-title fw-bold text-info animate__animated animate__fadeInDown">
+        <i class="bi bi-journal-check me-2"></i> Booking Details
+    </h2>
+
+    <div class="glass-card animate__animated animate__fadeInUp">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Customer</dt>
+            <dd class="col-sm-9">@Model.Customer.FullName</dd>
+
+            <dt class="col-sm-3">Car</dt>
+            <dd class="col-sm-9">@Model.Car.CarName (@Model.Car.CarModel)</dd>
+
+            <dt class="col-sm-3">Pickup Date</dt>
+            <dd class="col-sm-9">@Model.PickupDate:yyyy-MM-dd</dd>
+
+            <dt class="col-sm-3">Return Date</dt>
+            <dd class="col-sm-9">@Model.ReturnDate:yyyy-MM-dd</dd>
+
+            <dt class="col-sm-3">Total Cost</dt>
+            <dd class="col-sm-9">LKR @Model.TotalCost.ToString("N2")</dd>
+        </dl>
+
+        <div class="mt-4">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg btn-back">
+                <i class="bi bi-arrow-left me-1"></i> Back
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #1c1c1c;
+        color: #fff;
+    }
+
+    .page-title {
+        font-size: 1.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Glass Card */
+    .glass-card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(18px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+        }
+
+    dt {
+        color: #0dcaf0;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    dd {
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+    }
+
+        dd:hover {
+            color: #0dcaf0;
+        }
+
+    .btn-back {
+        border-radius: 0.5rem;
+        font-weight: 600;
+        padding: 12px 22px;
+        transition: all 0.3s ease;
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.25);
+    }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(108,117,125,0.35);
+            background: rgba(255,255,255,0.15);
+        }
+
+    /* Animations */
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@media(max - width:576px) {
+        .glass-card
+
+    {
+        padding: 1.5rem;
+    }
+
+    }
+</style>

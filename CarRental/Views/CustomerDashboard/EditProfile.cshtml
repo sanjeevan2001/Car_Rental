@@ -1,0 +1,144 @@
+﻿@model CarRental.Models.Customer
+@{
+    ViewBag.Title = "Edit Profile";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+            <!-- Edit Profile Card -->
+            <div class="card edit-card shadow-sm p-4 animate-edit">
+
+                <h2 class="text-center fw-bold mb-4 text-primary">
+                    <i class="bi bi-pencil-square me-2"></i>Edit Profile
+                </h2>
+
+                <form asp-action="EditProfile" method="post">
+                    <input type="hidden" asp-for="CustomerId" />
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="FullName" class="form-label fw-semibold"></label>
+                            <input asp-for="FullName" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Gender" class="form-label fw-semibold"></label>
+                            <select asp-for="Gender" class="form-select form-select-lg">
+                                <option value="Male" selected="@Model.Gender == " Male"">Male</option>
+                                <option value="Female" selected="@Model.Gender == " Female"">Female</option>
+                                <option value="Other" selected="@Model.Gender == " Other"">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="UserEmail" class="form-label fw-semibold"></label>
+                            <input asp-for="UserEmail" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+                            <input asp-for="PhoneNumber" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Address" class="form-label fw-semibold"></label>
+                            <input asp-for="Address" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="LicenseNumber" class="form-label fw-semibold"></label>
+                            <input asp-for="LicenseNumber" class="form-control form-control-lg" />
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="btn btn-success btn-lg px-5 btn-hover me-3">
+                            <i class="bi bi-check-circle me-2"></i>Save Changes
+                        </button>
+                        <a href="@Url.Action("Profile", "CustomerDashboard")" class="btn btn-secondary btn-lg btn-hover">
+                            <i class="bi bi-x-circle me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Edit Card */
+    .edit-card {
+        background: #ffffff;
+        border-radius: 1rem;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .edit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+    /* Animate Card */
+    .animate-edit {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeSlideUp 0.6s forwards;
+    }
+
+    @@keyframes fadeSlideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Labels & Inputs */
+    .form-label {
+        color: #212529;
+        font-size: 0.95rem;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25);
+    }
+
+    /* Buttons */
+    .btn-hover {
+        transition: all 0.3s ease;
+    }
+
+    .btn-success.btn-hover:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-secondary.btn-hover:hover {
+        background-color: #6c757d;
+        transform: scale(1.03);
+    }
+
+    /* Responsive tweaks */
+    @@media (max-width: 576px) {
+        .edit-card {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    // Trigger card animation on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        const card = document.querySelector('.animate-edit');
+        if(card) card.classList.add('animate-edit-loaded');
+    });
+</script>

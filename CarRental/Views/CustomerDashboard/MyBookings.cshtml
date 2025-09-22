@@ -1,0 +1,183 @@
+﻿@model IEnumerable<CarRental.Models.Booking>
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Bookings";
+}
+
+<div class="container my-5">
+
+    <h2 class="mb-4 text-gradient text-center animate-slide-fade">My Bookings</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center animate-slide-fade" style="animation-delay: 0.3s;">
+            You have no bookings yet. <a asp-action="AvailableCars" class="text-decoration-underline text-primary">Book a car now</a>.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var booking in Model)
+            {
+                <div class="col-md-6 col-lg-4 animate-slide-fade">
+                    <div class="booking-card p-4 shadow-lg rounded-4">
+                        <h5 class="fw-bold mb-2">@booking.Car.CarName (@booking.Car.CarModel)</h5>
+                        <p class="mb-1"><strong>Pickup:</strong> @booking.PickupDate.ToShortDateString()</p>
+                        <p class="mb-1"><strong>Return:</strong> @booking.ReturnDate.ToShortDateString()</p>
+                        <p class="mb-3 fw-semibold"><strong>Total Cost:</strong> @booking.TotalCost.ToString("C")</p>
+                        <a asp-action="AvailableCars" class="btn btn-gradient w-100 fw-bold">
+                            Book Another Car
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    /* Gradient text */
+    .text-gradient {
+        background: linear-gradient(90deg, #007bff, #00c6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Slide fade animation */
+@@keyframes slideFadeIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-slide-fade {
+        opacity: 0;
+@* @model IEnumerable<CarRental.Models.Booking>
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Bookings";
+}
+
+<div class="container my-4 animate-fade-slide">
+    <h2 class="mb-4 text-primary animate-fade-slide" style="animation-delay: 0.1s;">My Bookings</h2>
+
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center animate-slide-fade">
+            You have no bookings yet. <a asp-action="AvailableCars" class="text-primary text-decoration-underline">Book a car now</a>.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive animate-slide-fade">
+            <table class="table bookings-table shadow-sm">
+                <thead class="table-header">
+                    <tr>
+                        <th>Car</th>
+                        <th>Pickup Date</th>
+                        <th>Return Date</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Model)
+                    {
+                        <tr>
+                            <td>@booking.Car.CarBrand @booking.Car.CarModel (@booking.Car.CarName)</td>
+                            <td>@booking.PickupDate.ToShortDateString()</td>
+                            <td>@booking.ReturnDate.ToShortDateString()</td>
+                            <td>LKR @booking.TotalCost.ToString("N0")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<style>
+    /* Animation */
+    @@keyframes slideFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-slide-fade {
+        opacity: 0;
+        animation: slideFadeIn 0.8s forwards;
+    }
+
+    /* Headings */
+    h2 {
+        font-weight: 700;
+        color: #0d6efd;
+    }
+
+    /* Table styling */
+    .bookings-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: rgba(255,255,255,0.9);
+        border-radius: 0.75rem;
+        overflow: hidden;
+    }
+
+        .bookings-table thead.table-header {
+            background-color: #0d6efd;
+        }
+
+        .bookings-table thead th {
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .bookings-table tbody td {
+            color: #343a40;
+            text-align: center;
+            vertical-align: middle;
+            padding: 0.75rem;
+        }
+
+        .bookings-table tbody tr {
+            transition: background 0.3s, transform 0.3s;
+            cursor: default;
+        }
+
+            .bookings-table tbody tr:hover {
+                background-color: rgba(13, 110, 253, 0.08);
+                transform: translateY(-2px);
+            }
+
+    /* Links */
+    a.text-primary:hover {
+        color: #0b5ed7;
+        text-decoration: underline;
+    }
+
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .bookings-table tbody td, .bookings-table thead th {
+            font-size: 0.85rem;
+            padding: 0.5rem;
+        }
+    }
+</style> *@

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<CarRental.Models.Customer>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Customer List";
+}
+
+<div class="container py-4">
+    <h2 class="text-center text-primary fw-bold mb-4">
+        <i class="bi bi-people-fill me-2"></i> Customer List
+    </h2>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-controller="Customer" asp-action="CustomerRegister" class="btn btn-success btn-hover">
+            <i class="bi bi-person-plus me-1"></i> Add New Customer
+        </a>
+    </div>
+
+    <div class="table-responsive glass-card p-3 shadow-lg">
+        <table class="table table-hover table-striped align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Username</th>
+                    <th>License Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model)
+                {
+                    <tr>
+                        <td class="text-dark">@customer.FullName</td>
+                        <td class="text-dark">@customer.UserEmail</td>
+                        <td class="text-dark">@customer.PhoneNumber</td>
+                        <td class="text-dark">@customer.User?.UserName</td>
+                        <td class="text-dark">@customer.LicenseNumber</td>
+                        <td>
+                            <a asp-action="CustomerDetails" asp-route-id="@customer.CustomerId" class="btn btn-info btn-sm btn-hover me-1">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a asp-action="EditCustomer" asp-route-id="@customer.CustomerId" class="btn btn-warning btn-sm btn-hover me-1">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-action="DeleteCustomer" asp-route-id="@customer.CustomerId" class="btn btn-danger btn-sm btn-hover">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    /* Glass effect for table wrapper */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+    /* Button hover effects */
+    .btn-hover {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+    /* Table header */
+    .table-dark th {
+        color: #fff; /* black header text */
+        font-weight: 600;
+    }
+
+    /* Table body cells */
+    .table-hover tbody td {
+        color: #000000; /* black body text */
+    }
+
+    /* Table row hover */
+    table tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #000000; /* keep text black on hover */
+    }
+</style>

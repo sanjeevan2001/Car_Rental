@@ -11,6 +11,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("CarRentalSystem")));
 
+// Register TemData as a **singleton** (shared across requests)
+builder.Services.AddSingleton<TemData>();
+
 
 //Session
 builder.Services.AddHttpContextAccessor();
@@ -53,15 +56,20 @@ app.UseAuthorization();
 //    pattern: "{controller=Customer}/{action=CustomerRegister}/{id?}");
 
 // Gowtham
+//app.MapControllerRoute(
+//    name: "default",
+
+
+
+
+
+// Sanjee
 app.MapControllerRoute(
     name: "default",
 
-    pattern: "{controller=Login}/{action=Index}/{id?}");
+    pattern: "{controller=Guest}/{action=news1}/{id?}");
 
-// Sanjee
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=AdminCar}/{action=Index}/{id?}");
+
 
 
 app.Run();

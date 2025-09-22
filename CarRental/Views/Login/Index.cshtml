@@ -7,69 +7,151 @@
         height: 100%;
         margin: 0;
         font-family: 'Plus Jakarta Sans', sans-serif;
-        background: linear-gradient(180deg, #001f3f, #003366);
+        background: url("/images/Extra/LoginPage.jpg") no-repeat center center fixed;
+        background-size: cover;
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
+        position: relative;
     }
 
+        /* Blurred + Gradient Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0,0,80,0.4), rgba(0,40,120,0.3), rgba(0,0,40,0.4));
+            background-size: 200% 200%;
+            animation: moveGradient 12s ease infinite;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 0;
+        }
+
+    @@keyframes moveGradient {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Glassmorphic login card */
     .login-card {
-        background: #fff;
-        border-radius: 16px;
-        padding: 40px 30px;
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 45px 35px;
         max-width: 420px;
         width: 100%;
-        box-shadow: 0 10px 40px rgba(0, 0, 64, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 12px 40px rgba(0, 0, 64, 0.5);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        animation: fadeInUp 0.8s ease;
+        transition: all 0.4s ease;
     }
 
-    .login-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 50px rgba(0, 0, 64, 0.6);
+        .login-card:hover {
+            transform: translateY(-5px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 16px 50px rgba(0, 0, 100, 0.7);
+        }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .login-card h2 {
         font-weight: 800;
-        color: #001f3f;
+        color: #fff;
+        text-shadow: 0 0 8px rgba(0, 150, 255, 0.6);
+    }
+
+    .form-label, .form-check-label {
+        color: #e6e6e6 !important;
     }
 
     .custom-input {
+        background: transparent;
+        color: #fff;
         border: none;
-        border-bottom: 2px solid #ccc;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.5);
         border-radius: 0;
         transition: all 0.3s ease;
         font-weight: 500;
     }
 
-    .custom-input:focus {
-        border-color: #0040c0;
-        box-shadow: none;
-    }
+        .custom-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .custom-input:focus {
+            border-color: #66a3ff;
+            box-shadow: 0 0 10px rgba(102, 163, 255, 0.6);
+            background: transparent;
+            color: #fff;
+        }
 
     .custom-btn {
         background: linear-gradient(90deg, #001f3f, #0040c0);
         color: #fff;
         font-weight: bold;
-        border-radius: 8px;
+        border-radius: 10px;
         transition: all 0.3s ease;
     }
 
-    .custom-btn:hover {
-        background: linear-gradient(90deg, #003366, #0056b3);
-        transform: translateY(-2px);
+        .custom-btn:hover {
+            background: linear-gradient(90deg, #003366, #0056b3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 120, 0.6);
+        }
+
+    .link-text {
+        text-decoration: none;
+        font-weight: 600;
+        color: #66a3ff;
+        transition: all 0.3s ease;
+    }
+
+        .link-text:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+    hr {
+        border: none;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.3);
     }
 </style>
 
 <div class="login-card text-center">
-    <h2 class="mb-4">Login</h2>
+    <h2 class="mb-4">Welcome Back</h2>
 
     <form asp-action="Login" method="post" novalidate>
         <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3" role="alert"></div>
 
         <!-- Username -->
         <div class="mb-3 text-start">
-            <label class="form-label fw-bold text-dark">
-                <i class="bi bi-person-fill me-1 text-dark"></i> Username
+            <label class="form-label fw-bold">
+                <i class="bi bi-person-fill me-1"></i> Username
             </label>
             <input name="Username" class="form-control shadow-sm custom-input" placeholder="Enter your username" />
             <span class="text-danger small"></span>
@@ -77,15 +159,15 @@
 
         <!-- Password -->
         <div class="mb-3 text-start">
-            <label class="form-label fw-bold text-dark">
-                <i class="bi bi-lock-fill me-1 text-dark"></i> Password
+            <label class="form-label fw-bold">
+                <i class="bi bi-lock-fill me-1"></i> Password
             </label>
             <input name="Password" type="password" class="form-control shadow-sm custom-input" placeholder="Enter your password" />
             <span class="text-danger small"></span>
         </div>
 
         <!-- Remember Me -->
-        <div class="mb-3 form-check text-start text-dark">
+        <div class="mb-3 form-check text-start">
             <input name="RememberMe" class="form-check-input" type="checkbox" />
             <label class="form-check-label">Remember me</label>
         </div>
@@ -97,34 +179,19 @@
             </button>
         </div>
 
-        <!-- Skip Button -->
+        <!-- Guest Access -->
         <div class="d-grid mb-3">
-            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-lg">
-                <i class="bi bi-skip-forward-fill me-1"></i> Skip & Continue as Guest
+            <a asp-controller="Guest" asp-action="GuestView" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-skip-forward-fill me-1"></i> Continue as Guest
             </a>
         </div>
-
-        @* <!-- Forgot Password -->
-        <div class="text-center">
-            <a asp-action="ForgotPassword" class="text-decoration-none small text-muted">
-                <i class="bi bi-question-circle me-1"></i> Forgot password?
-            </a>
-        </div> *@
-
-        @* pending remove *@
-        <a asp-area="" asp-controller="AdminDashboard" asp-action="Index" class="text-decoration-none small text-muted">
-            Admin
-        </a><br />
-        <a asp-area="" asp-controller="Customer" asp-action="CustomerRegister" class="text-decoration-none small text-muted">
-            Customer
-        </a>
 
         <hr class="my-4">
 
         <!-- Sign Up -->
-        <p class="small text-muted">
+        <p class="small text-light mb-0">
             Don't have an account?
-            <a href="/Customer/CustomerRegister" class="fw-bold text-decoration-none">Sign Up</a>
+            <a href="/Customer/UserRegister" class="link-text">Sign Up</a>
         </p>
     </form>
 </div>

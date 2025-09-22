@@ -1,0 +1,126 @@
+﻿@model CarRental.ViewModels.BookingViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edit Booking";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<div class="container mt-5 animate__animated animate__fadeIn">
+    <h2 class="fw-bold mb-4 text-primary d-flex align-items-center animate__animated animate__fadeInDown">
+        <i class="bi bi-pencil-square me-2"></i> Edit Booking
+    </h2>
+
+    <div class="glass-card animate__animated animate__fadeInUp">
+        <form asp-action="Edit" method="post" class="needs-validation" novalidate>
+            <input type="hidden" asp-for="BookingId" />
+
+            <!-- Customer -->
+            <div class="mb-3">
+                <label asp-for="CustomerId" class="form-label fw-bold text-info">Customer</label>
+                <select asp-for="CustomerId" class="form-select custom-input" asp-items="ViewBag.Customers" required>
+                    <option value="">-- Select Customer --</option>
+                </select>
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+
+            <!-- Car -->
+            <div class="mb-3">
+                <label asp-for="CarId" class="form-label fw-bold text-info">Car</label>
+                <select asp-for="CarId" class="form-select custom-input" asp-items="ViewBag.Cars" required>
+                    <option value="">-- Select Car --</option>
+                </select>
+                <span asp-validation-for="CarId" class="text-danger"></span>
+            </div>
+
+            <!-- Pickup Date -->
+            <div class="mb-3">
+                <label asp-for="PickupDate" class="form-label fw-bold text-info">Pickup Date</label>
+                <input asp-for="PickupDate" type="date" class="form-control custom-input" required />
+                <span asp-validation-for="PickupDate" class="text-danger"></span>
+            </div>
+
+            <!-- Return Date -->
+            <div class="mb-3">
+                <label asp-for="ReturnDate" class="form-label fw-bold text-info">Return Date</label>
+                <input asp-for="ReturnDate" type="date" class="form-control custom-input" required />
+                <span asp-validation-for="ReturnDate" class="text-danger"></span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-success btn-lg action-btn">
+                    <i class="bi bi-save me-1"></i> Update Booking
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg action-btn">
+                    <i class="bi bi-arrow-left me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #1c1c1c;
+        color: #fff;
+    }
+
+    /* Glass Card */
+    .glass-card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(18px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+        }
+
+    /* Input focus */
+    .custom-input:focus {
+        border-color: #0dcaf0;
+        box-shadow: 0 0 12px rgba(13,202,240,0.3);
+    }
+
+    /* Labels */
+    .form-label {
+        color: #0dcaf0;
+    }
+
+    /* Buttons */
+    .action-btn {
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+    /* Keyframes */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

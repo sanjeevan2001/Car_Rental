@@ -4,87 +4,146 @@
     ViewData["Title"] = "Manage Cars";
 }
 
-<div class="container mt-5">
-    <h2 class="fw-bold mb-4 text-dark">
+<div class="container py-5">
+    <h2 class="text-center fw-bold mb-4 text-primary">
         <i class="bi bi-car-front-fill me-2"></i> Manage Cars
     </h2>
 
-    <div class="mb-3">
-        <a asp-action="AddCar" class="btn btn-success">
+    <div class="text-end mb-4">
+        <a asp-action="AddCar" class="btn btn-success btn-hover">
             <i class="bi bi-plus-circle-fill me-1"></i> Add New Car
         </a>
     </div>
 
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body">
-            <table class="table table-hover align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Model</th>
-                        <th>Brand</th>
-                        <th>Seats</th>
-                        <th>Fuel</th>
-                        <th>Price/Day</th>
-                        <th>Available</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.Any())
-                    {
-                        foreach (var car in Model)
+    <div class="card glass-card shadow-lg border-0">
+        <div class="card-body p-3">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" class="text-black">Image</th>
+                            <th scope="col" class="text-black">Name</th>
+                            <th scope="col" class="text-black">Model</th>
+                            <th scope="col" class="text-black">Brand</th>
+                            <th scope="col" class="text-black">Seats</th>
+                            <th scope="col" class="text-black">Fuel</th>
+                            <th scope="col" class="text-black">Price/Day</th>
+                            <th scope="col" class="text-black">Available</th>
+                            <th class="text-center text-black" scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var car in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(car.ImageUrl))
+                                        {
+                                            <img src="@car.ImageUrl" alt="Car Image" width="80" class="rounded shadow-sm img-hover" />
+                                        }
+                                        else
+                                        {
+                                            <span class="text-black">No Image</span>
+                                        }
+                                    </td>
+                                    <td class="text-black">@car.CarName</td>
+                                    <td class="text-black">@car.CarModel</td>
+                                    <td class="text-black">@car.CarBrand</td>
+                                    <td class="text-black">@car.Seats</td>
+                                    <td class="text-black">@car.FuelType</td>
+                                    <td class="text-black">Rs. @car.PricePerday</td>
+                                    <td>
+                                        @if (car.IsAvailable)
+                                        {
+                                            <span class="badge bg-success text-white">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger text-white">No</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <a asp-action="Details" asp-route-id="@car.CarId" class="btn btn-info btn-sm me-1 btn-hover">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@car.CarId" class="btn btn-primary btn-sm me-1 btn-hover">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@car.CarId" class="btn btn-danger btn-sm btn-hover">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(car.ImageUrl))
-                                    {
-                                        <img src="@car.ImageUrl" alt="Car Image" width="80" class="rounded shadow-sm" />
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">No Image</span>
-                                    }
-                                </td>
-                                <td>@car.CarName</td>
-                                <td>@car.CarModel</td>
-                                <td>@car.CarBrand</td>
-                                <td>@car.Seats</td>
-                                <td>@car.FuelType</td>
-                                <td>Rs. @car.PricePerday</td>
-                                <td>
-                                    @if (car.IsAvailable)
-                                    {
-                                        <span class="badge bg-success">Yes</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-danger">No</span>
-                                    }
-                                </td>
-                                <td class="text-center">
-                                    <a asp-action="Details" asp-route-id="@car.CarId" class="btn btn-info btn-sm me-1">
-                                        <i class="bi bi-eye-fill"></i>
-                                    </a>
-                                    <a asp-action="Edit" asp-route-id="@car.CarId" class="btn btn-primary btn-sm me-1">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a asp-action="Delete" asp-route-id="@car.CarId" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </a>
-                                </td>
+                                <td colspan="9" class="text-center text-black">No cars available.</td>
                             </tr>
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="9" class="text-center text-muted">No cars available.</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    /* Glass card */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #000000; /* All text black */
+    }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+        }
+
+    /* Buttons hover */
+    .btn-hover {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+    /* Table headers and body */
+    .table thead th,
+    .table tbody td {
+        color: #000000 !important;
+    }
+
+    /* Table row hover */
+    .table tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #000000 !important;
+    }
+
+    .table img {
+        object-fit: cover;
+        border-radius: 0.5rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .img-hover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive badges */
+    .badge.bg-success,
+    .badge.bg-danger {
+        font-weight: 500;
+        padding: 0.45em 0.65em;
+    }
+</style>

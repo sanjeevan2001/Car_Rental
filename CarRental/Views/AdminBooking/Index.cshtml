@@ -11,9 +11,11 @@
         <h2 class="fw-bold text-primary d-flex align-items-center">
             <i class="bi bi-journal-check me-2"></i> Bookings
         </h2>
+
         <a asp-action="Create" class="btn btn-success btn-lg action-btn">
+
             <i class="bi bi-plus-circle me-1"></i> Add Booking
-        </a>
+        </a> *@
     </div>
 
     <!-- Bookings Table -->
@@ -34,14 +36,14 @@
                     <tbody>
                         @if (Model != null && Model.Any())
                         {
-                            foreach (var booking in Model)
+                            @foreach (var booking in Model)
                             {
                                 <tr class="table-row-hover">
                                     <td>@booking.CustomerName</td>
                                     <td>@booking.CarName</td>
-                                    <td>@booking.PickupDate:yyyy-MM-dd</td>
-                                    <td>@booking.ReturnDate:yyyy-MM-dd</td>
-                                    <td class="fw-bold text-success">@booking.TotalCost:C</td>
+                                    <td>@booking.PickupDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@booking.ReturnDate.ToString("yyyy-MM-dd")</td>
+                                    <td class="fw-bold text-success">LKR @booking.TotalCost.ToString("N2")</td>
                                     <td class="text-center">
                                         <a asp-action="Edit" asp-route-id="@booking.BookingId"
                                            class="btn btn-primary btn-sm me-1 action-btn">
@@ -54,6 +56,7 @@
                                     </td>
                                 </tr>
                             }
+
                         }
                         else
                         {

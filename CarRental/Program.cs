@@ -56,15 +56,17 @@ app.UseAuthorization();
 //    pattern: "{controller=Customer}/{action=CustomerRegister}/{id?}");
 
 // Gowtham
-app.MapControllerRoute(
-    name: "default",
+//app.MapControllerRoute(
+//    name: "default",
+
 
     pattern: "{controller=Guest}/{action=news1}/{id?}");
 
+
 // Sanjee
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=AdminCar}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=AdminDashboard}/{action=Index}/{id?}");
 
 
 app.Run();

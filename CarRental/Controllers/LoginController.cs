@@ -11,10 +11,10 @@ namespace CarRental.Controllers
         private readonly AppDbContext _dbContext;
         private readonly TemData _temData;
 
-        public LoginController(AppDbContext dbContext, TemData temService)
+        public LoginController(AppDbContext dbContext, TemData temData)
         {
             _dbContext = dbContext;
-            _temData = temService;
+            _temData = temData;
         }
 
         public IActionResult Index()
@@ -63,12 +63,12 @@ namespace CarRental.Controllers
             }
         }
 
-        // Optional: Logout
-        //public IActionResult Logout()
-        //{
-        //    _temService.CustomerId = null;
-        //    _temService.CustomerName = null;
-        //    return RedirectToAction("Index");
-        //}
+        //Optional: Logout
+        public IActionResult Logout()
+        {
+            _temData.CustomerID = null;
+            _temData.CustomerName = null;
+            return RedirectToAction("Index");
+        }
     }
 }

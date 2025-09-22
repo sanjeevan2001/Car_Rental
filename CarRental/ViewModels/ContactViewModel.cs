@@ -4,6 +4,7 @@ namespace CarRental.ViewModels
 {
     public class ContactViewModel
     {
+        
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100)]
         public string Name { get; set; }

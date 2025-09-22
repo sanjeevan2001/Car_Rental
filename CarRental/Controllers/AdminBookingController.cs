@@ -144,7 +144,7 @@ namespace CarRental.Controllers
             ViewBag.Cars = new SelectList(_context.Cars, "CarId", "CarName", model.CarId);
             return View(model);
         }
-
+        
         public async Task<IActionResult> Delete(Guid id)
         {
             var booking = await _context.Bookings

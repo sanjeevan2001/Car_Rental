@@ -4,114 +4,165 @@
 }
 
 <div class="container my-5">
-    <h1 class="mb-5 text-gradient text-center animate-slide-fade">
-        Welcome, @ViewBag.CustomerName!
-    </h1>
 
-    <div class="row g-4">
-        <!-- Available Cars -->
+    <!-- Welcome Section -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-primary animate-slide-fade">Welcome, @ViewBag.CustomerName!</h1>
+        <p class="text-secondary">Explore featured cars, manage your bookings, and update your profile.</p>
+    </div>
+
+    <!-- Featured Cars Section -->
+    <h3 class="mb-3 text-secondary">🚗 Featured Cars</h3>
+    <div class="row">
+        @if (ViewBag.FeaturedCars != null && ((List<CarRental.Models.Car>)ViewBag.FeaturedCars).Any())
+        {
+            foreach (var car in (List<CarRental.Models.Car>)ViewBag.FeaturedCars)
+            {
+                <div class="col-lg-4 col-md-6 mb-4 animate-slide-fade" style="animation-delay: 0.1s;">
+                    <div class="card car-card h-100 shadow-lg border-0 rounded-4">
+                        <img src="@car.ImageUrl" class="card-img-top rounded-top-4" alt="@car.CarName" style="height:200px; object-fit:cover;">
+                        <div class="card-body text-center">
+                            <h5 class="fw-bold car-title">@car.CarBrand @car.CarModel</h5>
+                            <p class="car-text mb-1"><strong>Seats:</strong> @car.Seats | <strong>Fuel:</strong> @car.FuelType</p>
+                            <p class="fw-bold car-price mb-3">LKR @car.PricePerday.ToString("N0") / day</p>
+                            <a asp-action="BookCar" asp-route-carId="@car.CarId" class="btn btn-success btn-hover rounded-pill fw-bold">
+                                <i class="bi bi-cart-plus-fill me-1"></i> Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-muted">No featured cars available right now.</p>
+        }
+    </div>
+
+    <!-- Dashboard Shortcuts -->
+    <div class="row mt-5 g-4">
         <div class="col-md-4 animate-slide-fade" style="animation-delay: 0.1s;">
-            <div class="dashboard-card p-4 shadow-lg h-100 text-center">
-                <div class="icon-circle mb-3 bg-gradient">
-                    <i class="bi bi-car-front-fill text-white fs-2"></i>
+            <div class="card shortcut-card shadow-lg text-center h-100 rounded-4">
+                <div class="card-body">
+                    <h5 class="fw-bold text-primary">Available Cars</h5>
+                    <p class="text-secondary">Browse all cars that are currently available for booking.</p>
+                    <a asp-action="AvailableCars" class="btn btn-primary btn-hover rounded-pill fw-bold mt-2">
+                        <i class="bi bi-car-front-fill me-2"></i> View Cars
+                    </a>
                 </div>
-                <h5 class="fw-bold mb-2">Available Cars</h5>
-                <p class="text-muted mb-3">Browse all cars currently available for booking.</p>
-                <a asp-action="AvailableCars" class="btn btn-gradient w-100 fw-bold">View Cars</a>
             </div>
         </div>
 
-        <!-- My Bookings -->
         <div class="col-md-4 animate-slide-fade" style="animation-delay: 0.3s;">
-            <div class="dashboard-card p-4 shadow-lg h-100 text-center">
-                <div class="icon-circle mb-3 bg-gradient">
-                    <i class="bi bi-calendar-check-fill text-white fs-2"></i>
+            <div class="card shortcut-card shadow-lg text-center h-100 rounded-4">
+                <div class="card-body">
+                    <h5 class="fw-bold text-primary">My Bookings</h5>
+                    <p class="text-secondary">Check your booking history and upcoming trips.</p>
+                    <a asp-action="MyBookings" class="btn btn-primary btn-hover rounded-pill fw-bold mt-2">
+                        <i class="bi bi-calendar-check-fill me-2"></i> View Bookings
+                    </a>
                 </div>
-                <h5 class="fw-bold mb-2">My Bookings</h5>
-                <p class="text-muted mb-3">Check your booking history and upcoming trips.</p>
-                <a asp-action="MyBookings" class="btn btn-gradient w-100 fw-bold">View Bookings</a>
             </div>
         </div>
 
-        <!-- Profile -->
         <div class="col-md-4 animate-slide-fade" style="animation-delay: 0.5s;">
-            <div class="dashboard-card p-4 shadow-lg h-100 text-center">
-                <div class="icon-circle mb-3 bg-gradient">
-                    <i class="bi bi-person-fill text-white fs-2"></i>
+            <div class="card shortcut-card shadow-lg text-center h-100 rounded-4">
+                <div class="card-body">
+                    <h5 class="fw-bold text-primary">My Profile</h5>
+                    <p class="text-secondary">View and update your personal information.</p>
+                    <a asp-controller="CustomerDashboard" asp-action="CustomerProfile" class="btn btn-primary btn-hover rounded-pill fw-bold mt-2">
+                        <i class="bi bi-person-circle me-2"></i> View Profile
+                    </a>
                 </div>
-                <h5 class="fw-bold mb-2">My Profile</h5>
-                <p class="text-muted mb-3">View and update your personal information.</p>
-                <a asp-controller="Profile" asp-action="Index" class="btn btn-gradient w-100 fw-bold">View Profile</a>
+
             </div>
         </div>
     </div>
 </div>
 
 <style>
-    /* Gradient text for heading */
-    .text-gradient {
-        background: linear-gradient(90deg, #007bff, #00c6ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
 
-    /* Slide fade animation */
-    @@keyframes slideFadeIn {
-        0% { opacity: 0; transform: translateY(25px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-    .animate-slide-fade {
-        opacity: 0;
-        animation: slideFadeIn 0.9s ease forwards;
-    }
-
-    /* Dashboard card styling - glassmorphism */
-    .dashboard-card {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 20px;
+    /* Featured Cars */
+    .car-card {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .dashboard-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+
+        .car-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+
+    .car-title {
+        color: #0d6efd;
+        font-size: 1.2rem;
     }
 
-    /* Gradient button */
-    .btn-gradient {
-        background: linear-gradient(90deg, #007bff, #00c6ff);
-        border: none;
-        color: #fff;
-        border-radius: 12px;
-        transition: 0.3s ease;
-    }
-    .btn-gradient:hover {
-        background: linear-gradient(90deg, #0056b3, #0096c7);
-        transform: translateY(-2px);
-    }
-
-    /* Icon circle */
-    .icon-circle {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        transition: transform 0.3s ease;
-    }
-    .icon-circle:hover {
-        transform: scale(1.1);
-    }
-
-    h5 {
-        font-weight: 700;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    }
-
-    p.text-muted {
+    .car-text {
+        color: #6c757d;
         font-size: 0.95rem;
+    }
+
+    .car-price {
+        color: #198754;
+        font-size: 1.1rem;
+    }
+
+    /* Shortcut Cards */
+    .shortcut-card {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .shortcut-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+    /* Buttons */
+    .btn-hover {
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary.btn-hover:hover {
+        background-color: #0b5ed7;
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-success.btn-hover:hover {
+        background-color: #198754;
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Animation */
+    .animate-slide-fade {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideFadeIn 0.8s forwards;
+    }
+
+    @@keyframes slideFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 576px) {
+        .car-card, .shortcut-card {
+            margin-bottom: 1rem;
+        }
+
     }
 </style>

@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Welcome - Phoenix CarRental";
+    Layout = null; // Splash screen-க்கு layout தேவையில்லை
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+        }
+
+        /* Splash Screen */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+            #splash-screen img {
+                width: 200px;
+                animation: fadeInScale 2s ease forwards;
+            }
+
+            #splash-screen p {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #0d6efd;
+                margin-top: 15px;
+                opacity: 0;
+                animation: textFade 2s ease forwards 1s;
+            }
+
+        @@keyframes fadeInScale {
+            0%
+
+        {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        }
+
+        @@keyframes textFade {
+            0%
+
+        {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <img src="~/images/Extra/Pheonix.jpg" alt="Phoenix Logo" />
+        <p>Phoenix CarRental</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.addEventListener('load', function () {
+            // 3 seconds display splash screen
+            setTimeout(function () {
+                const splash = document.getElementById('splash-screen');
+                splash.style.transition = 'opacity 0.5s ease';
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    // Splash screen remove
+                    splash.remove();
+                    // Redirect to GuestController -> GuestView
+                    window.location.href = '@Url.Action("GuestView", "Guest")';
+                }, 500);
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
